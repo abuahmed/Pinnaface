@@ -19,6 +19,8 @@ mono_crash.*
 packages/
 PinnaFace.Setup/
 PinnaFace.WixSetup/
+*.config
+*DbCommandUtil.cs
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

@@ -1,53 +1,68 @@
 ﻿@using Microsoft.Ajax.Utilities
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta charset="utf-8" />
-        <title>PinnaFace - @ViewBag.Title</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @{Html.RenderPartial("~/Views/Shared/EditorTemplates/Headers.cshtml");}
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27776013-2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
 
-            gtag('config', 'UA-27776013-2');
-        </script>
-        <style type="text/css">
-            i {
-                color: orange;
-            }
-            .navbar-inverse {
-                background-color: green;
-                border-color: green;
-            }
-            .navbar-inverse .navbar-nav > li > a {
-                color: white;
-            }
-            .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-                color: #ffffff;
-                background-color: darkgreen;
-            }
-            .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-                color: #ffffff;
-                background-color: mediumseagreen;
-            }
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>PinnaFace - @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @{
+        Html.RenderPartial("~/Views/Shared/EditorTemplates/Headers.cshtml");}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-            h1, h2, h3, h4, h5, h6 {
-                color: orange;
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-        </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27776013-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    </head>
+        gtag('config', 'UA-27776013-2');
+    </script>
+    <style type="text/css">
+        i {
+        color: orange;
+        }
+
+        .navbar-inverse {
+        background-color: green;
+        border-color: green;
+        }
+
+        .navbar-inverse .navbar-nav>li>a {
+        color: white;
+        }
+
+        .navbar-inverse .navbar-nav>.active>a,
+        .navbar-inverse .navbar-nav>.active>a:hover,
+        .navbar-inverse .navbar-nav>.active>a:focus {
+        color: #ffffff;
+        background-color: darkgreen;
+        }
+
+        .navbar-inverse .navbar-nav>.open>a,
+        .navbar-inverse .navbar-nav>.open>a:hover,
+        .navbar-inverse .navbar-nav>.open>a:focus {
+        color: #ffffff;
+        background-color: mediumseagreen;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+        color: orange;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        }
+    </style>
+
+</head>
 
 <body>
     <div id="wrap">
@@ -57,32 +72,32 @@
                 <div class="navbar navbar-inverse navbar-default navbar-fixed-top " role="navigation">
                     <div class="container">
                         <div class="navbar-header ">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                             @*<img  src="@Url.Content("../Images/pinnafaceLogo.png")" alt="Photo" 
-                                          style="border-radius: 5px; height: 60px; width: 100px;"/>*@
-                           <a class="navbar-brand" href="~/Home"
-                               style="font-size: 32px; font-weight: bold; 
-                                               color: white; font-family: 'Cooper Black';">
-                                PinnaFace
+                            @*<img src="@Url.Content("../Images/pinnafaceLogo.png")" alt="Photo"
+                                style="border-radius: 5px; height: 60px; width: 100px;"/>*@
+                            <a class="navbar-brand" href="~/Home" style="font-size: 32px; font-weight: bold; 
+                            color: white; font-family: 'Cooper Black';">
+                                PF
                             </a>
                         </div>
                         <div class="navbar-collapse collapse navbar-right">
-                            
+
                             @Html.Action("_LoginPartial","Home")
-                            
+
                         </div>
                     </div>
                 </div>
-          
+
 
             </div>
         </div>
-        
+
         <section class="content-wrapper main-content clear-fix container">
             @Html.Action("CompanyHeader","Home")
 
@@ -92,8 +107,10 @@
 
     <div id="footer">
         <div class="container">
-            <p class="text-muted" style="text-align: right;">&copy; Copyright 2019 <a href="http://www.pinnasofts.com" target="_blank">Pinnacle Software PLC</a> 
-                @*&middot; <a href="#" class="hidden-print">Privacy</a> &middot; <a href="#" class="hidden-print">Terms</a>*@
+            <p class="text-muted" style="text-align: right;">&copy; Copyright 2019 <a href="http://www.pinnasofts.com"
+                target="_blank">Pinnacle Software PLC</a>
+                @*&middot; <a href="#" class="hidden-print">Privacy</a> &middot; <a href="#"
+                    class="hidden-print">Terms</a>*@
             </p>
         </div>
     </div>
@@ -103,20 +120,21 @@
         $(".collapse").collapse();
 
         function error_handler(e) {
-            if (e.errors) {
-                var message = "Errors:\n";
-                $.each(e.errors, function (key, value) {
-                    if ('errors' in value) {
-                        $.each(value.errors, function () {
-                            message += this + "\n";
-                        });
-                    }
-                });
-                alert(message);
-            }
+        if (e.errors) {
+        var message = "Errors:\n";
+        $.each(e.errors, function (key, value) {
+        if ('errors' in value) {
+        $.each(value.errors, function () {
+        message += this + "\n";
+        });
+        }
+        });
+        alert(message);
+        }
         }
 
         //function() { return $("input[name='religion_id']").eq(1).val(); };
     </script>
 </body>
+
 </html>
