@@ -1,0 +1,258 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.Complains"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:models="clr-namespace:PinnaFace.WPF.Models"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        AllowDrop="True" Unloaded="Complains_OnUnloaded"
+        Title="Employee Complains" Height="670" Width="950" x:Name="WdwComplain"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        DataContext="{Binding Complain, Source={StaticResource Locator}}" WindowState="Normal"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="FontStylee" TargetType="telerik:RadGridView">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+            <Style TargetType="telerik:GridViewRow">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid >
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="White" TextBlock.FontSize="12" TextBlock.FontFamily="Bookman old style">
+                <Grid.Resources>
+
+                    <Style x:Key="GreenStyle" TargetType="telerik:GridViewRow">
+                        <Setter Property="Background" Value="Green" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                    <Style x:Key="RedStyle" TargetType="telerik:GridViewRow">
+                        <Setter Property="Background" Value="Red" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+                    <Style x:Key="YellowStyle" TargetType="telerik:GridViewRow">
+                        <Setter Property="Background" Value="Yellow" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+
+                    <models:ComplainStatusConvertor x:Key="ComplainStatusConvertor" />
+                    <models:ConditionalStyleSelector x:Key="ComplainStatusSelector"
+                                                     ConditionConverter="{StaticResource ComplainStatusConvertor}">
+                        <models:ConditionalStyleSelector.Rules>
+                            <models:ConditionalStyleRule Style="{StaticResource GreenStyle}">
+                                <models:ConditionalStyleRule.Value>
+                                    <system:String>Green</system:String>
+                                </models:ConditionalStyleRule.Value>
+                            </models:ConditionalStyleRule>
+
+                            <models:ConditionalStyleRule Style="{StaticResource YellowStyle}">
+                                <models:ConditionalStyleRule.Value>
+                                    <system:String>Yellow</system:String>
+                                </models:ConditionalStyleRule.Value>
+                            </models:ConditionalStyleRule>
+
+                            <models:ConditionalStyleRule Style="{StaticResource RedStyle}">
+                                <models:ConditionalStyleRule.Value>
+                                    <system:String>Red</system:String>
+                                </models:ConditionalStyleRule.Value>
+                            </models:ConditionalStyleRule>
+                  
+                        </models:ConditionalStyleSelector.Rules>
+                    </models:ConditionalStyleSelector>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="5,0">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="ቅሬታ ዝርዝር/Complain List" FontSize="18" Margin="5,-20,60,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Expander Grid.Row="1" Header="Filter List" Foreground="White" IsExpanded="False" Visibility="Collapsed">
+                    <Grid Margin="10,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--<TextBlock Grid.Column="0" Text="For Agent: "
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1" Margin="0"
+                                  ItemsSource="{Binding AgentsForSearch,Mode=OneWay}"
+                                  SelectedItem="{Binding SelectedForeignAgentForSearch}"
+                                  DisplayMemberPath="AgentName" />
+
+                        <TextBlock Grid.Column="2" Text=" Type : "
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="3" Margin="0"
+                                  x:Name="CmbCurrentStatus"
+                                  SelectedValue="{Binding SelectedVisaAssignedTypes, Mode=TwoWay}"
+                                  ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ComplainTypes}}}"
+                                  Validation.ErrorTemplate="{x:Null}"
+                                  DisplayMemberPath="Description"
+                                  SelectedValuePath="Value" />-->
+
+                        <TextBlock Grid.Column="0" Text="{Binding TotalNumberofComplains}"
+                                   FontSize="14" FontWeight="Bold" Margin="10,0"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        
+                        <telerik:RadAutoCompleteBox Grid.Column="3" Grid.ColumnSpan="2" IsEnabled="True"
+                                                        x:Name="LstItemsAutoCompleteBox"
+                                                        Margin="5,0"
+                                                        ItemsSource="{Binding Employees, Mode=TwoWay}"
+                                                        SelectedItem="{Binding SelectedEmployeeForSearch, Mode=TwoWay}"
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center"
+                                                        WatermarkContent="Search By Employee..."
+                                                        TextSearchMode="Contains"
+                                                        AutoCompleteMode="Suggest"
+                                                        SelectionMode="Single"
+                                                        TextSearchPath="EmployeeDetail"
+                                                        BorderBrush="#FF25A0DA"
+                                                        BorderThickness="2" 
+                                                    SelectionChanged="LstItemsAutoCompleteBox_SelectionChanged"
+                                                GotFocus="LstItemsAutoCompleteBox_GotFocus_1"
+                                                GotKeyboardFocus="LstItemsAutoCompleteBox_GotKeyboardFocus"/>
+
+                       
+                    </Grid>
+                </Expander>
+
+                <Grid Grid.Row="2">
+                   
+                <Grid Margin="0,5,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                        <telerik:RadButton Grid.Column="0" Content="Refresh List"
+                                                   Command="{Binding RefreshCommand}"
+                                                   x:Name="BtnRefresh"
+                                                   Height="35" Width="150" Padding="10,0" Margin="10,0,0,0" />
+                    
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <telerik:RadButton Content="_Add New Complain"
+                                                   Command="{Binding AddNewComplainViewCommand}"
+                                                   x:Name="BtnAddNew"
+                                                   Height="35" Width="150" Padding="10,0" Margin="10,0,0,0" />
+
+                                <telerik:RadButton Content="_View/Edit Complain"
+                                                   Command="{Binding SaveComplainViewCommand}"
+                                                   x:Name="BtnSave"
+                                                   Height="35" Width="150" Padding="10,0" Margin="10,0,0,0"
+                                                   IsDefault="True" />
+
+                                <telerik:RadButton Content="_Close Complain"
+                                                   Command="{Binding CloseComplainViewCommand}"
+                                                   x:Name="BtnCLoseComplain"
+                                                   Height="35" Width="150" Padding="10,0" Margin="10,0,0,0"
+                                                   IsDefault="True" />
+                                
+                                <telerik:RadButton Content="_Delete Complain"
+                                                   Command="{Binding DeleteComplainViewCommand}"
+                                                   IsEnabled="{Binding EditCommandVisibility}"
+                                                   x:Name="BtnDelete"
+                                                   Height="35" Width="150" Padding="10,0" Margin="10,0,0,0" />
+
+
+
+                            </StackPanel>
+                        </Grid>
+                   
+                </Grid>
+
+
+                <Grid Grid.Row="3" TextBlock.Foreground="Black">
+                        <telerik:RadGridView x:Name="ComplainsGridView" Margin="10"
+                                                         GroupRenderMode="Flat"
+                                                         ItemsSource="{Binding Complains}"
+                                                         SelectedItem="{Binding SelectedComplain}"
+                                                         CanUserFreezeColumns="False"
+                                                         RowIndicatorVisibility="Collapsed"
+                                                         Style="{StaticResource FontStylee}"
+                                                         RowStyleSelector="{StaticResource ComplainStatusSelector}"
+                                                         AutoGenerateColumns="False"
+                                                         IsReadOnly="True"
+                                                         Background="Transparent"
+                                                         ShowGroupPanel="False"
+                                                         telerik:StyleManager.Theme="Windows7" BorderThickness="0">
+                            <telerik:RadGridView.Columns>
+
+                                <telerik:GridViewDataColumn Header="ተ.ቁ." Width="30"
+                                                                        DataMemberBinding="{Binding SerialNumber}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                                <telerik:GridViewDataColumn Header="ስም" Width="auto"
+                                                                        DataMemberBinding="{Binding Employee.FullName}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                                <telerik:GridViewDataColumn Header="Date" Width="auto"
+                                                                        DataMemberBinding="{Binding ComplainDateString}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                                <telerik:GridViewDataColumn Header="Type" Width="auto"
+                                                                        DataMemberBinding="{Binding TypeString}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                                <telerik:GridViewDataColumn Header="Detail" Width="50"
+                                                                        DataMemberBinding="{Binding Complain}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                                <telerik:GridViewDataColumn Header="Status" Width="auto"
+                                                                        DataMemberBinding="{Binding Status}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+
+                            </telerik:RadGridView.Columns>
+
+                        </telerik:RadGridView>
+                    </Grid>
+               
+        
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>
+
+
+
+

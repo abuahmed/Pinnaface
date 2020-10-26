@@ -1,0 +1,273 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.EmployeeExperience"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="EmployeeApplication_OnUnloaded"
+        Title="Work Experience" Height="540" Width="500" x:Name="WdwEmployeeApplication"
+        DataContext="{Binding EmployeeExperience, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="የስራ ልምድ / Work Experience" FontSize="18" Margin="5,-20,40,0" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+
+                <Grid Grid.Row="1">
+
+                    <Grid TextBlock.FontFamily="Bookman old style" TextBlock.Foreground="Black">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <telerik:RadExpander Grid.Row="1" Header="Previous Work Experience" IsExpanded="True">
+                            <Grid Margin="5,0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Content="Experience In Ethiopia" Margin="0" Foreground="Black"
+                                  IsChecked="{Binding HaveWorkExperienceInCountry, Mode=TwoWay}"
+                                  VerticalAlignment="center" FontSize="14" FontWeight="Bold" Background="Transparent" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Years:" VerticalAlignment="Center" Visibility="{Binding HaveWorkExperienceInCountryVisibility}"/>
+                                <ComboBox Grid.Row="1" Grid.Column="1"  x:Name="CmbInPeriod" Margin="0,3"
+                                          SelectedIndex="5"
+                                          SelectedValue="{Binding SelectedEmployee.Experience.ExperiencePeriodInCountry, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center" Visibility="{Binding HaveWorkExperienceInCountryVisibility}"
+                                          ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ContratPeriods}}}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+
+                                <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="3"
+                                          Content="Experience Abroad" Margin="0" Foreground="Black"
+                                  IsChecked="{Binding HaveWorkExperience, Mode=TwoWay}"
+                                  VerticalAlignment="center" FontSize="14" FontWeight="Bold" Background="Transparent" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="3" Text="Country:" VerticalAlignment="Center" Visibility="{Binding HaveWorkExperienceVisibility}"/>
+                                <ComboBox Grid.Column="4" Grid.Row="1" x:Name="CmbQualType" Margin="0,3"
+                                          SelectedIndex="5"
+                                          SelectedValue="{Binding SelectedEmployee.Experience.ExperienceCountry, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:CountryList}}}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" Visibility="{Binding HaveWorkExperienceVisibility}"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="3" Text="Years:" VerticalAlignment="Center" Visibility="{Binding HaveWorkExperienceVisibility}"/>
+                                <ComboBox Grid.Column="4" Grid.Row="2" x:Name="CmbPeriod" Margin="0,3"
+                                          SelectedIndex="5"
+                                          SelectedValue="{Binding SelectedEmployee.Experience.ExperiencePeriod, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ContratPeriods}}}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" Visibility="{Binding HaveWorkExperienceVisibility}"/>
+
+                            </Grid>
+                        </telerik:RadExpander>
+
+
+                        <telerik:RadExpander Grid.Row="2" Grid.Column="0" Header="Work Experience Abroad"
+                                             IsExpanded="True" Visibility="Collapsed" >
+                            <Grid Margin="5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                               
+                                <!--<TextBlock Grid.Row="2" Grid.Column="0" Text="Job Position:" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1" Grid.Row="2" x:Name="CmbPosition" Margin="0,3" SelectedIndex="5"
+                                      SelectedValue="{Binding SelectedEmployee.Experience.ExperiencePosition, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ProffesionTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />-->
+
+                            </Grid>
+                        </telerik:RadExpander>
+
+                        <telerik:RadExpander Grid.Row="3" Header="Skills" IsExpanded="True">
+
+                            <Grid Margin="5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <!--<RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />-->
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Row="0" Content="Private Car Driver" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Driving, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Column="1" Grid.Row="0" Content="Hard Worker" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.HardWorker, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="2" Grid.Column="0" Content="Baby Sitting" Margin="5,10"
+                                          Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.BabySitting, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Column="1" Grid.Row="2" Content="Nanny/Children Care" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Nanny, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Washing and Ironing Clothes" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Washing, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="4" Grid.Column="1" Content="Dusting and Cleaning" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Cleaning, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="1" Content="Washing Kitchen Dishes" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.WashingDishes, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="6" Grid.Column="1" Content="Cooking" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Cooking, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="7" Grid.Column="1" Content="Arabic Cooking" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.ArabicCooking, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="7" Grid.Column="0" Content="Sewing" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Sewing, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="8" Grid.Column="1" Content="Tutoring" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Tutoring, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                                <CheckBox Grid.Row="8" Grid.Column="0" Content="Computer" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.Experience.Computer, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                               
+                         
+                            </Grid>
+                        </telerik:RadExpander>
+
+                        <telerik:RadExpander Grid.Row="4" Grid.Column="0" Header="More" IsExpanded="False" Visibility="Visible">
+                            <Grid Margin="5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <!--<RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />-->
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0"  FontSize="14" Text="Other Skills:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" InputLanguageManager.InputLanguage="en-US" x:Name="TxtProfessionalSkill"
+                                     HorizontalAlignment="Stretch" Margin="0,3"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtProfessionalSkill}"
+                                     Text="{Binding SelectedEmployee.Experience.OtherSkills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text=" Remarks:" VerticalAlignment="Center" FontSize="14"/>
+                                <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Row="0" 
+                                         x:Name="TxtRemarks" Grid.Column="3"  
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtRemarks}"
+                                         Text="{Binding SelectedEmployee.Experience.Remark, Mode=TwoWay, 
+                                NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True}"
+                                         VerticalContentAlignment="Top" TextWrapping="Wrap"
+                                         Validation.Error="Validation_Error" Margin="0,3,0,3" CharacterCasing="Upper" />
+                            </Grid>
+                        </telerik:RadExpander>
+
+                    </Grid>
+
+                </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top" Margin="0,3,0,3" HorizontalAlignment="Right">
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveEmployeeExperienceCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="150"
+                                       CommandParameter="{Binding ElementName=WdwEmployeeApplication}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

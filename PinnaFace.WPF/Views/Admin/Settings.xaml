@@ -1,0 +1,308 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Settings" Height="460" Width="400" x:Name="WdwSettings"
+        Unloaded="Settings_OnUnloaded"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        DataContext="{Binding Setting, Source={StaticResource Locator}}"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="Black" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Text="Settings" FontSize="18" Margin="10,-20,0,0"
+                               Style="{StaticResource windowTextBlockHeader}" />
+                </StackPanel>
+
+                <GridSplitter Grid.Row="1" Height="3" Grid.ColumnSpan="4" VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch" />
+
+                <Grid Grid.Row="2" Margin="10">
+
+                    <telerik:RadTabControl Background="Transparent">
+
+
+                        <telerik:RadTabItem Header="Labour Office" IsSelected="True">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                     
+                                <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding CurrentSetting.ShowLetterReferenceNumber}" Foreground="Black"
+                                           VerticalAlignment="Center" Content="ደብዳቤ ቁጥር አስገባ"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="ደብዳቤ ቁጥር መነሻ:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <TextBox Grid.Row="2" Grid.Column="1"
+                                         x:Name="TxtGeneralManager"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtGeneralManager}"
+                                         Text="{Binding CurrentSetting.ReferencePreffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" />
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="የአሁን ደብዳቤ ተራ ቁጥር:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <TextBox Grid.Row="3" Grid.Column="1"
+                                         x:Name="TxtcurrentNumber"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtcurrentNumber}"
+                                         Text="{Binding CurrentSetting.CurrentLetterReferenceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" FontFamily="Visual Geez Unicode"
+                                         TextWrapping="WrapWithOverflow" />
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="ደብዳቤ ቁጥር መዝጊያ:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <TextBox Grid.Row="4" Grid.Column="1"
+                                         x:Name="TxtManagerAmharic"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtManagerAmharic}"
+                                         Text="{Binding CurrentSetting.ReferenceSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" FontFamily="Visual Geez Unicode"
+                                         TextWrapping="WrapWithOverflow" />
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="Labour List Format:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbLabourListType" Grid.Column="1" Grid.Row="6" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.LabourListType, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:LabourListTypes}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Labour Letter Format:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbLabourLetterType" Grid.Column="1" Grid.Row="7" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.CoverLetterType, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:CoverLetterTypes}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="የእማኞች ፎርማት:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbTestimonialFFormat" Grid.Column="1" Grid.Row="8" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.TestimonialFormat, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:TestimonialFormats}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                                
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="የእማኞች ብዛት:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbTestimonial" Grid.Column="1" Grid.Row="9" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.NumberOfTestimonials, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:TestimonialNumbers}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                          
+                            </Grid>
+                        </telerik:RadTabItem>
+                        <telerik:RadTabItem Header="Embassy">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Application Format:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbEmbassyApplicationFormat" Grid.Column="1"  Grid.Row="0" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.EmbassyApplicationFormat, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:EmbassyApplicationFormats}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Sponsor Name On Top:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbEmbassyApplicationType" Grid.Column="1"  Grid.Row="1" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.EmbassyApplicationType, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:EmbassyApplicationTypes}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                            </Grid>
+                        </telerik:RadTabItem>
+
+                        <telerik:RadTabItem Header="Web Sync">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <!--<Grid Grid.Row="0" Visibility="{Binding ServiceNotInstalled}" >
+                                    <TextBlock Text="Sync Service Not Installed" Foreground="Red"
+                                           VerticalAlignment="Top" HorizontalAlignment="Center" 
+                                               FontSize="20" FontWeight="Bold" />
+                                </Grid>
+                                Visibility="{Binding ServiceInstalled}"-->
+                                <Grid Grid.Row="1" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <CheckBox Grid.Row="0" Grid.Column="1" Content="Start Sync" Margin="0,5"
+                                              Foreground="Black"
+                                              IsChecked="{Binding CurrentSetting.StartSync, Mode=TwoWay}"
+                                              VerticalAlignment="center" FontSize="14" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="To Server:" Foreground="Black"
+                                               VerticalAlignment="Center" />
+                                    <telerik:RadDateTimePicker Grid.Column="1" Grid.Row="1" x:Name="DtToServerDate"
+                                                               ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtToServerDate}"
+                                                               SelectedValue="{Binding CurrentSetting.LastToServerSyncDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                               Validation.Error="Validation_Error"
+                                                               DateTimeWatermarkContent="LastToServerSync ቀንና ሰዓት"
+                                                               VerticalAlignment="Center" />
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="From Server:" Foreground="Black"
+                                               VerticalAlignment="Center" />
+
+                                    <telerik:RadDateTimePicker Grid.Column="1" Grid.Row="2" x:Name="DtFromServerDate"
+                                                               ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtFromServerDate}"
+                                                               SelectedValue="{Binding CurrentSetting.LastFromServerSyncDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                               Validation.Error="Validation_Error"
+                                                               DateTimeWatermarkContent="LastFromServerSync ቀንና ሰዓት"
+                                                               VerticalAlignment="Center" />
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Duration(in Minutes):"
+                                               Foreground="Black"
+                                               VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="3" Grid.Column="1"
+                                             x:Name="TxtDuration"
+                                             Focusable="True"
+                                             ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtDuration}"
+                                             Text="{Binding CurrentSetting.SyncDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                             Validation.Error="Validation_Error"
+                                             Margin="0,5,0,5" />
+
+                                </Grid>
+                            </Grid>
+                        </telerik:RadTabItem>
+                        <telerik:RadTabItem Header="Others">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" Text="Awaj Number:"
+                                           VerticalAlignment="Center" />
+                                <TextBox Grid.Row="0" Grid.Column="1"
+                                         x:Name="TxtAwajNumber"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtAwajNumber}"
+                                         Text="{Binding CurrentSetting.AwajNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="CV Header Format:" Foreground="Black"
+                                           VerticalAlignment="Center" />
+                                <ComboBox x:Name="CmbCvFormat" Grid.Column="1" Grid.Row="1" Margin="0,2"
+                                          SelectedValue="{Binding CurrentSetting.CvHeaderFormat, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:CvHeaderFormats}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+
+                            </Grid>
+                        </telerik:RadTabItem>
+                    </telerik:RadTabControl>
+
+
+                </Grid>
+
+                <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,5"
+                            HorizontalAlignment="Right">
+                    <Button Content="_Save"
+                            Command="{Binding SaveSettingCommand}"
+                            CommandParameter="{Binding ElementName=WdwSettings}"
+                            x:Name="BtnSaveClose"
+                            Height="30"
+                            Padding="10,0"
+                            Margin="10,0,0,0"
+                            IsDefault="True" />
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

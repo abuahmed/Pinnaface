@@ -1,0 +1,141 @@
+﻿@model PinnaFace.Web.Controllers.EmployeeVisaViewModel
+@{
+    string imagePath = "../Images/BlankShort.jpg";
+}
+
+@if (@Model.Employee != null && @Model.Employee.Photo != null) // && !string.IsNullOrEmpty(@Model.Employee.Photo.AttachmentUrl))
+{
+    //imagePath = "../Content/Images/" + @Model.Employee.Photo.AttachmentUrl;
+    imagePath = "../Content/Images/" + @Model.Employee.Photo.RowGuid + ".jpg";
+}
+<style type="text/css">
+    label {
+        color: darkorange;
+        font-weight: bolder;
+    }
+</style>
+    
+<div id="visa_Id" >
+    <div id="spinner">
+    </div>
+    @if (@Model.IsVisaAssigned)
+    {
+        <div class="container-fluid" style="margin-top: 20px;">
+
+            <div class="row-fluid" >
+    
+                <div class="span1">
+        
+                </div>
+
+                <div class="span3" style="background: green; border-radius: 10px; padding: 5px;">
+                    <div>
+                        <img  src="@Url.Content(imagePath)" alt="Photo" name="shortPhoto" onError=" this.onerror = null;this.src = '/images/BlankShort.jpg'; "
+                              style="border-radius: 5px; height: 200px; width: 250px;"/>
+                        <h1 style="padding: 5px;">@if (Model.Employee != null)
+                                                  {
+                                                      @Model.Employee.CurrentStatusString
+                                                  }</h1>
+                    </div>
+                </div>
+
+                <div class="span3" >
+                   
+                    <div class="form-inline" style="background: transparent; border-radius: 10px; color: white; padding: 5px;">
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.FullName, "Employee Name/الاسم الكامل")
+                            @Html.TextBoxFor(model => model.Employee.FullName, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.PassportNumber, "Passport Number/الرقم")
+                            @Html.TextBoxFor(model => model.Employee.PassportNumber, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.AppliedProfession, "Profession/الوظیفة")
+                        
+                            @Html.TextBoxFor(model => model.Employee.AppliedProfessionDisplay, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+                
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Employee.AgencyName, "Agency Name/العاملة المنزلية")
+                            @Html.TextBoxFor(model => model.Employee.AgencyNameFull, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+                        @*                            <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.SalaryString, "Salary/الراتب الشھري")<br/>
+                            <i>@Html.DisplayFor(model => model.Employee.SalaryString)</i>
+                        </div>*@
+                    </div>
+                   
+                
+                </div>
+           
+                <div class="span3" style="border-radius: 10px; color: white; padding: 5px;">
+              
+                    @Html.HiddenFor(model => model.Employee.Id, new {@id = "employeeId"})
+                    
+                    <div class="form-inline" style="background: transparent; border-radius: 10px; padding: 5px;">
+                   
+                        @Html.HiddenFor(model => model.Visa.Id)
+                        @Html.HiddenFor(model => model.Employee.Id, new {@id = "employeeId2"})
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Visa.Sponsor.FullName, "Sponsor Name/الاسم")<br/>
+                            @Html.TextBoxFor(model => model.Visa.Sponsor.FullName, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Visa.VisaNumber, "Visa Number/رقم التأشيرة")<br/>
+                            @Html.TextBoxFor(model => model.Visa.VisaNumber, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+
+
+                      
+
+
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Visa.Sponsor.Address.Mobile,"Sponsor Tel/رقم الهاتف")<br/>
+                                                      @Html.TextBoxFor(model => model.Visa.Sponsor.Address.Mobile, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+                        
+                        
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Visa.AgentName, "Agent Name/وكالة الاستقدام")<br/>
+                            @Html.TextBoxFor(model => model.Visa.AgentNameFull, new {@class = "form-control", @disabled = "disabled"})
+                        </div>
+
+                    </div>
+
+                   
+                
+                </div>
+        
+                <div class="span2">
+        
+                </div>
+        
+       
+            </div>
+    
+        </div>
+    }
+    else
+    {
+        <div class="row-fluid">
+    
+            <div class="span3">
+                
+            </div>
+            <div class="span7">
+                <h5 style="margin: 3px 10px;"> @Model.Comment </h5>
+            </div>
+             
+            <div class="span2">
+                
+            </div>
+        </div>
+    }      
+</div>

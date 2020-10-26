@@ -1,0 +1,172 @@
+﻿@model PinnaFace.Web.Models.UserCompanyDetail
+
+@if (Request.IsAuthenticated)
+{
+    
+    <ul class="nav navbar-nav ">
+        <li id="homemenu"><a href="~/Home"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav ">
+        <li id="downloadmenu"><a href="~/Download"><i class="glyphicon glyphicon-download"></i>&nbsp;Downloads</a></li>
+    </ul>
+
+
+    <ul class="nav navbar-nav ">
+        <li class="dropdown" id="candmenu">
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;Candidates
+                <b class="caret"></b>
+            </a>
+            
+            <ul class="dropdown-menu">
+                <li><a href="~/Employee/Thumbnail"><i class="glyphicon glyphicon-list"></i> View Candidates </a></li>
+       
+            </ul>
+        </li>
+    </ul>
+    
+    <ul class="nav navbar-nav ">
+        <li class="dropdown" id="empmenu">
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;Employees
+                <b class="caret"></b>
+            </a>
+            
+            <ul class="dropdown-menu">
+                <li><a href="~/Employee"><i class="glyphicon glyphicon-list"></i> View Employees </a></li>
+                @* <li><a href="~/Employee/Thumbnail"><i class="glyphicon glyphicon-list"></i> Visa Waiting  </a></li>
+                              <li><a href="#"><i class="glyphicon glyphicon-list"></i> Labour Office Processing </a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-list"></i> Embassy Processing </a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-list"></i> Stamped </a></li>                                                
+                <li><a href="#"><i class="glyphicon glyphicon-list"></i> On Flight </a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-list"></i> Departured </a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-list"></i> Arrival Confirmed </a></li>
+                @Model.AddNewVisaVisibility
+                
+                @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("AddEmployeeWeb"))
+                {
+                                    <li class="divider"></li>
+                    <li><a href="~/Employee/Create"><span class="glyphicon glyphicon-plus"></span> Add New Employee</a></li>
+                }*@
+
+            </ul>
+        </li>
+    </ul>
+    
+    <ul class="nav navbar-nav ">
+        <li class="dropdown" id="visamenu">
+                                    
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"><i class="glyphicon glyphicon-file"></i>&nbsp;Visas
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="~/Visa"><i class="glyphicon glyphicon-list"></i> View Visas</a></li>
+                @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("AddVisaWeb"))
+                {
+                    <li class="divider "></li>
+                    <li><a href="~/Visa/Create"><span class="glyphicon glyphicon-plus"></span>   Add New Visa</a></li>
+                }
+
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="nav navbar-nav ">
+        <li class="dropdown" id="compmenu">
+                                   
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"><i class="glyphicon glyphicon-question-sign"></i>&nbsp;Complaints
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="~/Complain"><i class="glyphicon glyphicon-list"></i> View Complaints</a></li>
+                @*<li><a href="#"><i class="glyphicon glyphicon-list"></i> Closed</a></li>*@
+                 @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("OpenComplainWeb"))
+                 {
+                     <li class="divider"></li>
+                     <li><a href="~/Complain/Create"><span class="glyphicon glyphicon-plus"></span>   Add New Complaint</a></li>
+                 }
+
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="nav navbar-nav ">
+        <li class="dropdown" id="profilemenu">
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#"><i class="glyphicon glyphicon-lock"></i>&nbsp;Hi!
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                
+                <li><a href="~/Account/UserProfile/"><i class="glyphicon glyphicon-user"></i> View Profile</a></li>
+                <li><a href="~/Account/ChangePassword/"><i class="glyphicon glyphicon-lock"></i> Change Password</a></li>
+                
+               
+                @* , @User.Identity.Name               <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-wrench"></i> Administration <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Users"><i class="glyphicon glyphicon-list"></i> Users</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/Users/Details/0"><span class="glyphicon glyphicon-plus"></span>   Add New User</a></li>
+                    </ul>
+                </li>*@
+
+                <li>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()" style="padding: 3px 20px; text-decoration: none;">
+                            <i class="glyphicon glyphicon-log-out"></i> Log Off
+                        </a>
+                    }
+
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+@**@
+}
+else
+{
+   @*<form class="navbar-form navbar-right" role="form" action="/Account/Login" >
+        <div class="form-group">
+            <input name="UserName" type="text" placeholder="Email" class="form-control">
+        </div>
+        <div class="form-group">
+            <input name="Password" type="password" placeholder="Password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-sm btn-success">Sign in</button>
+    </form>
+
+    <ul class="nav navbar-nav ">
+        <li id="downloadmenu"><a href="~/List/Track"><i class="glyphicon glyphicon-check"></i>&nbsp;Track</a></li>
+    </ul>*@
+    
+    <ul class="nav navbar-nav">
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {id = "inlineLoginForm", @class = "form-inline"}))
+        {
+            <li style="padding-top: 10px;margin-left: 25px;">
+                
+                @Html.TextBox("Email", "", new {@class = "input-sm", @placeholder = "Email", @required = "required", @autofocus = "autofocus", @style = "padding:6px 3px;"})
+                @Html.Password("Password", "", new {@class = "input-sm", @placeholder = "Password", @required = "required", @autofocus = "autofocus", @style = "padding:6px 3px;"})
+                @Html.CheckBox("RememberMe",true, new { @style = "display: none;" }) 
+                @Html.AntiForgeryToken()
+                
+                <input type="submit" class="btn btn-sm btn-success" style="padding: 6px 12px; background-color: darkgreen" value="Sign in" />
+            </li>
+        }
+        
+    </ul>
+
+    @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+}

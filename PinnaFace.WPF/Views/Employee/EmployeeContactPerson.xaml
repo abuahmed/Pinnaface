@@ -1,0 +1,201 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.EmployeeContactPerson"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="EmployeeContactPerson_OnUnloaded"
+        Title="Contact Detail" Height="450" Width="350" x:Name="WdwEmployeeRelative"
+        DataContext="{Binding EmployeeRelative, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None" Closing="EmployeeContactPerson_OnClosing"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico"
+        Loaded="wdwEmployeeRelative_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListBoxDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="Black" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"  Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" >
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Text="የተያዥ መረጃ/Contact Person" FontSize="18" Margin="5,-20,0,0"
+                               Style="{StaticResource windowTextBlockHeader}" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+                </StackPanel>
+
+                <!--<telerik:RadAutoCompleteBox Grid.Row="1" Margin="0,0,5,0" Width="220"
+                                            x:Name="LstContactsAutoCompleteBox"
+                                            ItemsSource="{Binding ContactPersons, Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedEmployeeContactPersonForSearch, Mode=TwoWay}"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            WatermarkContent="Search Contact Person..."
+                                            TextSearchMode="Contains"
+                                            AutoCompleteMode="Suggest"
+                                            SelectionMode="Single"
+                                            TextSearchPath="FullName"
+                                            BorderBrush="#FF25A0DA"
+                                            BorderThickness="2"
+                                            SelectionChanged="LstContactsAutoCompleteBox_SelectionChanged" />-->
+
+                <!--<GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />-->
+
+                <Grid Grid.Row="3" TextBlock.Foreground="Black" TextBlock.FontSize="13">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <telerik:RadExpander Grid.Column="0" Header="የተያዥ መረጃ/Contact Person Data" IsExpanded="True">
+
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="10" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Full Name:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtFullName" Grid.Row="0"
+                                     Grid.Column="1" Margin="0,5,0,5"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFullName}"
+                                     Text="{Binding SelectedEmployee.ContactPerson.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" CharacterCasing="Upper" />
+
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                       Text="Sex:" />
+                            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CmbSex" Margin="0,2" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.ContactPerson.Sex, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:Sex}}}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Birth Year/Age:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtAge" Grid.Row="2"
+                                     Grid.Column="1" Margin="0,5,0,5"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtAge}"
+                                     Text="{Binding SelectedEmployee.ContactPerson.AgeOrBirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Kinship:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtKinship" Grid.Row="3"
+                                     Grid.Column="1" Margin="0,5,0,5"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtKinship}"
+                                     Text="{Binding SelectedEmployee.ContactPerson.Kinship, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" CharacterCasing="Upper"/>
+
+                            <!--<CheckBox Grid.Row="3" Grid.Column="1" Content="Has Id Card" Margin="0,10,5,10" Foreground="Black"
+                                  IsChecked="{Binding SelectedEmployee.ContactPerson.EmergencyPersonPhoto, Mode=TwoWay}" 
+                                  VerticalAlignment="center" FontSize="14"  />
+                            <CheckBox Grid.Row="4" Grid.Column="1" Content="Has Photo"  Margin="0,10,5,10" Foreground="Black"
+                                  IsChecked="{Binding SelectedEmployee.ContactPerson.EmergencyPersonIdCard, Mode=TwoWay}" 
+                                  VerticalAlignment="center" FontSize="14"  />-->
+                            
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="0" Header="Contact Adress" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  />
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0" FontWeight="Bold"
+                                                 TextWrapping="Wrap" Text="{Binding SelectedEmployee.ContactPerson.Address.AddressDescription}" VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Tag="OwnerManagerAddress" x:Name="BtnCompanyAddress"
+                                           Command="{Binding ContactPersonAddressViewCommand}" ToolTip="የድርጅት አድራሻ አስገባ/አስተካክል"
+                                           CommandParameter="{Binding ElementName=BtnCompanyAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png" Height="40" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Address Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="2" Grid.Column="0" Header="Remarks" IsExpanded="False" Visibility="Collapsed">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="Remarks:" VerticalAlignment="Center"/>-->
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Row="0"
+                                     x:Name="TxtRemarks" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtRemarks}"
+                                     Text="{Binding SelectedEmployee.ContactPerson.Remark, Mode=TwoWay, 
+                                NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True}" VerticalContentAlignment="Top" TextWrapping="Wrap"
+                                     Validation.Error="Validation_Error" Margin="0,3,0,3" CharacterCasing="Upper" />
+                        </Grid>
+                    </telerik:RadExpander>
+
+                </Grid>
+
+                <GridSplitter Grid.Row="4" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="5"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top" Margin="0,3,0,3" HorizontalAlignment="Right">
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveEmployeeRelativeCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="150"
+                                       CommandParameter="{Binding ElementName=WdwEmployeeRelative}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+               
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

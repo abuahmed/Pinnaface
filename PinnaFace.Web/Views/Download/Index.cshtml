@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Downloads ";
+}
+
+<h3>Downloads</h3>
+<div class="clear-fix"></div>
+<hr/>
+
+
+<h5 style="margin-top: 25px;">PinnaFace Downloads </h5>
+<hr style="margin-top: 5px; margin-bottom: 5px;"/>
+<ul>
+    <li>
+        @Html.ActionLink("PinnaFace Simple Edition", "Download", "Download", new {file = "SimpleEdition"}, null)
+    </li>
+    <li>
+        @Html.ActionLink("PinnaFace Advanced Edition", "Download", "Download", new {file = "AdvancedEdition"}, null)
+    </li>
+    <li>
+        @Html.ActionLink("PinnaFace EnjazOnly Edition", "Download", "Download", new {file = "EnjazOnly"}, null)
+    </li>
+    <li>
+        @Html.ActionLink("PinnaFace Web Sync Extension", "Download", "Download", new {file = "WebSync"}, null)
+    </li>
+
+</ul>
+
+
+
+<h5 style="margin-top: 25px;">Prerequisite Downloads for All OS </h5>
+<hr style="margin-top: 5px; margin-bottom: 5px;"/>
+<ul>
+     <li><a href="https://download.microsoft.com/download/B/A/4/BA4A7E71-2906-4B2D-A0E1-80CF16844F5F/dotNetFx45_Full_setup.exe">Dot Net Framework 4.5</a></li>
+   @* <li>
+        @Html.ActionLink("Dot Net Framework 4.5", "Download", "Download", new {file = "DotNet"}, null)
+    </li>*@
+    <li>
+        @Html.ActionLink("AspNet WebPages Setup", "Download", "Download", new {file = "AspNetWebPages"}, null)
+    </li>
+    @*<li>
+        @Html.ActionLink("Report Viewer", "Download", "Download", new {file = "ReportViewer.exe"}, null)
+    </li>*@
+</ul>
+
+
+<h5 style="margin-top: 25px;">Prerequisite Downloads for 64 Bit OS </h5>
+<hr style="margin-top: 5px; margin-bottom: 5px;"/>
+<ul>
+     <li>
+        @Html.ActionLink("Crystal Reports Runtime 64 bit", "Download", "Download", new {file = "CRRuntime64"}, null)
+    </li>
+    <li>
+        @Html.ActionLink("Sql Server Compact Edition 4.0 64 bit", "Download", "Download", new {file = "SSCE64"}, null)
+    </li>
+        <li>
+        @Html.ActionLink("Amharic Library 64 bit", "Download", "Download", new {file = "Amharic64"}, null)
+    </li>
+@*    <li><a>Crystal Reports Runtime 64 bit</a></li>
+    <li><a>Sql Server Compact Edition 4.0 64 bit </a></li>
+    <li><a>Amharic Library 64 bit</a></li>*@
+</ul>
+
+<h5 style="margin-top: 25px;">Prerequisite Downloads for 32 Bit OS </h5>
+<hr style="margin-top: 5px; margin-bottom: 5px;"/>
+<ul>
+     <li>
+        @Html.ActionLink("Crystal Reports Runtime 32 bit", "Download", "Download", new {file = "CRRuntime32"}, null)
+    </li>
+    <li>
+        @Html.ActionLink("Sql Server Compact Edition 4.0 32 bit", "Download", "Download", new {file = "SSCE32"}, null)
+    </li>
+        <li>
+        @Html.ActionLink("Amharic Library 32 bit", "Download", "Download", new {file = "Amharic32"}, null)
+    </li>
+    @*<li><a>Crystal Reports Runtime 32 bit</a></li>
+    <li><a>Sql Server Compact Edition 4.0 32 bit </a></li>
+    <li><a>Amharic Library 32 bit</a></li>*@
+</ul>
+
+
+<script type="text/javascript">
+
+    $('#downloadmenu').addClass('active');
+</script>

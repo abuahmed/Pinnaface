@@ -1,0 +1,19 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<hgroup class="title" style="margin-top:40px; ">
+    <h2 class="error">Error.</h2><br/>
+    <h3 class="error">An error occurred while processing your request.</h3><br/>
+      @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+      {
+          <h4 class="error">@Model.Exception.Message</h4>
+          <br/>
+          <h4 class="error">@Model.ActionName</h4>
+          <br/>
+          <h4 class="error">@Model.ControllerName</h4>
+      }
+    <h4>@Html.ActionLink("Go Back To Home Page", "Index", "Home",new {logout = true},new {style="color: yellowgreen"})</h4>  
+</hgroup>

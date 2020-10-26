@@ -1,0 +1,154 @@
+﻿@model PinnaFace.Core.Models.ComplainDTO
+
+<div id="employeeVisa_Id" >
+    <div id="spinner">
+    </div>
+    @if (@Model.Employee != null)
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            @Html.HiddenFor(model => model.EmployeeId)
+            <h5 style="margin-bottom: 0px; margin-top: 15px;">Employee/Sponsor Detail</h5>
+            <hr style="margin-bottom: 5px; margin-top: 0px;"/>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                    
+                        <div class="form-inline">
+                   
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Employee.FullName, "Employee Name: ")
+                                @Html.TextBoxFor(model => model.Employee.FullName, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Employee.PassportNumber, "Passport Number: ")
+                                @Html.TextBoxFor(model => model.Employee.PassportNumber, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Employee.Visa.Sponsor.FullName, "Sponsor Name: ")
+                                @Html.TextBoxFor(model => model.Employee.Visa.Sponsor.FullName, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                            <div class="form-group">
+                     
+                                @Html.LabelFor(model => model.Employee.Visa.Sponsor.Address.City, "Sponsor City: ")
+                                @Html.TextBoxFor(model => model.Employee.Visa.Sponsor.Address.City, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                          
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Employee.Visa.Sponsor.Address.Telephone, "Sponsor Tel.: ")
+                                @Html.TextBoxFor(model => model.Employee.Visa.Sponsor.Address.Telephone, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                          
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Employee.Visa.Sponsor.Address.Mobile, "Sponsor Mobile: ")
+                                @Html.TextBoxFor(model => model.Employee.Visa.Sponsor.Address.Mobile, new {@class = "form-control form-control2", @disabled = "disabled"})
+                            </div>
+                        </div>
+
+                    </div>
+       
+                </div>
+            </div>
+
+            <h5 style="margin-bottom: 0px; margin-top: 15px;">Complain Details</h5>
+            <hr style="margin-bottom: 5px; margin-top: 0px;"/>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="form-inline">
+                  
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ComplainDate, "Complain Date")
+                                @Html.EditorFor(model => model.ComplainDate)
+                            </div>
+                        
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Priority, "Priority")
+                                @(Html.DropDownListFor(model => model.ComplainPriorityString,
+                                      (IEnumerable<SelectListItem>) ViewData["ComplainPriorityFilter"],
+                                      new {style = "width:250px", @class = "form-control"})
+                                      )
+                            </div>
+                        
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Type, "Type ")
+                                @(Html.DropDownListFor(model => model.ComplainTypeString,
+                                      (IEnumerable<SelectListItem>) ViewData["ComplainTypeFilter"],
+                                      new {style = "width:250px", @class = "form-control"})
+                                      )
+                            </div>
+                            @*        <div class="form-group">
+                            @Html.Label("Remarks")
+                            @Html.ListBox("Remarks",(IEnumerable<SelectListItem>)ViewData["ComplainTypeFilter"])
+                           
+                        </div>*@
+                        </div>
+                    
+                        <div class="form-group form-group2">
+                            @Html.LabelFor(model => model.Complain, "Complain ")
+                            @Html.TextAreaFor(model => model.Complain, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.Complain)
+                        </div>
+                        
+                    </div>
+       
+                </div>
+            </div>
+
+            <h5 style="margin-bottom: 0px; margin-top: 15px;">Raised By</h5>
+            <hr style="margin-bottom: 5px; margin-top: 0px;"/>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="form-inline">
+               
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RaisedByName, "Name ")
+                                @Html.TextBoxFor(model => model.RaisedByName, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.RaisedByName)
+                            </div>
+                        
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RaisedByTelephone, "Telephone ")
+                                @Html.TextBoxFor(model => model.RaisedByTelephone, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.RaisedByTelephone)
+                            </div>
+                        
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RaisedByRelationship, "Relationship")
+                                @Html.TextBoxFor(model => model.RaisedByRelationship, new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.RaisedByRelationship)
+                            </div>
+                        
+                        </div>
+                    </div>
+       
+                </div>
+            </div>
+
+            <div class="modal-footer">
+             
+                <div class="pull-right ">
+                    <input type="submit" value="Save Complain" class="btn btn-lg btn-primary" style="padding: 10px 32px;" />
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row-fluid">
+            <div class="span3"></div>
+            <div class="span6">
+                <h5 class="error" style="margin-left: 25px;"> @Model.Complain</h5>
+            </div>
+            <div class="span3"></div>
+        </div>
+    }
+</div>

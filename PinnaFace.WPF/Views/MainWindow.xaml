@@ -1,0 +1,297 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="{Binding HeaderTitle}" WindowStartupLocation="CenterScreen" 
+        Background="Transparent" x:Name="WdwMain"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+	    Width="940" Height="550" MinWidth="550" MinHeight="550" 
+        WindowState="Maximized" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico"  FontSize="13.333" FontFamily="./#Bookman Old Style">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid>
+        
+        <Grid x:Name="LayoutRoot">
+
+            <Border Style="{StaticResource mainBorder}">
+
+                <Grid ShowGridLines="False" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                        <RowDefinition Height="auto"/>
+                        <!--<RowDefinition Height="Auto"/>-->
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    <!--Overseas Empl Mgmt Sys PinnaFace&#x2122;-->
+
+                 
+                        <TextBlock Text="{Binding HeaderText}" Grid.Column="1" 
+                               HorizontalAlignment="Left"
+                               FontFamily="Bookman Old Style"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="DarkGreen"/>
+
+                        <telerik:RadDropDownButton Grid.Column="2" x:Name="RddOnline" HorizontalAlignment="Right"
+                                                               Width="180" Height="30" Margin="5,0"
+                                                               Style="{StaticResource RadDropDownButton1}"
+                                                               HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/ChromeLogo.png"
+                                                   Height="25"
+                                                   Width="25" Stretch="Uniform" />
+                                <TextBlock Width="auto" Text="Open Websites" VerticalAlignment="Center" Foreground="Black" />
+                            </StackPanel>
+                            <telerik:RadDropDownButton.DropDownContent>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                                        Background="{StaticResource BackgroundGradientBrush}">
+
+                                    <telerik:RadButton  Width="180" Height="50"
+                                                       Margin="5"
+                                                      HorizontalContentAlignment="Left"
+                                                       
+                                                       Command="{Binding GoToMainEnjazViewCommand}" >
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/PinnaFace.WPF;component/Resources/Images/EnjazlogoEdited.jpg"
+                                                   Height="50" HorizontalAlignment="Left" 
+                                                   Width="60" Stretch="Uniform" />
+                                            <TextBlock Grid.Column="1" Width="auto" Text="Enjaz " FontWeight="Bold" Foreground="Black" FontSize="14"
+                                                       VerticalAlignment="Center" />
+
+                                        </Grid>
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Width="180" Height="50"
+                                                       Margin="5"
+                                                       HorizontalContentAlignment="Left"
+                                                       
+                                                       Command="{Binding GoToMainMusanedViewCommand}" >
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/PinnaFace.WPF;component/Resources/Images/musandLogoEdited.png"
+                                                   Height="50" HorizontalAlignment="Left"
+                                                   Width="60" Stretch="Uniform" />
+                                            <TextBlock Grid.Column="1" Width="auto" Text="Musaned " FontWeight="Bold" Foreground="Black" FontSize="14"
+                                                       VerticalAlignment="Center" />
+
+                                        </Grid>
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Width="180" Height="50"
+                                                       Margin="5" HorizontalContentAlignment="Left"
+                                                       Command="{Binding GoToMainInsuranceViewCommand}" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="/PinnaFace.WPF;component/Resources/Images/unicLogoEdited.png"
+                                                   Height="50" HorizontalAlignment="Left"
+                                                   Width="50" Stretch="Uniform" />
+                                            <TextBlock Grid.Column="1" Width="auto" Text="Insurance " FontWeight="Bold" Foreground="Black" FontSize="14"
+                                                       VerticalAlignment="Center" />
+
+                                        </Grid>
+                                    </telerik:RadButton>
+                                    <telerik:RadButton  Width="180" Height="50"
+                                                       Margin="5" HorizontalContentAlignment="Left"
+                                                       Command="{Binding GoToMainPinnaFaceViewCommand}" >
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/PinnaFace.WPF;component/Resources/Images/pinnafaceLogoEdited.png"
+                                                   Height="50" HorizontalAlignment="Left"
+                                                   Width="50"  />
+                                            <TextBlock Grid.Column="1" Width="auto" Text="PinnaFace Web" FontWeight="Bold" Foreground="Black" FontSize="14"
+                                                       VerticalAlignment="Center" />
+
+                                        </Grid>
+                                    </telerik:RadButton>
+
+                                </StackPanel>
+                            </telerik:RadDropDownButton.DropDownContent>
+                        </telerik:RadDropDownButton>
+                        
+                     <Menu Grid.Column="3" Height="30" Name="Menu1" Margin="10,0,10,0" 
+                          VerticalAlignment="Top" BorderThickness="2" 
+                          Style="{StaticResource myListboxStyle}"
+                          Foreground="Black" FontSize="14" FontWeight="Normal" FontFamily="bookman old style"
+                          HorizontalAlignment="Right" Background="Transparent">
+
+                            <Menu.BitmapEffect>
+                                <DropShadowBitmapEffect />
+                            </Menu.BitmapEffect>
+
+                            <MenuItem Style="{StaticResource myListboxStyle}"  Header="_Files" Foreground="Black" >
+
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/document_lined.ico" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+
+                                <MenuItem Header="_Agency Detail" Visibility="{Binding AgencyVisibility}"
+                                      Foreground="Black" Background="Transparent" x:Name="AgencyMenuItem" Click="AgencyMenuItem_Click"    />
+                                <MenuItem Header="_Foreign Agents" Visibility="{Binding AgentVisibility}" 
+                                      Foreground="Black" x:Name="AgentMenuItem" Click="AgentMenuItem_Click"/>
+                                <!--<Separator/>
+                            <MenuItem Header="_Visas" Visibility="{Binding VisaVisibility}"
+                                      Foreground="Black"  x:Name="VisaMenuItem"  Click="VisaMenuItem_Click" />-->
+
+                                <Separator/>
+                                <MenuItem Header="C_hange Password" 
+                                      Foreground="Black" x:Name="ChangePasswordMenuItem"  Click="ChangePasswordMenuItem_Click"  />
+
+                                <MenuItem Header="Calendar Convertor" 
+                                      Foreground="Black" x:Name="CalConvertorMenuItem"  Click="CalConvertorMenuItem_Click"  />
+                                <Separator/>
+                                <MenuItem Header="_Log Out" 
+                                      Foreground="Black" x:Name="BtnLogOut" Click="btnLogOut_Click"/>
+                                <MenuItem Header="_Close" 
+                                      Foreground="Black" x:Name="BtnClose" Click="btnClose_Click"/>
+                            </MenuItem>
+
+                            <MenuItem Style="{StaticResource myListboxStyle}"  Header="_Visas" Foreground="Black" >
+
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/money_envelope.png" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+
+                                <MenuItem Header="_Visa List" Visibility="{Binding VisaVisibility}"
+                                      Foreground="Black" Background="Transparent" x:Name="VisaListMenuItem" Click="VisaListMenuItem_Click"    />
+                                <MenuItem Header="_Add New Visa" Visibility="{Binding VisaVisibility}" 
+                                      Foreground="Black" x:Name="AddnewVisaMenuItem" Click="VisaMenuItem_Click"/>
+                                <!--<Separator/>
+                            <MenuItem Header="_Search Visa" Visibility="{Binding VisaVisibility}"
+                                      Foreground="Black"  x:Name="SearchVisaMenuItem"  Click="VisaMenuItem_Click" />
+                            <Separator/>-->
+
+                            </MenuItem>
+
+                            <MenuItem Style="{StaticResource myListboxStyle}" Visibility="{Binding ComplainVisibility}"
+                                  Header="_Complaints" Foreground="Black" >
+
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/question_and_answer.png" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+
+                                <MenuItem Header="List" Visibility="{Binding ComplainVisibility}"
+                                      Foreground="Black" Background="Transparent" x:Name="ComplainListMenuItem" 
+                                      Click="ComplainListMenuItem_OnClickMenuItem_Click"    />
+                                <!--<MenuItem Header="_Add New Complain" Visibility="{Binding ComplainVisibility}" 
+                                      Foreground="Black" x:Name="AddnewCOmplainMenuItem" 
+                                      Click="AddnewCOmplainMenuItem_OnClickMenuItem_Click"/>
+                            <Separator/>
+                            <MenuItem Header="_Search Complain" Visibility="{Binding ComplainVisibility}"
+                                      Foreground="Black"  x:Name="SearchComplainMenuItem"  
+                                      Click="ComplainListMenuItem_OnClickMenuItem_Click" />-->
+
+                                <Separator/>
+
+                            </MenuItem>
+
+                            <MenuItem Style="{StaticResource myListboxStyle}" Visibility="{Binding ReportsVisibility}"  Header="_Reports" Foreground="Black" >
+
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/stock_new_spreadsheet.ico" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+
+                                <MenuItem Header="_Labour Office" Foreground="Black"   >
+                                    <MenuItem Header="_Monthly Report" x:Name="LabourMonthly" Foreground="Black" Click="LabourMonthly_Click" />
+                                    <MenuItem Header="_Returned" x:Name="LabourReturned" Foreground="Black" Click="LabourReturned_Click" />
+                                    <MenuItem Header="_Lost" x:Name="LabourLost" Foreground="Black" Click="LabourLost_Click" />
+                                    <MenuItem Header="_Discontinued" x:Name="LabourDiscontinued" Foreground="Black" Click="LabourDiscontinued_Click" />
+                                    <MenuItem Header="_Contract Completed" x:Name="LabourContractEnd" Foreground="Black" Click="LabourContractEnd_Click" />
+                                </MenuItem>
+                                <Separator/>
+                                <MenuItem Header="_Embassy" Foreground="Black"   >
+                                    <MenuItem Header="_Monthly Report" x:Name="EmbassyMonthly" Foreground="Black" Click="EmbassyMonthly_Click" />
+                                </MenuItem>
+                                <Separator/>
+                                <MenuItem Header="_Flight" Foreground="Black"   >
+                                    <MenuItem Header="_For Ticket List" x:Name="TicketList" Foreground="Black" Click="TicketList_Click" />
+                                    <MenuItem Header="_Ticket Amount List" x:Name="TicketAmountList" Foreground="Black" Click="TicketAmountList_Click" />
+                                </MenuItem>
+                                <Separator/>
+                                <MenuItem Visibility="Visible" Header="_Others" Foreground="Black"   >
+                                    <MenuItem Header="_Summary Report" x:Name="SummaryList" Foreground="Black" Click="SummaryList_Click" />
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem Visibility="Visible" Header="_Admin" Foreground="Black" >
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/settings.ico" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                                <MenuItem Header="_Users" Visibility="{Binding UsersMgmtVisibility}"
+                                      Foreground="Black" 
+                                      x:Name="UsersMenuItem" Click="UsersMenuItem_Click" />
+                                <MenuItem Header="_Backup/Restore" Foreground="Black" 
+                                      Command="{Binding BackupRestoreCommand}"
+                                      CommandParameter="{Binding ElementName=WdwMain}"
+                                      x:Name="BackupRestoreMenuItem" />
+                                <Separator/>
+                                <MenuItem Header="_Send Error Report"
+                                      Foreground="Black" x:Name="SendErrorReportMenuItem" 
+                                      Click="SendErrorReportMenuItem_Click" />
+                                <Separator/>
+                                <MenuItem Header="_Options"
+                                      Foreground="Black" x:Name="SettingsMenuItem" 
+                                      Click="SettingsMenuItem_Click" />
+                            </MenuItem>
+                            <MenuItem  Header="_Help" Foreground="Black" Visibility="Visible" >
+                                <MenuItem.Icon>
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/help.png" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                                <!--<MenuItem Header="_Help" Foreground="Black" x:Name="HelpMenuItem" />
+                            <Separator/>-->
+                                <MenuItem Header="_About PinnaFace" Foreground="Black" 
+                                      CommandParameter="{Binding ElementName=WdwMain}"
+                                      x:Name="AboutMenuItem" Click="AboutMenuItem_OnClick" />
+
+
+                            </MenuItem>
+                        </Menu>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1">
+                        
+                    </Grid>
+                    <Grid  Grid.Row="2">
+                        <DockPanel LastChildFill="True">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <ContentControl Content="{Binding CurrentViewModel, Mode=TwoWay}"   />
+                            </ScrollViewer>
+                        </DockPanel>
+                    </Grid>
+                    
+                    <TextBlock Grid.Row="3" 
+                               HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                               Text="Copyright &#x00A9;2019 www.pinnasofts.com All rights reserved."/>
+                </Grid>
+            </Border>
+        </Grid>
+        <!--/ScrollViewer-->
+    </Grid>
+</Window>

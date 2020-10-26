@@ -1,0 +1,274 @@
+﻿@using PinnaFace.Core.Models
+@model PinnaFace.Core.Models.EmployeeDTO
+
+@{
+    ViewBag.Title = "Edit Employee";
+    
+}
+
+<style type="text/css">
+    .form-control2  {
+        /*width:250px;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 26px;
+        padding: 3px 6px;
+    }
+    .form-group {
+        margin-bottom: 5px;
+    }
+    .form-group2 {
+        width: 47%
+    }
+</style>
+
+<div style="padding: 10px;background: white;">
+    
+   @using (Html.BeginForm())
+   {
+        @Html.AntiForgeryToken()
+       
+        @Html.HiddenFor(e=>e.Id)
+        <h4>Edit Employee</h4>
+     
+        <h5 style="margin-top:15px;margin-bottom: 0px;">Passport Details</h5>
+        <hr style="margin-top:0px;margin-bottom: 5px; "/>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span9">
+                    <div class="form-inline">
+                  
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, "Given Name ")
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @onkeyup = "text-transform:uppercase" })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+                            
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, "Last Name ")
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PassportNumber, "Passport No./رقم الهوية")
+                            @Html.TextBoxFor(model => model.PassportNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PassportNumber)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sex, "Sex")
+                            @(Html.DropDownListFor(model => model.SexString,
+                                  (IEnumerable<SelectListItem>)ViewData["SexFilter"],
+                                  new { style = "width: 250px", @class = "form-control" })
+                                  )
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateOfBirth, "Date Of Birth")
+                            @Html.EditorFor(model => model.DateOfBirth.Date)
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PlaceOfBirth, "Place Of Birth")
+                            @Html.TextBoxFor(model => model.PlaceOfBirth, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PlaceOfBirth)
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PassportIssueDate, "Passport Issue Date")
+                            @Html.EditorFor(model => model.PassportIssueDate.Date)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PassportExpiryDate, "Passport Expiry Date")
+                            @Html.EditorFor(model => model.PassportExpiryDate.Date)
+                        </div>
+                        
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Address.Mobile, "Employee Tel. / الجوال")
+                            @Html.TextBoxFor(model => model.Address.Mobile, new { @class = "form-control" })
+                        </div>
+                
+                    </div>
+                </div>
+       
+            </div>
+        </div>
+
+        <h5 style="margin-top:15px;margin-bottom: 0px;">Language Experience</h5>
+        <hr style="margin-top:0px;margin-bottom: 5px; "/>
+        
+        <div class="form-inline">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Education.ArabicLanguage, "Arabic Language")
+                @(Html.DropDownListFor(model => model.Education.ArabicLanguageString,
+                      (IEnumerable<SelectListItem>)ViewData["LanguageFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Education.EnglishLanguage, "English Language")
+                @(Html.DropDownListFor(model => model.Education.EnglishLanguageString,
+                      (IEnumerable<SelectListItem>)ViewData["LanguageFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+            
+        </div>
+       
+        <h5 style="margin-top:15px;margin-bottom: 0px;">Work Experience</h5>
+        <hr style="margin-top:0px;margin-bottom: 5px; "/>
+        
+        <div class="form-inline">
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.Experience.HaveWorkExperience) <b>Have Work Experience</b>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Experience.ExperienceCountry, "Country")
+                @(Html.DropDownListFor(model => model.Experience.ExperienceCountryString,
+                      (IEnumerable<SelectListItem>)ViewData["ExperienceCountryFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Experience.ExperiencePeriod, "Period")
+                @(Html.DropDownListFor(model => model.Experience.ExperiencePeriodString,
+                      (IEnumerable<SelectListItem>)ViewData["ContratPeriodFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Experience.ExperiencePosition, "Position")
+                @(Html.DropDownListFor(model => model.Experience.ExperiencePositionString,
+                      (IEnumerable<SelectListItem>)ViewData["ProfessionFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+
+
+        </div>
+       
+
+        <h5 style="margin-top:15px;margin-bottom: 0px;">More Detail</h5>
+        <hr style="margin-top:0px;margin-bottom: 5px; "/>
+        
+        <div class="form-inline">
+   
+          
+           <div class="form-group">
+               @Html.LabelFor(model => model.MaritalStatus, "Marital Status")
+               @(Html.DropDownListFor(model => model.MaritalStatusString,
+                     (IEnumerable<SelectListItem>)ViewData["MaritalStatusFilter"],
+                     new { style = "width: 250px", @class = "form-control" })
+                     )
+           </div>
+
+           <div class="form-group">
+               @Html.LabelFor(model => model.Religion, "Religion/ الديانة")
+               @(Html.DropDownListFor(model => model.ReligionString,
+                     (IEnumerable<SelectListItem>)ViewData["ReligionFilter"],
+                     new { style = "width: 250px", @class = "form-control" })
+                     )
+           </div>
+
+           <div class="form-group">
+               @Html.LabelFor(model => model.ContratPeriod, "Contract Period/ مدة العقد")
+               @(Html.DropDownListFor(model => model.ContratPeriodString,
+                     (IEnumerable<SelectListItem>)ViewData["ContratPeriodFilter"],
+                     new { style = "width: 250px", @class = "form-control" })
+                     )
+           </div>
+           <div class="form-group">
+               @Html.LabelFor(model => model.AppliedProfession, "Profession/ المهنة المطلوبة")
+               @(Html.DropDownListFor(model => model.ProfessionString,
+                     (IEnumerable<SelectListItem>)ViewData["ProfessionFilter"],
+                     new { style = "width: 250px", @class = "form-control" })
+                     )
+           </div>
+
+           <div class="form-group">
+               @Html.LabelFor(model => model.Salary, "Salary(in SAR)/ الراتب")
+               @Html.TextBoxFor(model => model.Salary, new { @class = "form-control" })
+               @Html.ValidationMessageFor(model => model.Salary)
+           </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Complexion, "Complexion/ الشكل")
+                @(Html.DropDownListFor(model => model.ComplexionString,
+                      (IEnumerable<SelectListItem>)ViewData["ComplexionFilter"],
+                      new { style = "width: 250px", @class = "form-control" })
+                      )
+            </div>
+@*            <div class="k-content">
+                @(Html.Kendo().ListView<EmployeeDTO>()
+                      .Name("listView")
+                      .TagName("div")
+                      .ClientTemplateId("template")
+                      .DataSource(datasource=>datasource
+                          .PageSize(20)
+                          .ServerOperation(false)).Pageable()
+                      )
+            </div>*@
+
+        </div>
+
+         @*<h5 style="margin-top:15px;margin-bottom: 0px;">Visa Details/معلومات التاءشيرة</h5>
+        <hr style="margin-top:0px;margin-bottom: 5px; "/>
+
+       <div class="container-fluid">
+           <div class="row-fluid">
+               <div class="span12">
+                   <div class="form-inline">
+                      <div class="form-group">
+                            @Html.LabelFor(model => model.VisaNumber, "Visa Number/رقم التاءشيرة")
+                            @Html.TextBoxFor(model => model.VisaNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model=>model.VisaNumber)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VisaDateArabic, "Date of Visa/تاريخ التاءشيرة")
+                            @Html.TextBoxFor(model => model.VisaDateArabic, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model=>model.VisaDateArabic)
+                        </div>
+
+                   </div>
+               </div>
+       
+           </div>
+       </div>*@
+       
+       @*<h4 style="margin-top:25px;">Agreement Details/ معلومات التفاق</h4>
+        <hr style="margin-top:5px;margin-bottom: 5px; "/>*@
+       
+        <div class="modal-footer">
+            <div class="pull-left">
+                <div id='loadingDiv'>
+                    Please wait... <img src="~/Images/loading-image.gif" />
+                </div>
+            </div>
+        
+            <div class="pull-right ">
+                <input type="submit" value="Save Employee" class="btn btn-lg btn-primary" style="padding: 10px 32px;" />
+            </div>
+        </div>
+
+   }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$.validator.unobtrusive.parse("#reserve");
+        $('#loadingDiv').hide();
+        //$('.datefield').datepicker();
+    });
+    
+</script>

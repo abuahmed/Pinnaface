@@ -1,0 +1,137 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.CalendarConvertor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Calendar Converter" Height="360" Width="260" x:Name="WdwCalConvertor"
+        DataContext="{Binding Convertor, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/appIcon.ico">
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+        </ResourceDictionary>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" 
+                            Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=WdwCalConvertor}">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="{Binding DurationHeader}" FontSize="18" Margin="5,-20,40,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,20,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".6*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Calendar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,0" x:Name="DtSelectedDate" Visibility="Visible" 
+                              SelectedDate="{Binding SelectedDate,Mode=TwoWay,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                         DisplayDate="{Binding SelectedDate,Mode=TwoWay,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Visible" Style="{DynamicResource calendarStyle}" 
+                                  Background="White" MouseDoubleClick="DtSelectedDate_OnMouseDoubleClick"
+                              FontFamily="Bookman Old style" FontStyle="Normal"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <!--<telerik:RadCalendar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,5,0,0" x:Name="DtSelectedDate" Visibility="Visible" 
+                              SelectedDate="{Binding SelectedDate,Mode=TwoWay,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                         DisplayDate="{Binding SelectedDate,Mode=TwoWay,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                              FontWeight="ExtraBold" DisplayMode="MonthView"  FontFamily="Bookman Old Style" 
+                                         AreWeekNumbersVisible="False" />-->
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Text="Month" FontSize="14" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Text="Day" FontSize="14" FontWeight="Bold" />
+                    <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Text="Year" FontSize="14" FontWeight="Bold" />
+                    
+                    <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="0" Grid.Row="2"
+                                     x:Name="TxtSelectedDateMonth" IsEnabled="False"
+                                     Text="{Binding SelectedDateMonth, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Height="30" Margin="0" HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                     VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                    <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="2"
+                                     x:Name="TxtSelectedDateDay" IsEnabled="False"
+                                     Text="{Binding SelectedDateDay, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Height="30" Margin="0" HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                     VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                    <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="2" Grid.Row="2"
+                                     x:Name="TxtSelectedDateYear" IsEnabled="False"
+                                     Text="{Binding SelectedDateYear, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Height="30" Margin="0" HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                     VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+
+
+                    <ComboBox Grid.Column="0"  Grid.Row="3"
+                              ItemsSource="{Binding EthioMonths}" SelectedItem="{Binding SelectedEthioMonth}"
+                              DisplayMemberPath="Display"                               
+                              Height="30" SelectedIndex="0" FontSize="14" FontWeight="Bold"
+                              Background="Transparent" />
+                    <ComboBox Grid.Column="1"  Grid.Row="3" 
+                              ItemsSource="{Binding EthioDays}" SelectedItem="{Binding SelectedEthioDay}"
+                              DisplayMemberPath="Display" 
+                              Height="30" IsEditable="True"
+                              SelectedIndex="0" FontSize="14" FontWeight="Bold"
+                              Background="Transparent" />
+                    <ComboBox Grid.Column="2"  Grid.Row="3" 
+                              ItemsSource="{Binding EthioYears}" SelectedItem="{Binding SelectedEthioYear}"
+                              DisplayMemberPath="Display" 
+                              Height="30" IsEditable="True"
+                              SelectedIndex="0" FontSize="14" FontWeight="Bold"
+                              Background="Transparent" />
+
+
+                </Grid>
+
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Margin="5,2" />
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Background="Transparent" HorizontalAlignment="Right">
+
+                    <telerik:RadButton Tag="Save" x:Name="BtnSave" Content="OK" Height="30"
+                                    Command="{Binding OkCommand}" IsDefault="True" Margin="5"
+                                    CommandParameter="{Binding ElementName=WdwCalConvertor}">
+
+                    </telerik:RadButton>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+
+

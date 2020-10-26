@@ -1,0 +1,7 @@
+
+
+
+namespace PinnaFace.WPF.ViewModel
+{
+    
+}

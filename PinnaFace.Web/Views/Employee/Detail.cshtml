@@ -1,0 +1,100 @@
+﻿@model PinnaFace.Core.Models.EmployeeDTO
+
+@{
+    ViewBag.Title = "Employee Detail";
+}
+
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").hide();
+    });
+</script>
+<style type="text/css">
+    .form-control2  {
+        /*width:250px;*/
+        font-weight: bold;
+        font-size: 12px;
+        height: 26px;
+        padding: 3px 6px;
+    }
+    .form-group {
+        margin-bottom: 5px;
+    }
+    .form-group2 {
+        width: 47%
+    }
+</style>
+
+<div style="padding: 10px;background: white;">
+    
+    <h4>View Employee Detail</h4>
+    <hr style="margin:5px;"/>
+    
+    <div class="container-fluid" style="margin-top: 20px;">
+
+        <div class="row-fluid">
+    
+            <div class="span3">
+                
+            </div>
+            
+           
+            <div class="span7">
+                <div class="hidden-print">
+                    <i class="glyphicon glyphicon-search hidden-phone hidden-print"></i>
+                    <input class="input-sm" id="searchText" name="searchText" onkeydown="itemSearch(this)" 
+                           placeholder="Search Employee (at least type 4 characters before hitting enter)" style="width: 95%;" title="search by Employee/Sponsor Name/Passport Number" type="text">
+                </div>
+                
+            </div>
+        
+            <div class="span2">
+                
+            </div>
+        
+       
+        </div>
+    
+    </div>
+    
+
+
+       <div>
+        @{Html.RenderPartial("~/Views/Shared/_employeeDetail2.cshtml");}
+       </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#loadingDiv').hide();
+    });
+
+    function itemSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            if (searchText.length > 3)
+                $.ajax({
+                    type: "GET",
+                    url: "/Employee/Detail",
+                    data: { 'searchText': searchText },
+                    contentType: false,
+                    async: true,
+                    success: function (inventoryList) {
+                        $("#employeeVisa_Id").replaceWith(inventoryList);
+                    },
+                    error: function () {
+                        alert("Sorry, there was a problem!");
+                    }
+                });
+        }
+
+    }
+
+</script>

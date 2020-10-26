@@ -1,0 +1,94 @@
+﻿@model PinnaFace.Web.Controllers.EmployeeVisaViewModel
+
+@{
+    ViewBag.Title = "Track Visa Status";
+}
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").hide();
+    });
+</script>
+<style type="text/css">
+    .page-header 
+    {
+        margin: 5px 0px;
+        padding: 5px;
+    }
+    hr 
+    {
+        margin: 5px;
+        border-top: 1px solid lightgreen;
+    }
+    .displayblock 
+    {
+        display: block;
+    }
+    .displaynone 
+    {
+        display: none;
+    }
+</style>
+
+<h4>Track Process Status</h4>
+<hr/>
+
+<div id="table_id2">
+    <div id="spinner2">
+    </div>
+    <div class="row-fluid">
+    
+        <div class="span3">
+                
+        </div>
+        <div class="span7" style="background: green;padding: 5px;border-radius: 10px;">
+            <div class="hidden-print" >
+                <i class="glyphicon glyphicon-search hidden-phone hidden-print"></i>
+                <input class="input-sm" id="searchText" name="searchText" onkeydown="visaSearch(this)" 
+                       placeholder="Track Visa/Applicant Status" style="width: 95%;" title="search by Passport Number or Name" type="text">
+            </div>  
+        </div>
+        
+        <div class="span2">
+                
+        </div>
+    </div>
+
+    
+    <div class="clear-fix"></div>
+    
+    @{Html.RenderPartial("~/Views/Shared/_visaTrack.cshtml");}
+
+
+</div>
+
+<script type="text/javascript">
+    //$('#empmenu').addClass('active');
+
+    function visaSearch(ele) {
+        if (event.keyCode == 13) {
+            var trackId = ele.value;
+            
+            if (trackId.length > 8)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: "/List/Track",
+                    data: { 'trackId': trackId },
+                    contentType: false,
+                    async: true,
+                    success: function (inventoryList) {
+                        $("#visa_Id").replaceWith(inventoryList);
+                    },
+                    error: function () {
+                        alert("Sorry, there was a problem!");
+                    }
+                });
+            }
+        }
+
+    }
+</script>

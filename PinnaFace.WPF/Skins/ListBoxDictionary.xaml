@@ -1,0 +1,471 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+        <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="EmployeeListBoxDataTemplate" >
+        <Grid>
+            <Border Style="{StaticResource mainBorder3}">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="150"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0"  FontWeight="Bold" FontSize="14" Text="{Binding FullName}"  />
+                    <TextBlock Grid.Row="0" Grid.Column="1"  FontWeight="Bold" FontSize="14" Text="{Binding PlaceOfBirth}"  />
+                    <TextBlock Grid.Row="0" Grid.Column="2"  FontWeight="Bold" FontSize="14" Text="{Binding CodeNumber}"  />
+
+                    <TextBlock Grid.Row="0" Grid.Column="3" FontWeight="Bold" FontSize="14" Text="{Binding CurrentStatusString}"  />
+                    <TextBlock Grid.Row="0" Grid.Column="4" FontWeight="Bold" FontSize="14" Text="{Binding MaritalStatus}"  />
+                    <TextBlock Grid.Row="0" Grid.Column="5" FontWeight="Bold" FontSize="14" Text="{Binding Religion}"  />
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="6" FontWeight="Bold" FontSize="14" Text="{Binding PassportNumber}"  />
+                     
+                      
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock FontSize="12" FontWeight="Bold" Text="{Binding CurrentStatusString}" Foreground="GreenYellow" Margin="0"/>
+
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" Grid.Row="1" FontSize="12" Text="{Binding Visa.AgentName}" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+                    <TextBlock Grid.Column="3" Grid.Row="1" FontSize="12" Text="{Binding Visa.VisaNumber}" FontWeight="Bold" Foreground="PaleGreen"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="VisaBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="Sponsor: "  />
+                    <TextBlock Grid.Column="1" Grid.Row="0"  Text="{Binding SponsorFullNameShort}" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0"  Text="Sponsor Id: " Margin="5,0,0,0"  />
+                    <TextBlock Grid.Column="3" Grid.Row="0"  Text="{Binding Sponsor.PassportNumber}"  FontWeight="Bold"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Agent: "   />
+                    <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding AgentName}" FontWeight="Bold" />
+                    <TextBlock Grid.Column="2" Grid.Row="1"  Text="Visa No. :" Margin="5,0,0,0"  />
+                    <TextBlock Grid.Column="3" Grid.Row="1"  Text="{Binding VisaNumber}" FontWeight="Bold" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="City: "   />
+                    <TextBlock Grid.Column="1" Grid.Row="2"  Text="{Binding Sponsor.Address.City}" FontWeight="Normal"/>
+                    <TextBlock Grid.Column="2" Grid.Row="2"  Text="Tel.: " Margin="5,0,0,0"  />
+                    <TextBlock Grid.Column="3" Grid.Row="2"  Text="{Binding Sponsor.Address.Telephone}" FontWeight="Bold"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3"  Text="Note: "   />
+                    <TextBlock Grid.Column="1" Grid.Row="3" 
+                               Grid.ColumnSpan="3" Grid.RowSpan="2" TextWrapping="WrapWithOverflow"
+                               Text="{Binding Notes}" />
+
+
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ContactPersonBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,5" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Name: "  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding FullName}" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="City: "  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding Address.City}" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Mobile: "  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding Address.Mobile}" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Tel.: "  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding Address.Telephone}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EducationBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,5" >
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Level: "  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding LevelString}" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Qualification: "  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding QualificationType}" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Field: "  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding FieldOfStudy}" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="Skill: "  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding ProffesionalSkill}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ApplicationBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0" >
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Visa Status:"  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding VisaStatus}" FontWeight="Bold"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Weight:"  Width="80" />
+                            <TextBlock FontSize="12" Text="{Binding Weight}" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Height:"  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding Height}" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Complexion:"  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding Complexion}" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="Education:"  Width="80"/>
+                            <TextBlock FontSize="12" Text="{Binding EducateQG}" FontWeight="Bold" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="VisaEmployeeBoxDataTemplate" >
+        <Grid>
+            <Border Background="Gray">
+                <Grid TextBlock.Foreground="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding SerialNumber}"  />
+                    <TextBlock Grid.Column="1" Text="{Binding PassportNumber}"  />
+                    <TextBlock Grid.Column="2" Text="{Binding FullName}" Margin="15,0,0,0"  />
+
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="ComplainBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Width="140" FontSize="12" Text="{Binding TypeString}"  />
+                    <TextBlock Grid.Column="1" FontSize="12" Text="{Binding Status}" Margin="15,0,0,0"  />
+
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ComplainRemarkBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,1">
+                        <StackPanel Orientation="Vertical"  >
+                            <TextBlock FontSize="14" Text="{Binding Remark}"  />
+                            <TextBlock FontSize="12" Text="{Binding ComplainRemarkDateString}"  />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="UserRoleBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,1" 
+                                TextBlock.Foreground="Black">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding RoleDescription}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="InsuranceBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,5">
+                        <StackPanel Orientation="Horizontal"  >
+
+                            <TextBlock FontSize="14" Text="{Binding SubmitDateString}" Margin="0"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding InsuranceCompany}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabourBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,5" >
+                        <StackPanel Orientation="Horizontal"  >
+
+                            <TextBlock FontSize="14" Text="{Binding SubmitDateString}" Margin="0"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding AgreementReturnedString}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EmbassyBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="14" Text="{Binding SubmitDateString}" Margin="0"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding StammpedString}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FlightBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,5">
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock FontSize="14" Text="{Binding SubmitDateString}" Margin="0"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding DeparturedString}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnjazitEmployeeBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid TextBlock.Foreground="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontSize="14" Text="Employee Name: "  Margin="0"  />
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="14" Text="{Binding FullName}" Width="300" FontWeight="Bold" Margin="0"  />
+                    <TextBlock Grid.Column="2" Grid.Row="0" FontSize="14" Text="Passport Number: "  Margin="0"  />
+                    <TextBlock Grid.Column="3" Grid.Row="0" FontSize="14" Text="{Binding PassportNumber}" FontWeight="Bold" Margin="0"  />
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" FontSize="14" Text="Sponsor Name:  "  Margin="0"  />
+                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="14" Text="{Binding Visa.SponsorFullNameShort}" Width="300" FontWeight="Bold" Margin="0"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" FontSize="14" Text="Visa Number: "  Margin="0"  />
+                    <TextBlock Grid.Column="3" Grid.Row="1" FontSize="14" Text="{Binding Visa.VisaNumber}" FontWeight="Bold" Margin="0"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="AddressBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,1">
+                        <StackPanel Orientation="Vertical"  >
+                            <TextBlock FontSize="12" Text="{Binding AddressDetailShort}" />
+                            <StackPanel Orientation="Horizontal"  >
+                                <TextBlock FontSize="12" Text="{Binding Mobile}" />
+                                <TextBlock FontSize="12" Text="{Binding AlternateMobile}" Margin="5,0,0,0" />
+                                <TextBlock FontSize="12" Text="{Binding Telephone}" Margin="5,0,0,0"/>
+                                <TextBlock FontSize="12" Text="{Binding AlternateTelephone}" Margin="5,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock FontSize="12" Text="{Binding City}" />
+                            <TextBlock FontSize="12" Text="{Binding Country}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="AddressBoxHorizontalDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="12" Text="{Binding AddressDetailShort}" />
+                            <TextBlock FontSize="12" Text="{Binding Mobile}" Margin="5,0,0,0"/>
+                            <TextBlock FontSize="12" Text="{Binding AlternateMobile}" Margin="5,0,0,0" />
+                            <TextBlock FontSize="12" Text="{Binding Telephone}" Margin="5,0,0,0"/>
+                            <TextBlock FontSize="12" Text="{Binding City}" Margin="5,0,0,0"/>
+                            <TextBlock FontSize="12" Text="{Binding Country}" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ConditionBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,1">
+                        <StackPanel Orientation="Vertical"  >
+                            <TextBlock FontSize="12" Text="{Binding Religion}" />
+                            <TextBlock FontSize="12" Text="{Binding Salary}" />
+                            <StackPanel Orientation="Horizontal"  >
+                                <TextBlock FontSize="12" Text="{Binding Profession}" />
+                                <TextBlock FontSize="12" Text="(" />
+                                <TextBlock FontSize="12" Text="{Binding ProfessionAmharic}" />
+                                <TextBlock FontSize="12" Text=")" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  >
+                                <TextBlock FontSize="12" Text="Age " />
+                                <TextBlock FontSize="12" Text="{Binding AgeFrom}" />
+                                <TextBlock FontSize="12" Text="-" />
+                                <TextBlock FontSize="12" Text="{Binding AgeTo}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

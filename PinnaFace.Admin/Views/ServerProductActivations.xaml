@@ -1,0 +1,302 @@
+﻿<Window x:Class="PinnaFace.Admin.Views.ServerProductActivations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:extensions="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:enumerations="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        AllowDrop="True"
+        Title="Product Activations List" Height="600" Width="700" x:Name="WdwProductActivation" WindowState="Maximized"
+        Background="Transparent" WindowStyle="ThreeDBorderWindow"
+        DataContext="{Binding ServerProductActivation, Source={StaticResource Locator}}" Unloaded="ProductActivations_OnUnloaded"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.Admin;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/ControlsDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/ListBoxDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}" CornerRadius="0">
+            <Grid TextBlock.Foreground="White" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0" Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <!--<TextBlock Text=" Product:" Grid.Column="1" Grid.Row="0"
+                                   VerticalAlignment="Center" />
+                        <ComboBox x:Name="CbxTypeOfProduct" Grid.Column="2" Grid.Row="0" SelectedIndex="0"
+                                  SelectedValue="{Binding SelectedProductType, Mode=TwoWay}"
+                                  ItemsSource="{Binding Source={extensions:Enumeration {x:Type model:ProductTypes}}, Mode=OneWay}"
+                                  Validation.ErrorTemplate="{x:Null}"
+                                  DisplayMemberPath="Description"
+                                  SelectedValuePath="Value"
+                                  Style="{StaticResource comboBoxStyle1}" FontSize="12" FontWeight="Normal" />-->
+
+                        <telerik:RadAutoCompleteBox Grid.Column="3" Grid.Row="0"
+                                                    x:Name="LstItemsAutoCompleteBox" Margin="5"
+                                                    ItemsSource="{Binding ProductActivations, Mode=TwoWay}"
+                                                    SelectedItem="{Binding SelectedProductActivationForSearch, Mode=TwoWay}"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    WatermarkContent="Search product activations..."
+                                                    TextSearchMode="Contains"
+                                                    AutoCompleteMode="Suggest"
+                                                    SelectionMode="Single"
+                                                    TextSearchPath="ProductActivationDetail"
+                                                    BorderBrush="#FF25A0DA"
+                                                    BorderThickness="2"
+                                                    SelectionChanged="LstItemsAutoCompleteBox_SelectionChanged"
+                                                    GotFocus="LstItemsAutoCompleteBox_GotFocus"
+                                                    GotKeyboardFocus="LstItemsAutoCompleteBox_GotKeyboardFocus"/>
+
+
+                        <telerik:RadButton Grid.Column="4" Margin="5,0,0,0"
+                                IsEnabled="True"
+                                Content="_Refresh"
+                                Command="{Binding RefreshCommand}"
+                                Height="30" Padding="5,0"/>
+
+                        <telerik:RadButton Grid.Row="0" Grid.Column="5" Margin="5,0,0,0"
+                                IsEnabled="True"
+                                Content="Export"
+                                Command="{Binding ExportToExcelCommand}"
+                                Height="30" Padding="5,0"/>
+
+
+                    </Grid>
+
+                <GridSplitter Grid.Row="1" Height="3" Margin="0,2,0,5" HorizontalAlignment="Stretch" />
+                <!--<StackPanel Grid.Row="1" HorizontalAlignment="Left" Visibility="Visible"
+                            Orientation="Horizontal"
+                            Background="Transparent">
+                   
+                   
+                </StackPanel>-->
+
+                <Grid Grid.Row="2">
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="3" />
+                            <RowDefinition Height="Auto" />
+
+                        </Grid.RowDefinitions>
+
+                        <ListView Grid.Row="2" x:Name="ListView"
+                                  ItemContainerStyle="{StaticResource GridViewItem}"
+                                  SelectedItem="{Binding SelectedProductActivation}"
+                                  ItemsSource="{Binding ProductActivations}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="true"
+                                          ColumnHeaderContainerStyle="{StaticResource GridViewHeader}">
+
+                                    <GridViewColumn Header="S.No" DisplayMemberBinding="{Binding SerialNumber}"
+                                                    Width="Auto" />
+                                    <GridViewColumn Header="Agency Name" DisplayMemberBinding="{Binding Agency.AgencyName}"
+                                                    Width="Auto" />
+                                    <GridViewColumn Header="Product Key" DisplayMemberBinding="{Binding ProductKey}"
+                                                    Width="Auto" />
+                                    <GridViewColumn Header="Registered BiosSn" DisplayMemberBinding="{Binding RegisteredBiosSn}"
+                                                    Width="120" />
+                                    <GridViewColumn Header="Activated Date"
+                                                    DisplayMemberBinding="{Binding ActivatedDateString}" Width="Auto" />
+
+                                    <GridViewColumn Header="Database Version Date" DisplayMemberBinding="{Binding DatabaseVersionDate}" 
+                                                    Width="Auto" />
+                                    <GridViewColumn Header="Days Left" DisplayMemberBinding="{Binding DaysLeft}" 
+                                                    Width="Auto" />
+
+
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" />
+
+                        <Grid Grid.Row="4" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Foreground="White" Text="Product Key:"
+                                           VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="0" Grid.Column="1"
+                                         x:Name="TxtAwajNumber"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtAwajNumber}"
+                                         Text="{Binding SelectedProductActivation.ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Registered BiosSn:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="1" Grid.Column="1"
+                                         x:Name="TxtGeneralManager"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtGeneralManager}"
+                                         Text="{Binding SelectedProductActivation.RegisteredBiosSn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Max. System Version:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="2" Grid.Column="1"
+                                         x:Name="TxtManagerAmharic"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtManagerAmharic}"
+                                         Text="{Binding SelectedProductActivation.MaximumSystemVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" FontFamily="Visual Geez Unicode"
+                                         TextWrapping="WrapWithOverflow" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Key Status:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <ComboBox x:Name="CmbLabourListType" Grid.Column="1" Grid.Row="3" Margin="0,2"
+                                          SelectedValue="{Binding SelectedProductActivation.KeyStatus, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type enumerations:KeyStatus}}, Mode=OneWay}"
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                                   
+                                </Grid>
+                                
+                                <Grid Grid.Column="1" Margin="5,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Database Version Date:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="0" Grid.Column="1"
+                                         x:Name="TxtDatabaseVersionDate"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtManagerAmharic}"
+                                         Text="{Binding SelectedProductActivation.DatabaseVersionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" FontFamily="Visual Geez Unicode"
+                                         TextWrapping="WrapWithOverflow" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Activated Date:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <telerik:RadDateTimePicker Grid.Column="1" Grid.Row="1" x:Name="DtToServerDate"
+                                                           ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtToServerDate}"
+                                                           SelectedValue="{Binding SelectedProductActivation.ActivatedDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                           Validation.Error="Validation_Error"
+                                                           DateTimeWatermarkContent="LastToServerSync ቀንና ሰዓት"
+                                                           VerticalAlignment="Center" />
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Expiration Date:" Foreground="White"
+                                           VerticalAlignment="Center" />
+
+                                    <telerik:RadDateTimePicker Grid.Column="1" Grid.Row="2" x:Name="DtFromServerDate"
+                                                           ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtFromServerDate}"
+                                                           SelectedValue="{Binding SelectedProductActivation.ExpirationDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                           Validation.Error="Validation_Error"
+                                                           DateTimeWatermarkContent="LastFromServerSync ቀንና ሰዓት"
+                                                           VerticalAlignment="Center" />
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Licensed To:" Foreground="White"
+                                           VerticalAlignment="Center" />
+                                    <TextBox Grid.Row="3" Grid.Column="1"
+                                         x:Name="TxtDuration"
+                                         Focusable="True"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtDuration}"
+                                         Text="{Binding SelectedProductActivation.LicensedTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error"
+                                         Margin="0,5,0,5" />
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+                <GridSplitter Grid.Row="5" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,0"
+                            HorizontalAlignment="Right">
+
+                    <!--<telerik:RadButton Content="_Add New ProductActivation"
+                            Command="{Binding AddNewProductActivationViewCommand}"
+                            x:Name="BtnAddNew" Click="BtnAddNew_OnClick"
+                            Height="35" Padding="10,0" Margin="10,0,0,0" />-->
+
+             
+
+                    <telerik:RadButton Content="_Save Product Activation"
+                            Command="{Binding SaveProductActivationViewCommand}"
+                            x:Name="BtnSave"
+                            Height="35" Padding="10,0" Margin="10,0,0,0" IsDefault="True" />
+
+                    <!--<telerik:RadButton Content="_Delete" Visibility="Collapsed"
+                            Command="{Binding DeleteProductActivationViewCommand}"
+                            IsEnabled="{Binding EditCommandVisibility}"
+                            x:Name="BtnDelete"
+                            Height="35" Padding="10,0" Margin="10,0,0,0" />-->
+
+                    <!--<telerik:RadButton Content="_Close" 
+                            IsCancel="True"  
+                            Padding="10,0" 
+                            Height="35" 
+                            Margin="10,0,0,0"/>-->
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>

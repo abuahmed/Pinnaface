@@ -1,0 +1,133 @@
+﻿<Window x:Class="PinnaFace.Admin.Views.UserWithAgencyWithAgentVIew"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        mc:Ignorable="d" Unloaded="UserWithAgencyWithAgent_OnUnloaded"
+        Title="Link User With Agency/Agent" Height="400" Width="500" x:Name="WdwUserWithAgencyWithAgent"
+        DataContext="{Binding UserAgencyAgent, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="False" WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.Admin;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.Admin;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}" CornerRadius="0">
+            <Grid TextBlock.Foreground="White" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                 
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" >
+                 
+
+                    <Grid Grid.Column="0" Margin="5" TextBlock.Foreground="White" TextBlock.FontSize="13" >
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                      
+                        </Grid.RowDefinitions>
+                        
+                        <telerik:RadAutoCompleteBox Grid.Row="0" Margin="0,0,5,0" Grid.Column="1"
+                                                    x:Name="LstAgenciesAutoCompleteBox"
+                                                    ItemsSource="{Binding LocalAgencies, Mode=TwoWay}"
+                                                    SelectedItem="{Binding SelectedLocalAgencyDto, Mode=TwoWay}"
+                                                    HorizontalAlignment="Stretch" 
+                                                    VerticalAlignment="Center"
+                                                    WatermarkContent="Search Agency..."
+											        TextSearchMode="Contains"
+											        AutoCompleteMode="SuggestAppend" InputLanguageManager.InputLanguage="am-ET"
+											        SelectionMode="Single"
+											        TextSearchPath="AgencyDetail"											                
+											        BorderBrush="#FF25A0DA" 
+                                                    BorderThickness="2">
+                        </telerik:RadAutoCompleteBox>
+
+                        <telerik:RadAutoCompleteBox Grid.Row="1" Margin="0,0,5,0" Grid.Column="1"
+                                                    x:Name="LstAgentsAutoCompleteBox"
+                                                    ItemsSource="{Binding ForeignAgents, Mode=TwoWay}"
+                                                    SelectedItem="{Binding SelectedForeignAgentDto, Mode=TwoWay}"
+                                                    HorizontalAlignment="Stretch" 
+                                                    VerticalAlignment="Center"
+                                                    WatermarkContent="Search Agent..."
+											        TextSearchMode="Contains"
+											        AutoCompleteMode="SuggestAppend" InputLanguageManager.InputLanguage="am-ET"
+											        SelectionMode="Single"
+											        TextSearchPath="AgentDetail"											                
+											        BorderBrush="#FF25A0DA" 
+                                                    BorderThickness="2" 
+                                                    >
+                        </telerik:RadAutoCompleteBox>
+
+                    </Grid>
+
+                </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,5" HorizontalAlignment="Right">
+          
+                    <!--<telerik:RadButton Tag="AddNew" Command="{Binding AddNewUserWithAgencyWithAgentViewCommand}"
+                            
+                            x:Name="BtnAdd" 
+                            CommandParameter="{Binding ElementName=WdwUserWithAgencyWithAgent}"  Height="40" Width="150">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.Admin;component/Resources/Images/add.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> አዲስ አስገባ</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>-->
+                    
+                    <telerik:RadButton Tag="Save"  Command="{Binding SaveUserWithAgencyWithAgentViewCommand}" 
+                                        x:Name="BtnSaveClose" 
+                                        CommandParameter="{Binding ElementName=WdwUserWithAgencyWithAgent}"  
+                                        Height="40" Width="150" Margin="5,0"
+                                        IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.Admin;component/Resources/Images/disk_blue.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> አስቀምጥ</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+                    <!--<telerik:RadButton Tag="Delete" Command="{Binding DeleteUserWithAgencyWithAgentViewCommand}" 
+                                        x:Name="BtnRemove" 
+                                        CommandParameter="{Binding ElementName=WdwUserWithAgencyWithAgent}"  
+                                       Height="40" Width="150">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.Admin;component/Resources/Images/delete.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> አጥፋ</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>-->
+                
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+

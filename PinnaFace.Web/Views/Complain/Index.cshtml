@@ -1,0 +1,137 @@
+﻿@model IEnumerable<PinnaFace.Core.Models.ComplainDTO>
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").hide();
+    });
+</script>
+
+<style type="text/css">
+    .page-header 
+    {
+        margin: 5px 0px;
+        padding: 5px;
+    }
+    hr 
+    {
+        margin: 5px;
+        border-top: 1px solid lightgreen;
+    }
+    .displayblock 
+    {
+        display: block;
+    }
+    .displaynone 
+    {
+        display: none;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Complains ";
+}
+
+<div class="clear-fix"></div>
+
+<div class="row-fluid" style="margin: 5px 0px;">
+    
+    <div class="span3">
+           
+    </div>
+    <div class="span6">
+        <div class="hidden-print" >
+            <i class="glyphicon glyphicon-search"></i>
+            <input class="input-sm" id="searchText" name="searchText" onkeydown="itemSearch(this)" 
+                   placeholder="Search Complain" style="width: 95%;" title="(by Sponsor/Employee Name)" type="text">
+        </div>
+    </div>
+             
+    <div class="span3">
+                
+    </div>
+</div>
+
+<hr/>
+
+<div class="row-fluid">
+    <div class="span3">
+        
+    </div>
+    <div class="span6">
+        <div class="form-inline">
+            <div>
+                @Html.Label("Filter By Status")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByStatusId")
+                      .HtmlAttributes(new { style = "width: 300px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .SelectedIndex(1)
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["ComplainStatus"])
+                      )
+            </div>
+    
+        </div>
+    </div>
+    
+    <div class="span3">
+        
+    </div>
+</div>
+
+<hr/>
+
+@{Html.RenderPartial("~/Views/Shared/_complain.cshtml");}
+
+
+<script type="text/javascript">
+
+    $('#compmenu').addClass('active');
+
+    $(".alert").alert();
+    $(document).ready(function () {
+        //$('#loadingDiv').hide();
+    });
+
+    function itemSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            $.ajax({
+                type: "GET",
+                url: "/Complain/Index",
+                data: { 'searchText': searchText },
+                contentType: false,
+                async: true,
+                success: function (inventoryList) {
+                    $("#table_id").replaceWith(inventoryList);
+                },
+                error: function () {
+                    alert("Sorry, there was a problem!");
+                }
+            });
+        }
+
+    }
+
+    function wcqChange() {
+        var filterByStatus = $("#filterByStatusId").data("kendoDropDownList").value();
+        //alert(filterByStatus);
+        $.ajax({
+            type: "GET",
+            url: "/Complain/Index",
+            data: { 'processStatusId': filterByStatus },
+            contentType: false,
+            async: true,
+            success: function (inventoryList) {
+                $("#table_id").replaceWith(inventoryList);
+            },
+            error: function () {
+                alert("Sorry, there was a problem!");
+            }
+        });
+    }
+
+</script>
+

@@ -1,0 +1,174 @@
+﻿@using PinnaFace.Web.Models
+@model PinnaFace.Core.Models.VisaDTO
+
+@{
+    ViewBag.Title = "Add New Visa";
+}
+<div style="padding: 10px; background: white;">
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary()
+
+        @Html.HiddenFor(v => v.Id)
+        <h4>Add New Visa</h4>
+
+        @*<hr/>*@
+
+
+        <h5 style="margin-top: 25px;">Details of the Client/معلومات طالب الستقدام</h5>
+        <hr style="margin-top: 5px; margin-bottom: 5px;"/>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="form-inline">
+                  
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sponsor.FullName, "Full Name/الاسم الكامل")
+                            @Html.TextBoxFor(model => model.Sponsor.FullName, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.Sponsor.FullName)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sponsor.PassportNumber, "I.D. Card No./رقم الهوية")
+                            @Html.TextBoxFor(model => model.Sponsor.PassportNumber, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.Sponsor.PassportNumber)
+                        </div>
+                        
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Sponsor.Address.Telephone, "Home Tel No. / تليفون لبمنزل")
+                            @Html.TextBoxFor(model => model.Sponsor.Address.Telephone, new {@class = "form-control"})
+                        </div>
+
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Sponsor.Address.Mobile, "Mobile No. / الجوال")
+                            @Html.TextBoxFor(model => model.Sponsor.Address.Mobile, new {@class = "form-control"})
+                        </div>
+                
+                    </div>
+                </div>
+       
+            </div>
+        </div>
+
+        <h5 style="margin-top: 25px;">Visa Details/معلومات التاءشيرة</h5>
+        <hr style="margin-top: 5px; margin-bottom: 5px;"/>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VisaNumber, "Visa Number/رقم التاءشيرة")
+                            @Html.TextBoxFor(model => model.VisaNumber, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.VisaNumber)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VisaDateArabic, "Date of Visa/تاريخ التاءشيرة")
+                            @Html.TextBoxFor(model => model.VisaDateArabic, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.VisaDateArabic)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VisaQuantity, "Visa Quantity")
+                            @Html.TextBoxFor(model => model.VisaQuantity, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.VisaQuantity)
+                        </div>
+                    </div>
+                </div>
+       
+            </div>
+        </div> @*
+
+        <h5 style="margin-top:25px;">Agreement Details/ معلومات التفاق</h5>
+        <hr style="margin-top:5px;margin-bottom: 5px; "/>*@
+
+
+        <h5 style="margin-top: 25px;">Description of Worker/ المواصفات التقريبية للمطلوبة في المستقدم</h5>
+        <hr style="margin-top: 5px; margin-bottom: 5px;"/>
+
+        <div class="form-inline">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sponsor.Address.City, "Arrival Place/مكان الوصول")
+                @Html.TextBoxFor(model => model.Sponsor.Address.City, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Sponsor.Address.City)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.Salary, "Salary(in SAR)/ الراتب")
+                @Html.TextBoxFor(model => model.Condition.Salary, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Condition.Salary)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.Religion, "Religion/ الديانة")
+                @Html.EnumDropDownListFor(model => model.Condition.Religion, new
+                {
+                    style = "width: 250px", @class = "form-control"
+                })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.ContratPeriod, "Recruiting Period/ مدة العقد")
+                @Html.EnumDropDownListFor(model => model.Condition.ContratPeriod, new
+                {
+                    style = "width: 250px", @class = "form-control"
+                })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.Profession, "Profession/ المهنة المطلوبة")
+                @Html.EnumDropDownListFor(model => model.Condition.Profession, new
+                {
+                    style = "width: 250px", @class = "form-control"
+                })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.Age, "Age/ العمر")
+                @Html.EnumDropDownListFor(model => model.Condition.Age, new
+                {
+                    style = "width: 250px", @class = "form-control"
+                })
+            </div>
+     
+            <div class="form-group">
+                @Html.LabelFor(model => model.Condition.Complexion, "Complexion/ الشكل")
+                @Html.EnumDropDownListFor(model => model.Condition.Complexion, new
+                {
+                    style = "width: 250px", @class = "form-control"
+                })
+            </div> 
+        </div>
+
+        <h5 style="margin-top: 25px;">Give Visa to Agency</h5>
+        <hr style="margin-top: 5px; margin-bottom: 5px;"/>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Agency, "Choose Agency")
+            @(Html.DropDownListFor(model => model.AgencyId,
+                  (IEnumerable<SelectListItem>) ViewData["AgencyFilter"],
+                  new {style = "width:250px", @class = "form-control"})
+                  )
+        </div>
+
+        <div class="modal-footer">
+            <div class="pull-left">
+                <div id='loadingDiv'>
+                    Please wait... <img src="~/Images/loading-image.gif" />
+                </div>
+            </div>
+        
+            <div class="pull-right ">
+                <input type="submit" value="Save Visa" class="btn btn-lg btn-primary" style="padding: 10px 32px;" />
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //$.validator.unobtrusive.parse("#reserve");
+        $('#loadingDiv').hide();
+    });
+    //$('#visaDate').datepicker();
+</script>

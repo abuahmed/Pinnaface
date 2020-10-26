@@ -1,0 +1,137 @@
+﻿@model IEnumerable<PinnaFace.Core.Models.EmployeeDTO>
+
+@{
+    var imagePath = "../Images/EP9086232_Short.jpg";
+}
+
+
+<div id="table_id">
+    <div id="spinner">
+    </div>
+    
+    @if (@Model.Any())
+    {
+        <div class="alert alert-info fade in @ViewData["ItemSearchHidden"]">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            @MvcHtmlString.Create(@ViewData["ItemSearch"].ToString())
+        </div>
+
+        <div>
+            <h4>@ViewData["EmployeeStatusHeader"] Employees</h4>
+            <p> (@ViewData["totalNumber"]) Employee(s) found</p>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="form-inline">
+                        @foreach (var employeeDto in Model)
+                        {
+                            //&& !string.IsNullOrEmpty(employeeDto.Photo.AttachmentUrl))
+                            if (employeeDto.Photo != null) 
+                            {
+                                imagePath = "../Content/Images/" + employeeDto.Photo.RowGuid + ".jpg";
+                            }
+                            
+                            <div class="form-group" style="background: green; border-radius: 10px; height: 300px; margin: 10px; width: 250px;">
+                                <a href="~/Employee/Details?empId=@employeeDto.IdEncrypted&processStatusId=0&searchText=@ViewData["searchText"]&ageCategoryId=@ViewData["ageCategoryId"]&religionId=@ViewData["religionId"]&languageId=@ViewData["languageId"]&experienceId=@ViewData["experienceId"]">
+                                    <img  src="@Url.Content(imagePath)" alt="Photo" name="shortPhoto" onError="this.onerror=null;this.src='/images/BlankShort.jpg';"
+                                          style="border-radius: 5px; height: 200px; width: 250px;"/></a>
+                                <div style="color: white; margin: 0px 5px;">
+                                    <i style="color: yellow;">
+                                        @Html.ActionLink(@Html.DisplayFor(modelItem => employeeDto.FirstNameShort)
+                                                         + " (" + @Html.DisplayFor(modelItem => employeeDto.PassportNumber) + ")",
+                                            "Details", "Employee",
+                                            new {empId = employeeDto.IdEncrypted, processStatusId = 0, searchText = @ViewData["searchText"], ageCategoryId = @ViewData["ageCategoryId"], religionId = @ViewData["religionId"], languageId = @ViewData["languageId"], experienceId = @ViewData["experienceId"]}, new {@style = "color:yellow;"})
+
+                                    </i>
+                             
+                                    <br/>Age: <i style="color: yellow;">
+                                                  @Html.DisplayFor(modelItem => employeeDto.Age)</i>
+                                    Salary: <i style="color: yellow;">
+                                                @Html.DisplayFor(modelItem => employeeDto.SalaryString)</i>
+                                    <br/>Arabic:<i style="color: yellow;"> 
+                                                    @Html.DisplayFor(modelItem => employeeDto.ArabicLanguage)</i>
+                                    English: <i style="color: yellow;">
+                                                 @Html.DisplayFor(modelItem => employeeDto.EnglishLanguage)</i>
+                                    <br/><i style="color: yellow;"> 
+                                             @Html.DisplayFor(modelItem => employeeDto.WorkExperience)</i>
+                                    <br/>
+                                    <div class="pull-right">
+                                        @Html.ActionLink("Choose", "Assign", "Employee",
+                                            new {empId = @employeeDto.IdEncrypted},
+                                            new {@Class = "btn btn-warning btn-small", @style = "margin-right:2px;"})
+                                        @Html.ActionLink("More...", "Details", "Employee",
+                                            new {empId = employeeDto.IdEncrypted, processStatusId = 0, searchText = @ViewData["searchText"], ageCategoryId = @ViewData["ageCategoryId"], religionId = @ViewData["religionId"], languageId = @ViewData["languageId"], experienceId = @ViewData["experienceId"]},
+                                            new {@Class = "btn btn-warning btn-small"})
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <ul class="pager">
+            <li style="display: @ViewData["prevDisabled"];" class="hidden-print">
+                @Ajax.ActionLink("← Previous", "Thumbnail", "Employee",
+                    new
+                    {
+                        processStatusId = @ViewData["processStatusId"],
+                        ageCategoryId = @ViewData["ageCategoryId"],
+                        religionId = @ViewData["religionId"],
+                        languageId = @ViewData["languageId"],
+                        experienceId = @ViewData["experienceId"],
+                        searchText = @ViewData["SearchText"],
+                        page = @ViewData["Page"],
+                        pageSize = @ViewData["PageSize"],
+                        ptype = -1,
+                        categoryId = @ViewData["CategoryId"],
+                        filterByQuantity = @ViewData["FilterByQuantity"]
+                    }, new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "table_id",
+                        LoadingElementId = "spinner"
+                    })
+            </li>
+
+            <li>
+                <span>Page @ViewData["Page"] of @ViewData["totalPages"] </span>
+            </li>
+
+            <li style="display: @ViewData["nextDisabled"];" class="hidden-print">
+                @Ajax.ActionLink("Next →", "Thumbnail", "Employee",
+                    new
+                    {
+                        processStatusId = @ViewData["processStatusId"],
+                        ageCategoryId = @ViewData["ageCategoryId"],
+                        religionId = @ViewData["religionId"],
+                        languageId = @ViewData["languageId"],
+                        experienceId = @ViewData["experienceId"],
+                        searchText = @ViewData["SearchText"],
+                        page = @ViewData["Page"],
+                        pageSize = @ViewData["PageSize"],
+                        ptype = 1,
+                        categoryId = @ViewData["CategoryId"],
+                        filterByQuantity = @ViewData["FilterByQuantity"]
+                    }, new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "table_id",
+                        LoadingElementId = "spinner"
+                    }, new {@style = "width:106px;"})
+            </li>
+        </ul>
+    }
+    else
+    {
+        <h4 class="error"> no employee found...</h4>
+    }
+</div>

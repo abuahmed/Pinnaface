@@ -1,0 +1,44 @@
+﻿@model PinnaFace.Web.Controllers.EmployeeVisaViewModel
+
+<div id="visa_Id" >
+    <div id="spinner">
+    </div>
+      @if (@Model.IsVisaAssigned)
+      {
+              using (Html.BeginForm())
+               {
+                   <div class="form-inline" style="background: green; margin-top: 10px; padding: 5px; border-radius: 10px;">
+                   
+                       @Html.HiddenFor(model => model.Visa.Id)
+                       @Html.HiddenFor(model => model.Visa.ForeignAgentId)
+                       @Html.HiddenFor(model => model.Employee.Id,new {@id="employeeId2"})
+
+                       <div class="form-group">
+                           @Html.LabelFor(model => model.Visa.VisaNumber)<br/>
+                           <i>@Html.DisplayFor(model => model.Visa.VisaNumber)</i>
+                       </div>
+                       
+                       <div class="form-group">
+                           @Html.LabelFor(model => model.Visa.Sponsor.FullName, "Sponsor Name")<br/>
+                           <i>@Html.DisplayFor(model => model.Visa.Sponsor.FullName)</i>
+                       </div>
+                       
+                       <div class="form-group ">
+                           @Html.LabelFor(model => model.Visa.Sponsor.Address.Mobile)<br/>
+                           <i>@Html.DisplayFor(model => model.Visa.Sponsor.Address.Mobile)</i>
+                       </div>
+
+                   </div>
+                  
+                   <div class="pull-right ">
+                       <input type="submit" value="Assign Visa" class="btn btn-lg btn-success" style="padding: 0 10px;margin-top:5px;" />
+                   </div>
+
+               }
+      }
+      else
+      {
+          <h5 style="margin: 3px 10px;"> no visa found...</h5>
+      }
+</div>
+

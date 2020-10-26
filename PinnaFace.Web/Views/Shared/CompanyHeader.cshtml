@@ -1,0 +1,22 @@
+﻿@model PinnaFace.Web.Models.UserCompanyDetail
+@{
+   
+    string imagePath = "/Images/pinnafaceLogo2.jpg";
+}
+
+@if (!string.IsNullOrEmpty(@Model.HeaderUrl))// && !string.IsNullOrEmpty(@Model.Photo.AttachmentUrl))
+{
+    imagePath = "../Content/Images/" + @Model.HeaderUrl;
+}
+
+
+@if (Request.IsAuthenticated)
+{
+    <div style="text-align: center;">
+        <h4 style="font-size: 24px; font-weight: bold; color: orange; font-family: 'Bookman Old Style';">
+             <img src="@Url.Content(imagePath)" alt="Photo" id="shortPhoto" onError="this.onerror=null;this.src='/images/pinnafaceLogo2.png';" style="border-radius: 10px; height: 100px; width: 100%;" />
+             <i><b>@Model.CompanyName</b></i>
+        </h4>
+    </div>
+
+}

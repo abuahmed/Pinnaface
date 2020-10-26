@@ -1,0 +1,108 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:PinnaFace.WPF.ViewModel"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Login" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        Background="Transparent" AllowsTransparency="True" x:Name="WdwLogin" 
+        Loaded="Login_OnLoaded" Unloaded="Login_OnUnloaded"
+        DataContext="{Binding Login, Source={StaticResource Locator}}"        
+        Height="250" Width="480" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries> 
+            <vm:MyMultiConverter x:Key="MyMultiConverter"/>           
+        </ResourceDictionary>
+        
+    </Window.Resources>
+    <Grid>
+        
+        <Border Style="{StaticResource mainBorder}">
+
+            <Grid ShowGridLines="False" TextBlock.FontSize="14" TextBlock.FontWeight="Bold" TextBlock.FontStretch="Expanded">
+                <!--Copyright ©2014 &#x00A9;-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" Command="{Binding CloseLoginView}"
+                            CommandParameter="{Binding ElementName=WdwLogin}">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+
+                    <TextBlock Text="PinnaFace&#x2122; Login " Margin="5,-20,0,0"
+                           Style="{StaticResource windowTextBlockHeader}"  />
+                </StackPanel>
+
+                <Image Source="/PinnaFace.WPF;component/Resources/Images/lock.png" Visibility="{Binding LockedVisibility,Mode=OneWay,NotifyOnSourceUpdated=True}" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Margin="5,0"/>
+                <Image Source="/PinnaFace.WPF;component/Resources/Images/lock_open.png" Visibility="{Binding UnLockedVisibility,Mode=OneWay,NotifyOnSourceUpdated=True}" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Margin="5,0"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="1" Margin="10,5"
+                	HorizontalAlignment="Stretch" 
+                	x:Name="TextBlock1" Text="User Name:" FontWeight="ExtraBold"/>
+                <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Column="2" Grid.Row="1" 
+                          Margin="5,0" Grid.ColumnSpan="2"                      
+                         VerticalAlignment="Stretch" Name="TxtUserName" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtUserName}" 
+                         Text="{Binding User.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                         Validation.Error="Validation_Error" FontWeight="ExtraBold"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="3" Margin="10,5"
+                           HorizontalAlignment="Stretch" 
+                           Name="TextBlock2" Text="Password:" FontWeight="ExtraBold"/>
+                <PasswordBox InputLanguageManager.InputLanguage="en-US" Grid.Column="2" Grid.Row="3" 
+                             Margin="5,0" Grid.ColumnSpan="2"                          
+                             x:Name="TxtPassword" VerticalContentAlignment="Center" FontWeight="ExtraBold"/>
+
+                <CheckBox Content="Remember Password" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" 
+                          Foreground="Black" IsChecked="{Binding RememberMe}" ToolTip="Remember Me" />
+
+                <telerik:RadButton Grid.Column="1" Grid.Row="6" Content="Check Update"
+                        Command="{Binding CheckForServerUpdatesCommand}"
+                        Visibility="{Binding ServerUpdatesVisibility}"
+                        CommandParameter="{Binding ElementName=WdwLogin}"
+                        Margin="5" Width="100" Height="35" 
+                        x:Name="BtnUpdates" FontWeight="ExtraBold"/>
+                
+                <telerik:RadButton Grid.Column="2" Grid.Row="6" Content="Ok" IsDefault="True"
+                        Margin="10,5,1,5" Width="120" Height="35"
+                        HorizontalAlignment="Stretch" x:Name="BtnOk"
+                        Command="{Binding LoginCommand}" FontWeight="ExtraBold">
+                    <telerik:RadButton.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MyMultiConverter}">
+                            <Binding ElementName="TxtPassword"/>
+                            <Binding ElementName="WdwLogin"/>
+                        </MultiBinding>
+                    </telerik:RadButton.CommandParameter>
+                </telerik:RadButton>
+
+                <telerik:RadButton Grid.Column="3" Grid.Row="6" Content="Cancel"
+                        Command="{Binding CloseLoginView}"
+                        CommandParameter="{Binding ElementName=WdwLogin}"
+                        Margin="5" Width="120" Height="35" 
+                        x:Name="BtnCancel" Click="btnCancel_Click" FontWeight="ExtraBold"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+

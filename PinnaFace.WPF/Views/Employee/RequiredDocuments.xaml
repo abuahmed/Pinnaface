@@ -1,0 +1,268 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.RequiredDocuments"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="EmployeeApplication_OnUnloaded"
+        Title="Work RequiredDocuments" Height="650" Width="620" x:Name="WdwEmployeeApplication"
+        DataContext="{Binding RequiredDocuments, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None" Loaded="RequiredDocuments_OnLoaded"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock">
+                <!--<Setter Property="Width" Value="140" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />-->
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="153*" />
+            <ColumnDefinition Width="97*" />
+        </Grid.ColumnDefinitions>
+        <Border Style="{StaticResource mainBorder}" Grid.ColumnSpan="2">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0" CommandParameter="{Binding ElementName=WdwEmployeeApplication}"
+                            IsCancel="True" Command="{Binding CloseEmployeeApplicationCommand}">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Required Documents" FontSize="18" Margin="5,-20,40,0" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,0" />
+
+                </StackPanel>
+
+
+                <Grid Grid.Row="1">
+
+                    <Grid TextBlock.FontFamily="Bookman old style"  TextBlock.Foreground="Black">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <telerik:RadTabControl Grid.Row="0" TabStripPlacement="Left" VerticalAlignment="Top"
+                                               VerticalContentAlignment="Top" SelectedItem="{Binding SelectedTabItem,Mode=TwoWay}" 
+                                               Background="Transparent" TabOrientation="Vertical" Name="TabControlDocs"
+                                               Margin="5,5,5,0" SelectionChanged="RadTabControlBase_OnSelectionChanged">
+
+                            <telerik:RadTabItem Header="Agreement" Name="TabAgreement" HorizontalContentAlignment="Left"
+                                                Width="30" Foreground="White" >
+                            
+
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Passport" Name="TabPassport" HorizontalContentAlignment="Left" 
+                                                Width="30" Foreground="White">
+                             
+
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Employee IdCard" Name="TabIdCard" HorizontalContentAlignment="Left" 
+                                                Width="30" Foreground="White">
+                            
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Contact Person IdCard" Name="TabContactIdCard" HorizontalContentAlignment="Left"
+                                                Width="30" Foreground="White">
+                               
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="FingerPrint" Name="TabFingerPrint" HorizontalContentAlignment="Left" Width="30" Foreground="White">
+                            
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Medical" Name="TabMedical" HorizontalContentAlignment="Left" Width="30" Foreground="White">
+                             
+
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Pre-Departure Orientation" Name="TabPreDeparture" HorizontalContentAlignment="Left"
+                                                Width="30" Foreground="White">
+                          
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Education Certificate" Name="TabGradeEight" Foreground="White"
+                                                HorizontalContentAlignment="Left" Width="30">
+                           
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="COC Certificate" Name="TabCoc" HorizontalContentAlignment="Left" Width="30"
+                                                Foreground="White" >
+                      
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Insurance" Name="TabInsurance" HorizontalContentAlignment="Left" Width="30"
+                                                Foreground="White">
+                            
+                                
+                            </telerik:RadTabItem>
+                        </telerik:RadTabControl>
+
+                        
+                        <Grid Margin="5,0" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የሙሰነድ የስራ ውል ተጠናቋል" Margin="0,10" Unchecked="ChkDocuments_OnUnchecked"
+                                              Foreground="Black" x:Name="ChkAgreement" Checked="ChkDocuments_OnChecked"
+                                              IsChecked="{Binding SelectedEmployee.RequiredDocuments.AbroadJobAgreement, Mode=TwoWay}"
+                                              VerticalAlignment="Center"  FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Name="ChkPassport" Content="ፓስፖርት" Margin="5,10" Foreground="Black"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.Passport, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"/>
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የሰራተኛዋ ቀበሌ መታወቂያ" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkIdCard" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.IdCard, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የተያዥ መታወቂያ" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkContactIdCard" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.EmergencyPersonIdCard, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የአሻራ ውጤት" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkFingerPrint" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.Fingerprint, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የጤና ምርመራ" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkMedical" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.Medical, Mode=TwoWay}"
+                                          VerticalContentAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የቀድሞ ጉዞ ገለፃ" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkPreDeparture" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.TripOrientation, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የ8ተኛ ወይም ከዚያ በላይ ክፍል ማስረጃ"
+                                          Margin="5,10" Foreground="Black" x:Name="ChkGradeEight" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.Grade8Certificate, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="የCOC ሰርተፊኬት" Margin="5,10"
+                                          Foreground="Black" x:Name="ChkCoc" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.CocCertificate, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="ኢንሹራንስ" Margin="5,10" 
+                                          Foreground="Black" x:Name="ChkInsurance" Checked="ChkDocuments_OnChecked" Unchecked="ChkDocuments_OnUnchecked"
+                                          IsChecked="{Binding SelectedEmployee.RequiredDocuments.Insurance, Mode=TwoWay}"
+                                          VerticalAlignment="Top" FontSize="14" FontWeight="Normal" />
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <telerik:RadButton  Width="130" Visibility="{Binding AttachVisibility,Mode=TwoWay}"
+                                                       Name="BtnAttachAgreement"
+                                                       Command="{Binding AttachDocumentCommand}" 
+                                                            CommandParameter="{Binding ElementName=ChkAgreement}"
+                                                       Margin="0,5,5,0" 
+                                                       VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Image
+                                                Source="/PinnaFace.WPF;component/Resources/Images/document_attachment.png"
+                                                Height="25" Width="30" Stretch="Uniform" />
+                                        <TextBlock VerticalAlignment="Center">Add/Edit</TextBlock>
+                                    </StackPanel>
+                                </telerik:RadButton>
+
+                                <telerik:RadButton  Width="130" Visibility="{Binding PrintVisibility,Mode=TwoWay}"
+                                                       Name="BtnDeleteAgreement"
+                                                       Command="{Binding DeleteDocumentCommand}" 
+                                                            CommandParameter="{Binding ElementName=ChkAgreement}"
+                                                       Margin="0,5,5,0" 
+                                                       VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Image
+                                                Source="/PinnaFace.WPF;component/Resources/Images/delete.png"
+                                                Height="25" Width="30" Stretch="Uniform" />
+                                        <TextBlock VerticalAlignment="Center">Delete</TextBlock>
+                                    </StackPanel>
+                                </telerik:RadButton>
+                                
+                                <telerik:RadButton Width="130" Visibility="{Binding PrintVisibility,Mode=TwoWay}"
+                                                       Name="BtnPrintDocumentCommand"
+                                                       Command="{Binding ViewDocumentCommand}"
+                                                       Margin="0,5,0,0" HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                                Source="/PinnaFace.WPF;component/Resources/Images/printer3.png"
+                                                Height="25" Width="30" Stretch="Uniform" />
+                                        <TextBlock VerticalAlignment="Center">View/Print</TextBlock>
+                                    </StackPanel>
+                                </telerik:RadButton>
+                            </StackPanel>
+                            
+                            <Grid Grid.Row="2"  Margin="0,5,0,0" Name="GrDocumentThumbnail">
+                                    <Border BorderBrush="Black" BorderThickness="3" Background="LightGreen">
+                                        <Image Name="ImgDocumentThumbnail" Visibility="{Binding ImageVisibility,Mode=TwoWay}"
+                                                   Source="{Binding DocumentThumbnail}" 
+                                                   Stretch="Fill" />
+                                    </Border>
+                                </Grid>
+
+                               
+                            </Grid>
+
+
+                        <telerik:RadExpander Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Remarks" IsExpanded="False">
+                            <Grid Margin="5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="Remarks:" VerticalAlignment="Center"/>-->
+                                <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Row="0"
+                                         x:Name="TxtRemarks" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtRemarks}"
+                                         Text="{Binding SelectedEmployee.RequiredDocuments.Remarks, Mode=TwoWay, 
+                                NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True}"
+                                         VerticalContentAlignment="Top" TextWrapping="Wrap"
+                                         Validation.Error="Validation_Error" Margin="0,3,0,3" CharacterCasing="Upper" />
+                            </Grid>
+                        </telerik:RadExpander>
+
+                    </Grid>
+
+                </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top" Margin="0,3,0,3" HorizontalAlignment="Right">
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveRequiredDocumentsCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="150"
+                                       CommandParameter="{Binding ElementName=WdwEmployeeApplication}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

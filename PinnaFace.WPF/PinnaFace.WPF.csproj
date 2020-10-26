@@ -1,0 +1,1112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.props" Condition="Exists('..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.props')" />
+  <Import Project="..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props')" />
+  <Import Project="..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75F2B369-C76F-48E6-956A-5006A6DB557E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PinnaFace.WPF</RootNamespace>
+    <AssemblyName>PinnaFace.WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>ftp://pinnasofts.com/pinnasofts.com/wwwroot/publish/pinnafaceV1/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>4</UpdateInterval>
+    <UpdateIntervalUnits>Hours</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://pinnasofts.com/publish/pinnafaceV1/</UpdateUrl>
+    <SupportUrl>http://pinnaface.com</SupportUrl>
+    <ErrorReportUrl>http://pinnaface.com</ErrorReportUrl>
+    <ProductName>PinnaFace</ProductName>
+    <PublisherName>Pinnasofts</PublisherName>
+    <SuiteName>PinnaFace</SuiteName>
+    <MinimumRequiredVersion>1.0.3.25</MinimumRequiredVersion>
+    <WebPage>pinnaPublish</WebPage>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationVersion>1.0.3.25</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PinnaFace.WPF.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>27E7B817EFB113053AE8759FEC480A76BC4CF116</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>PinnaFace.WPF_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OneFace 1.5\OneFEMP\bin\Debug\CrystalDecisions.CrystalReports.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OneFace 1.5\OneFEMP\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OneFace 1.5\OneFEMP\bin\Debug\CrystalDecisions.ReportSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OneFace 1.5\OneFEMP\bin\Debug\CrystalDecisions.Shared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OneFace 1.5\OneFEMP\bin\Debug\CrystalDecisions.Windows.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF4">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>C:\Users\user\Documents\Visual Studio 2012\Projects\AutoUpdateTest\AutoUpdateTest\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 11.0\Visual Studio Tools for Office\PIA\Common\Microsoft.mshtml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Program Files\Microsoft Visual Studio 11.0\Visual Studio Tools for Office\PIA\Office14\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PinnaFace.Core">
+      <HintPath>..\PinnaFace.Service\bin\Debug\PinnaFace.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PinnaFace.DAL">
+      <HintPath>..\PinnaFace.Service\bin\Debug\PinnaFace.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="PinnaFace.Reports">
+      <HintPath>..\PinnaFace.Reports\bin\Debug\PinnaFace.Reports.dll</HintPath>
+    </Reference>
+    <Reference Include="PinnaFace.Repository">
+      <HintPath>..\PinnaFace.Repository\bin\Debug\PinnaFace.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="PinnaFace.Service">
+      <HintPath>..\PinnaFace.Service\bin\Debug\PinnaFace.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="PinnaKeys.OA">
+      <HintPath>..\..\PinnaKeys\PinnaKeys.OA\bin\Debug\PinnaKeys.OA.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="sapbusinessobjects.wpf.viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server Compact Edition\v4.0\Desktop\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\AmRetail\AmRetail.Web\bin\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess, Version=2013.1.418.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2013.1.418.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.OpenAccess.Config, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2013.1.418.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2013.1.403.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF45\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.1.403.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF45\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2013.1.403.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF45\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.1.403.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2013.1.403.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF45\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PDEX\PDEX.WPF\bin\Debug\WebMatrix.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\AMStock\AMStock\AMStock.WPF\bin\Debug\WebMatrix.WebData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Models\CalendarModel.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\ConditionalStyleRule.cs" />
+    <Compile Include="Models\ConditionalStyleSelector.cs" />
+    <Compile Include="Models\DaysLeftConvertor.cs" />
+    <Compile Include="Models\InitializeObjects.cs" />
+    <Compile Include="Models\VisaModel.cs" />
+    <Compile Include="Models\ListDataItem.cs" />
+    <Compile Include="Reports\ReportUtility.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Reports\GenerateReports.cs" />
+    <Compile Include="Skins\FancyBalloon.xaml.cs">
+      <DependentUpon>FancyBalloon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\BackUpRestoreUtil.cs" />
+    <Compile Include="Utils\ImageResizingUtil.cs" />
+    <Compile Include="Utils\UserUtil.cs" />
+    <Compile Include="Utils\WebBrowserHelper.cs" />
+    <Compile Include="ViewModel\AboutBoxViewModel.cs" />
+    <Compile Include="ViewModel\Common\AddressViewModel.cs" />
+    <Compile Include="ViewModel\Admin\BackupRestoreViewModel.cs" />
+    <Compile Include="ViewModel\Common\CalendarConvertorViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModel\ActivationViewModel.cs" />
+    <Compile Include="ViewModel\Common\CalendarViewModel.cs" />
+    <Compile Include="ViewModel\Employee\CheckBoxHeaderCell.cs" />
+    <Compile Include="ViewModel\Employee\RequiredDocumentsViewModel.cs" />
+    <Compile Include="Models\SearchEmployee.cs" />
+    <Compile Include="ViewModel\Process\AfterFlightProcessViewModel.cs" />
+    <Compile Include="ViewModel\Employee\ComplainDetailViewModel.cs" />
+    <Compile Include="ViewModel\Employee\ComplainSolutionViewModel.cs" />
+    <Compile Include="ViewModel\Process\DiscontinueProcessViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeePhotoViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeDetailViewModel.cs" />
+    <Compile Include="ViewModel\Files\VisaConditionViewModel.cs" />
+    <Compile Include="ViewModel\Common\ListViewModel.cs" />
+    <Compile Include="ViewModel\Admin\LoginViewModel.cs" />
+    <Compile Include="Models\MyMultiConverter.cs" />
+    <Compile Include="ViewModel\Common\SendEmailViewModel.cs" />
+    <Compile Include="ViewModel\Common\DurationViewModel.cs" />
+    <Compile Include="ViewModel\Files\VisaDetailViewModel.cs" />
+    <Compile Include="ViewModel\Process\EnjazitBrowserViewModel.cs" />
+    <Compile Include="ViewModel\Common\ReportViewerViewModel.cs" />
+    <Compile Include="ViewModel\Admin\SettingViewModel.cs" />
+    <Compile Include="ViewModel\SendReportViewModel.cs" />
+    <Compile Include="ViewModel\SplashScreenViewModel.cs" />
+    <Compile Include="ViewModel\Common\SummaryViewModel.cs" />
+    <Compile Include="ViewModel\Admin\UserViewModel.cs" />
+    <Compile Include="Views\Activations.xaml.cs">
+      <DependentUpon>Activations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\AddressEntry.xaml.cs">
+      <DependentUpon>AddressEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\BackupRestore.xaml.cs">
+      <DependentUpon>BackupRestore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\CalendarConvertor.xaml.cs">
+      <DependentUpon>CalendarConvertor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AboutBox.xaml.cs">
+      <DependentUpon>AboutBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Calendar.xaml.cs">
+      <DependentUpon>Calendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendReport.xaml.cs">
+      <DependentUpon>SendReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\Complains.xaml.cs">
+      <DependentUpon>Complains.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\ComplainDetail.xaml.cs">
+      <DependentUpon>ComplainDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\ComplainSolution.xaml.cs">
+      <DependentUpon>ComplainSolution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\RequiredDocuments.xaml.cs">
+      <DependentUpon>RequiredDocuments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeHawala.xaml.cs">
+      <DependentUpon>EmployeeHawala.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeePhoto.xaml.cs">
+      <DependentUpon>EmployeePhoto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeDetail.xaml.cs">
+      <DependentUpon>EmployeeDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeTestimony.xaml.cs">
+      <DependentUpon>EmployeeTestimony.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Files\VisaDetail.xaml.cs">
+      <DependentUpon>VisaDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Files\VisaCondition.xaml.cs">
+      <DependentUpon>VisaCondition.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Process\AfterFlightProcess.xaml.cs">
+      <DependentUpon>AfterFlightProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Process\DiscontinueProcess.xaml.cs">
+      <DependentUpon>DiscontinueProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Process\EnjazitBrowser.xaml.cs">
+      <DependentUpon>EnjazitBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Process\LabourProcess.xaml.cs">
+      <DependentUpon>LabourProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Lists.xaml.cs">
+      <DependentUpon>Lists.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Duration.xaml.cs">
+      <DependentUpon>Duration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\ReportViewerCommon.xaml.cs">
+      <DependentUpon>ReportViewerCommon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Process\FlightProcessViewModel.cs" />
+    <Compile Include="ViewModel\Process\LabourProcessViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeMedicalInsuranceViewModel.cs" />
+    <Compile Include="ViewModel\Process\EmbassyProcessViewModel.cs" />
+    <Compile Include="Views\Process\EmbassyProcess.xaml.cs">
+      <DependentUpon>EmbassyProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Process\FlightProcess.xaml.cs">
+      <DependentUpon>FlightProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\InsuranceProcess.xaml.cs">
+      <DependentUpon>InsuranceProcess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SendEmail.xaml.cs">
+      <DependentUpon>SendEmail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\SummaryFilter.xaml.cs">
+      <DependentUpon>SummaryFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Users.xaml.cs">
+      <DependentUpon>Users.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Files\Visas.xaml.cs">
+      <DependentUpon>Visas.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Skins\FancyBalloon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Activations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\AddressEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\BackupRestore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\CalendarConvertor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Common\Calendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SendReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\Complains.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\ComplainDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\ComplainSolution.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\RequiredDocuments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\EmployeeHawala.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\EmployeePhoto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\EmployeeDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Employee\EmployeeTestimony.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Files\VisaDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Files\VisaCondition.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Process\AfterFlightProcess.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Process\DiscontinueProcess.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Process\EnjazitBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Process\LabourProcess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\Lists.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Loading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\Duration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\ReportViewerCommon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\ControlsDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ListBoxDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ListViewDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\MainSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Files\LocalAgency.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Process\EmbassyProcess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\EmployeeExperience.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\EmployeeContactPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\EmployeeEducation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\Employees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Process\FlightProcess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Files\ForeignAgents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\InsuranceProcess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ViewModel\Employee\ComplainViewModel.cs" />
+    <Compile Include="ViewModel\Common\ReportsViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeContactPersonViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeExperienceViewModel.cs" />
+    <Compile Include="ViewModel\Files\ForeignAgentViewModel.cs" />
+    <Compile Include="ViewModel\Files\LocalAgencyViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeHawalaViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeTestimonyViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeEducationViewModel.cs" />
+    <Compile Include="ViewModel\Files\VisaViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\Files\LocalAgency.xaml.cs">
+      <DependentUpon>LocalAgency.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeExperience.xaml.cs">
+      <DependentUpon>EmployeeExperience.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeContactPerson.xaml.cs">
+      <DependentUpon>EmployeeContactPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeEducation.xaml.cs">
+      <DependentUpon>EmployeeEducation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\Employees.xaml.cs">
+      <DependentUpon>Employees.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Files\ForeignAgents.xaml.cs">
+      <DependentUpon>ForeignAgents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Common\SendEmail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SummaryFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Users.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Files\Visas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PinnaFace.WPF_TemporaryKey.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AppIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\document_lined.ico" />
+    <Resource Include="Resources\Error.gif" />
+    <Resource Include="Resources\report.ico" />
+    <Resource Include="Resources\settings.ico" />
+    <Resource Include="Resources\shopping_cart.ico" />
+    <Resource Include="Resources\stock_new_spreadsheet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\checkbox_yes2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\ChromeLogo.png" />
+    <Content Include="Resources\femaletick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ContractSample.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Images\enjazLogoEdited.jpg" />
+    <Resource Include="Resources\Images\musandLogoEdited.png" />
+    <Content Include="Resources\Images\pinnafaceLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Images\pinnafaceLogo3.png" />
+    <Resource Include="Resources\Images\PinnafaceLogoEdited.png" />
+    <Resource Include="Resources\Images\unicLogoEdited.png" />
+    <Content Include="Resources\maletick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\femaleticknot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\maleticknot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\purposeofwork.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ajax-loader %282%29.gif" />
+    <Resource Include="Resources\ajax-loader %283%29.gif" />
+    <Resource Include="Resources\ajax-loader %284%29.gif" />
+    <Resource Include="Resources\ajax-loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\photo_portrait.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\document_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\navigate_plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\column_add_after.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\document_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\add.png" />
+    <Resource Include="Resources\Images\add2.png" />
+    <Resource Include="Resources\Images\address_book.png" />
+    <Resource Include="Resources\Images\address_book2.png" />
+    <Resource Include="Resources\Images\address_book3.png" />
+    <Resource Include="Resources\Images\cabinet.png" />
+    <Resource Include="Resources\Images\calendar.png" />
+    <Resource Include="Resources\Images\chart.png" />
+    <Resource Include="Resources\Images\clock.png" />
+    <Resource Include="Resources\Images\column-chart.png" />
+    <Resource Include="Resources\Images\column.png" />
+    <Resource Include="Resources\Images\copy.png" />
+    <Resource Include="Resources\Images\creditcards.png" />
+    <Resource Include="Resources\Images\currency_dollar.png" />
+    <Resource Include="Resources\Images\delete.png" />
+    <Resource Include="Resources\Images\disk_blue.png" />
+    <Resource Include="Resources\Images\document_attachment.png" />
+    <Resource Include="Resources\Images\document_edit.png" />
+    <Resource Include="Resources\Images\document_out.png" />
+    <Resource Include="Resources\Images\error.png" />
+    <Resource Include="Resources\Images\exit.png" />
+    <Resource Include="Resources\Images\find.png" />
+    <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\id_card.png" />
+    <Resource Include="Resources\Images\import1.png" />
+    <Resource Include="Resources\Images\Info.png" />
+    <Resource Include="Resources\Images\information.png" />
+    <Resource Include="Resources\Images\money_envelope.png" />
+    <Resource Include="Resources\Images\navigate_down.png" />
+    <Resource Include="Resources\Images\navigate_down2.png" />
+    <Resource Include="Resources\Images\navigate_plus.png" />
+    <Resource Include="Resources\Images\navigate_up.png" />
+    <Resource Include="Resources\Images\navigate_up2.png" />
+    <Resource Include="Resources\Images\notebook.png" />
+    <Resource Include="Resources\Images\photo_portrait.png" />
+    <Resource Include="Resources\Images\Preferences.png" />
+    <Resource Include="Resources\Images\printer3.png" />
+    <Resource Include="Resources\Images\row.png" />
+    <Resource Include="Resources\Images\shoppingcart.png" />
+    <Resource Include="Resources\Images\stopwatch.png" />
+    <Resource Include="Resources\Images\user1_lock.png" />
+    <Resource Include="Resources\Images\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\businessman.png" />
+    <Resource Include="Resources\Images\graduate.png" />
+    <Resource Include="Resources\Images\graduation_hat1.png" />
+    <Resource Include="Resources\Images\graduation_hat2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\worker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\key1.png" />
+    <Resource Include="Resources\Images\keys.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\document_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\question_and_answer.png" />
+    <Resource Include="Resources\Images\refresh.png" />
+    <Resource Include="Resources\Images\unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\rubberstamp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\hourglass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\user1_add.png" />
+    <Resource Include="Resources\Images\user1_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\user1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\lock.png" />
+    <Resource Include="Resources\Images\lock_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\mail_attachment.png" />
+    <Resource Include="Resources\Images\mail_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\stethoscope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bodybg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\internetexplorer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\uniclogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\musandlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\uniclogo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\musandlogo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\uniclogo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Enjazlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Enjazlogo2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AppIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="CefSharp">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CefSharp.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CefSharp.Wpf">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.Diagnostics.STrace">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.Dmf">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.Management.SmoMetadataProvider">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.Management.SqlParser">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.RegSvrEnum">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.ServiceBrokerEnum">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.SqlServer.SqlClrProvider">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.Web.Infrastructure">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.75.1.142\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.75.1.142\build\CefSharp.Wpf.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\**\*" Exclude="$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\x86\**\*;$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\locales\**\*.pak">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\**\en-US.*;$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\**\de.*">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(SolutionDir)packages\cef.redist.x86.75.1.14\CEF\x86\**\*">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(SolutionDir)packages\CefSharp.Common.75.1.142\CefSharp\x86\**\CefSharp.BrowserSubprocess.*">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+</Project>

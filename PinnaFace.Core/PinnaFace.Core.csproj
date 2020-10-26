@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3620BFB6-A577-45EF-B643-88A4691E191A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PinnaFace.Core</RootNamespace>
+    <AssemblyName>PinnaFace.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\..\Dev\PinnaFace\PinnaFace.WPF\bin\Debug\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>E:\amihanit.com\dev\AmTicketSale\MATS.Repository\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>E:\amihanit.com\dev\AmTicketSale\MATS.Repository\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>E:\amihanit.com\dev\AmTicketSale\MATS.Repository\bin\Debug\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="OneFace.Validation">
+      <HintPath>..\OneFace.Validation\bin\Debug\OneFace.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SMTP.Net">
+      <HintPath>..\..\..\OneReach\Ibrahim-SMS\Libraries\3rdParty\SMTP.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PinnaFace.WPF\bin\Debug\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management.Instrumentation">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\AmRetail\AmRetail.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\BarcodeProcess.cs" />
+    <Compile Include="Common\CommandModel.cs" />
+    <Compile Include="Utility\CommonUtility.cs" />
+    <Compile Include="Common\CommonFieldsA.cs" />
+    <Compile Include="Common\CommonFieldsB.cs" />
+    <Compile Include="Encryption\Crypto.cs" />
+    <Compile Include="Utility\DbCommandUtil.cs" />
+    <Compile Include="Utility\DBUtil.cs" />
+    <Compile Include="Encryption\EncryptionUtility.cs" />
+    <Compile Include="Encryption\Hash.cs" />
+    <Compile Include="Encryption\IdHash32.cs" />
+    <Compile Include="Encryption\IdHash64.cs" />
+    <Compile Include="Utility\EmailUtil.cs" />
+    <Compile Include="Utility\LogUtil.cs" />
+    <Compile Include="Common\EmailDTO.cs" />
+    <Compile Include="Utility\PathUtil.cs" />
+    <Compile Include="Common\PredicateExtensions.cs" />
+    <Compile Include="Common\UserRolesModel.cs" />
+    <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
+    <Compile Include="CustomValidationAttributes\GreaterThanZero.cs" />
+    <Compile Include="CustomValidationAttributes\Unqiue.cs" />
+    <Compile Include="Common\EntityBase.cs" />
+    <Compile Include="Enumerations\AddressTypes.cs" />
+    <Compile Include="Enumerations\AfterFlightStatusTypes.cs" />
+    <Compile Include="Enumerations\AgeCategory.cs" />
+    <Compile Include="Enumerations\BankList.cs" />
+    <Compile Include="Enumerations\CityList.cs" />
+    <Compile Include="Enumerations\ComplainProrityTypes.cs" />
+    <Compile Include="Enumerations\ComplainStatusTypes.cs" />
+    <Compile Include="Enumerations\ComplainTypes.cs" />
+    <Compile Include="Enumerations\CountryList.cs" />
+    <Compile Include="Enumerations\CurrencyTypes.cs" />
+    <Compile Include="Enumerations\KeyStatus.cs" />
+    <Compile Include="Enumerations\Numbers.cs" />
+    <Compile Include="Enumerations\RelativeTypes.cs" />
+    <Compile Include="Enumerations\SettingEnums.cs" />
+    <Compile Include="Enumerations\LanguageExperience.cs" />
+    <Compile Include="Enumerations\ListTypes.cs" />
+    <Compile Include="Enumerations\MaritalStatusTypes.cs" />
+    <Compile Include="Enumerations\OneFaceEdition.cs" />
+    <Compile Include="Enumerations\PriorityTypes.cs" />
+    <Compile Include="Enumerations\ProcessStatusTypes.cs" />
+    <Compile Include="Enumerations\ProffesionTypes.cs" />
+    <Compile Include="Enumerations\EducationEnums.cs" />
+    <Compile Include="Enumerations\ReligionTypes.cs" />
+    <Compile Include="Enumerations\ReportTypes.cs" />
+    <Compile Include="Enumerations\RoleTypes.cs" />
+    <Compile Include="Enumerations\Sex.cs" />
+    <Compile Include="Enumerations\UserTypes.cs" />
+    <Compile Include="Enumerations\VisaAssignedTypes.cs" />
+    <Compile Include="Enumerations\VisaStatusTypes.cs" />
+    <Compile Include="Extensions\EnumerationExtension.cs" />
+    <Compile Include="Common\HijriGregConvertor.cs" />
+    <Compile Include="Utility\ImageUtil.cs" />
+    <Compile Include="Models\AddressDTO.cs" />
+    <Compile Include="Models\AgencyAgentDTO.cs" />
+    <Compile Include="Models\AttachmentDTO.cs" />
+    <Compile Include="Models\ComplainDTO.cs" />
+    <Compile Include="Models\ComplainRemarkDTO.cs" />
+    <Compile Include="Models\EmbassyProcessDTO.cs" />
+    <Compile Include="Models\EmployeeDTO.cs" />
+    <Compile Include="Models\EmployeeExperienceDTO.cs" />
+    <Compile Include="Models\EmployeeEducationDTO.cs" />
+    <Compile Include="Models\EmployeeHawalaDTO.cs" />
+    <Compile Include="Models\EmployeeRelativeDTO.cs" />
+    <Compile Include="Models\FlightProcessDTO.cs" />
+    <Compile Include="Models\AgentDTO.cs" />
+    <Compile Include="Models\InsuranceProcessDTO.cs" />
+    <Compile Include="Models\Interfaces\IObjectState.cs" />
+    <Compile Include="Models\Interfaces\IUserDTO.cs" />
+    <Compile Include="Models\LabourProcessDTO.cs" />
+    <Compile Include="Models\ListDTO.cs" />
+    <Compile Include="Models\AgencyDTO.cs" />
+    <Compile Include="Models\ProductActivationDTO.cs" />
+    <Compile Include="Models\RequiredDocumentsDTO.cs" />
+    <Compile Include="Models\SettingDTO.cs" />
+    <Compile Include="Models\UserAgencyAgentDTO.cs" />
+    <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Models\VisaDTO.cs" />
+    <Compile Include="Models\VisaConditionDTO.cs" />
+    <Compile Include="Models\VisaSponsorDTO.cs" />
+    <Compile Include="Common\ObjectState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\PropertyChangeNotification.cs" />
+    <Compile Include="Utility\CalendarUtil.cs" />
+    <Compile Include="Common\SearchCriteria.cs" />
+    <Compile Include="Common\Singleton.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

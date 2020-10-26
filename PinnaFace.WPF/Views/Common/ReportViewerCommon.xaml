@@ -1,0 +1,65 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.ReportViewerCommon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        DataContext="{Binding ReportViewerCommon, Source={StaticResource Locator}}"
+        Title="Reports" Width="940" Height="550" MinWidth="550" MinHeight="550"
+        Unloaded="ReportViewerCommon_OnUnloaded"
+        WindowState="Maximized" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico"
+        FontSize="13.333" FontFamily="./#Bookman Old Style" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border Style="{StaticResource mainBorder}" CornerRadius="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!---->
+                <telerik:RadButton Grid.Row="0" Width="200" HorizontalAlignment="Left"
+                                   Command="{Binding PrintCommand}"
+                                   Margin="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/PinnaFace.WPF;component/Resources/Images/printer3.png" Margin="5,0" Height="30"
+                               Width="30" Stretch="Uniform" />
+                        <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Print/አትም</TextBlock>
+                    </StackPanel>
+                </telerik:RadButton>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+
+
+                    <telerik:RadButton Width="200" Command="{Binding ExportReportToPdfCommand}" Margin="0,0,5,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/exit.png" Margin="5,0" Height="30"
+                                   Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Export To PDF</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                    <telerik:RadButton Content="   Send By Email! " Width="200"
+                                       Command="{Binding SendEmailCommand}" IsEnabled="False"
+                                       Visibility="{Binding SendEmailCommandVisibility}" />
+                </StackPanel>
+                <!--<TextBox Grid.Row="0" Width="2" Name="TxtDoAction" TextChanged="TxtDoAction_OnTextChanged"
+                 Text="{Binding TextChanged}"/>-->
+
+                <viewer:CrystalReportsViewer Grid.Row="1" HorizontalAlignment="Stretch" Name="CrvReportViewer"
+                                             Margin="0,5,0,0" ShowToggleSidePanelButton="False"
+                                             ShowExportButton="True"
+                                             VerticalAlignment="Stretch" ToggleSidePanel="None" ShowPrintButton="False" />
+
+            </Grid>
+        </Border>
+    </Grid>
+
+</Window>

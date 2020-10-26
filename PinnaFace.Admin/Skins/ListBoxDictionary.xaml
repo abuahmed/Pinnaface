@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   
+    <DataTemplate x:Key="UserRoleBoxDataTemplate" >
+        <Grid>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,1" 
+                                TextBlock.Foreground="White" 
+                                TextBlock.FontWeight="Normal" 
+                                TextBlock.FontFamily="Bookman Old Style">
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock FontSize="12" Text="{Binding RoleDescription}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+    
+    
+    
+</ResourceDictionary>

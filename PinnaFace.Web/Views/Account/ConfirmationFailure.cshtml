@@ -1,0 +1,21 @@
+﻿@model PinnaFace.Web.Models.UserCompanyDetail 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Account Activation</title>
+    </head>
+    <body>
+        <div>
+            @Html.TextBoxFor(model => model.CompanyName)
+            @Html.TextBoxFor(model => model.AddNewEmployeeVisibility)
+            @Html.TextBoxFor(model => model.AddNewVisaVisibility)
+            Account Acivation Failed....  
+        </div>
+    </body>
+</html>

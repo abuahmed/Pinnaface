@@ -1,0 +1,117 @@
+﻿@model PinnaFace.Web.Controllers.EmployeeVisaViewModel
+@{
+    ViewBag.Title = @Model.Employee.EmployeeBasicDetail + " Details";
+    //var imageGuid = @Model.RowGuid;
+    var imagePath = "../Images/EP9086232_Short.jpg";
+    var imagePathLong = "../Images/EP9086232_Long.jpg";
+}
+
+@if (@Model.Employee != null && @Model.Employee.Photo != null) // && !string.IsNullOrEmpty(@Model.Employee.Photo.AttachmentUrl))
+{
+    imagePath = "../Content/Images/" + @Model.Employee.Photo.RowGuid + ".jpg";
+}
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").hide();
+    });
+</script>
+
+<div id="table_id2">
+    <div id="spinner2">
+    </div>
+    
+    <h3> Assign/Give Visa</h3>
+    
+    <div class="clear-fix"></div>
+
+    <div class="container-fluid" style="margin-top: 20px;">
+
+        <div class="row-fluid">
+    
+            <div class="span3">
+                
+            </div>
+
+            <div class="span3" style="background: green;color: white;padding: 5px;border-radius: 10px;">
+                
+                @if (@Model.IsEmployeeAssigned)
+                {
+                    <img src="@Url.Content(imagePath)" alt="Photo" style="width: 250px; height: 200px; border-radius: 10px;" />
+
+                    <div class="form-inline">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.CodeNumber, "Code Number")<br/>
+                            <i>@Html.DisplayFor(model => model.Employee.CodeNumber)</i>
+                        </div>
+                
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.PassportNumber, "Passport Number/الرقم")<br/>
+                            <i>@Html.DisplayFor(model => model.Employee.PassportNumber)</i>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee.FullName, "Full Name/الاسم الكامل")<br/>
+                            <i>@Html.DisplayFor(model => model.Employee.FullName)</i>
+                        </div>
+                
+                    </div>
+
+                }
+                
+            </div>
+           
+            <div class="span4" style="color: white;padding: 5px;border-radius: 10px;margin: 0px 10px;">
+                <div class="hidden-print" style="background: green;padding: 5px;border-radius: 10px;">
+                    <i class="glyphicon glyphicon-search hidden-phone hidden-print"></i>
+                    <input class="input-sm" id="searchText" name="searchText" onkeydown="visaSearch(this)" 
+                           placeholder="Search Visa" style="width: 250px;" title="search by Passport Number or Name" type="text">
+                </div>
+                    @Html.HiddenFor(model => model.Employee.Id,new {@id="employeeId"})
+                    @{Html.RenderPartial("~/Views/Shared/_visaShortDetail.cshtml");}
+                
+            </div>
+        
+            <div class="span2">
+                
+            </div>
+        
+       
+        </div>
+    
+    </div>
+    
+   
+
+</div>
+
+<script type="text/javascript">
+    $('#empmenu').addClass('active');
+
+    function visaSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            var employeeId = $("#employeeId").val();
+            if (searchText.length > 1)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: "../Visa/ShortDetail",
+                    data: { 'searchText': searchText, 'employeeId':employeeId },
+                    contentType: false,
+                    async: true,
+                    success: function (inventoryList) {
+                        $("#visa_Id").replaceWith(inventoryList);
+                    },
+                    error: function () {
+                        alert("Sorry, there was a problem!");
+                    }
+                });
+            }
+        }
+
+    }
+</script>

@@ -1,0 +1,127 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.Lists"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="Lists_OnUnloaded"
+        Title="{Binding HeaderText}" Height="450" Width="340" x:Name="WdwLists" Loaded="Lists_OnLoaded"
+        DataContext="{Binding List, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" >
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Text="{Binding HeaderText}" FontSize="18" Margin="5,-20,40,0"
+                           Style="{StaticResource TextHeaderStyle}"  />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" >                    
+
+                    <Grid  Margin="5" TextBlock.Foreground="Black" TextBlock.FontSize="12" >
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="35"/>
+                         
+                        </Grid.RowDefinitions>
+
+                        <ListView    x:Name="LstLists" Grid.Row="0" Grid.Column="0" IsTextSearchEnabled="True"
+                                      ItemContainerStyle="{StaticResource GridViewItem}" 
+                                      SelectedItem="{Binding SelectedList}"                           
+                                      ItemsSource="{Binding Lists}" MouseDoubleClick="ListsListView_MouseDoubleClick">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="true" ColumnHeaderContainerStyle="{StaticResource GridViewHeader}">
+                                    <GridViewColumn Header="Display Name" DisplayMemberBinding="{Binding DisplayName}" Width="250" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Display Name:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="{Binding InputLanguage}" x:Name="TxtDisplayName" 
+                                  Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtDisplayName}" 
+                                 Text="{Binding SelectedList.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error" CharacterCasing="Upper" />
+
+                       
+                    </Grid>
+                </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" Margin="5,0" HorizontalAlignment="Stretch" />
+                
+                <Grid Grid.Row="3" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <telerik:RadButton Tag="AddNew"  Grid.Column="0"
+                                           Command="{Binding AddNewListCommand}"
+                                           x:Name="BtnAddNew" Click="BtnAddNew_OnClick" 
+                                           Height="40" Width="115" HorizontalAlignment="Left"
+                                           CommandParameter="{Binding ElementName=WdwLists}"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/add.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Add New "/>
+                            </StackPanel>
+                        </telerik:RadButton>
+
+                        <telerik:RadButton Tag="Save"  Grid.Column="3"
+                                           Command="{Binding SaveListCommand}" Margin="10,0,0,0"
+                                           x:Name="BtnSaveClose" Height="40" Width="115"
+                                           CommandParameter="{Binding ElementName=WdwLists}"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Save "/>
+                            </StackPanel>
+                        </telerik:RadButton>
+
+            
+
+                     
+
+                    </Grid>
+                    
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+
+
+

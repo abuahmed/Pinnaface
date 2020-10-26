@@ -1,0 +1,72 @@
+﻿@using System.Web.UI.WebControls
+@model PinnaFace.Core.Models.EmployeeDTO
+
+@{
+    ViewBag.Title = @Model.FullName.ToLower() + " ";
+}
+<style type="text/css">
+    .tdcenter {
+        text-align: center;
+        font-weight: bold;
+        font-family: "bookman old style";
+    }
+</style>
+
+<div class="clear-fix"></div>
+<div class="row-fluid" style="margin: 5px 0px;">
+    
+    <div class="span3">
+                
+    </div>
+    <div class="span6">
+        <div class="hidden-print">
+            <i class="glyphicon glyphicon-search hidden-phone hidden-print"></i>
+            <input class="input-sm" id="searchText" name="searchText" onkeydown="itemSearch(this)" 
+                   placeholder="Search Employee" style="width: 95%;" title="search by Passport Number or Name" type="text">
+        </div>
+    </div>
+             
+    <div class="span3">
+                
+    </div>
+</div>
+
+<div class="clear-fix"></div>
+
+
+@{Html.RenderPartial("~/Views/Shared/_employeeDetail.cshtml");}
+
+
+<script type="text/javascript">
+    $('#candmenu').addClass('active');
+
+    $(".alert").alert();
+    $(document).ready(function () {
+        //$('#loadingDiv').hide();
+    });
+    function standby() {
+        document.getElementById('shortPhoto').src = 'http://www.dev.pinnaface.com/Images/BlankShort.jpg';
+    }
+    function standbylong() {
+        document.getElementById('longPhoto').src = 'http://www.dev.pinnaface.com/Images/BlankLong.jpg';
+    }
+    function itemSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            $.ajax({
+                type: "GET",
+                url: "/Employee/Details",
+                data: { 'searchText': searchText, 'page': 0, 'pageSize': 1, 'ptype': 1 },
+                contentType: false,
+                async: true,
+                success: function (inventoryList) {
+                    $("#table_id").replaceWith(inventoryList);
+                },
+                error: function () {
+                    alert("Sorry, there was a problem!");
+                }
+            });
+        }
+
+    }
+</script>

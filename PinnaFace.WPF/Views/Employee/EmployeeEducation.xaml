@@ -1,0 +1,248 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.EmployeeEducation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="EmployeeEducation_OnUnloaded"
+        Title="Education Detail" Height="450" Width="350" x:Name="WdwEmployeeEducation"
+        DataContext="{Binding EmployeeEducation, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico"
+        Loaded="wdwEmployeeEducation_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="Width" Value="140" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="Black" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" >
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="ትምህርትና ስልጠና / Training" FontSize="18" Margin="5,-20,40,0" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <telerik:RadExpander Grid.Row="0" Header="Education Detail" IsExpanded="True">
+                        <Grid Margin="5,0" TextBlock.Foreground="Black" TextBlock.FontSize="13">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                                       Text="Qualification Type:" />
+                            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="CmbQualType" Margin="0,3" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Education.QualificationType, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:QualificationTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                       Text="Level Of Qualification:" />
+                            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CmbQualLevel" Margin="0,3" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Education.LevelOfQualification, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:LevelOfQualificationTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Year Completed:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtYearCompleted" Grid.Row="2"
+                                     Grid.Column="1" Margin="0,3"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtYearCompleted}"
+                                     Text="{Binding SelectedEmployee.Education.YearCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Field Of Study:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtFieldOfStudy" Grid.Row="3"
+                                     Grid.Column="1" Margin="0,3"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFieldOfStudy}"
+                                     Text="{Binding SelectedEmployee.Education.FieldOfStudy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Professional Skill:"
+                                       VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtProfessionalSkill"
+                                     Grid.Row="4" Grid.Column="1" Margin="0,3"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtProfessionalSkill}"
+                                     Text="{Binding SelectedEmployee.Education.ProffesionalSkill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                     Validation.Error="Validation_Error" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"
+                                       Text="Awards:" />
+                            <ComboBox Grid.Column="1" Grid.Row="5" x:Name="CmbAwards" Margin="0,3" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Education.Award, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:AwardTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Educate. Q.G.:" VerticalAlignment="Center" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Row="6" x:Name="TxtHouseNumber1"
+                                     Grid.Column="1"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=txtHouseNumber}"
+                                     Text="{Binding SelectedEmployee.Education.EducateQG, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="0" Header="Languages" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Arabic Language:" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CbxArabicLang" Grid.Column="1" Grid.Row="0" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Education.ArabicLanguage, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Source={local:Enumeration {x:Type model:LanguageExperience}}, Mode=OneWay}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description" Height="25"
+                                      SelectedValuePath="Value" />
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="English Language:" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CbxEnglishLanguage" Grid.Column="1" Grid.Row="1" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Education.EnglishLanguage, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Source={local:Enumeration {x:Type model:LanguageExperience}}, Mode=OneWay}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description" Height="25"
+                                      SelectedValuePath="Value" />
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <!--<telerik:RadExpander Grid.Row="2" Grid.Column="0" Header="COC Trainings" IsExpanded="True">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Row="0" Content="Cleaning/ማጽዳት" Margin="5,10" 
+                                          IsChecked="{Binding SelectedEmployee.Experience.Cleaning, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                            <CheckBox Grid.Row="1" Grid.Column="0" Content="Cooking/ማብሰል" Margin="5,10" 
+                                          IsChecked="{Binding SelectedEmployee.Experience.Cooking, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                            <CheckBox Grid.Row="2" Grid.Column="0" Content="Washing/ማጠብ" Margin="5,10" 
+                                          IsChecked="{Binding SelectedEmployee.Experience.Washing, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+                            <CheckBox Grid.Row="3" Grid.Column="0" Content="Baby Sitting/ህጻናትን መንከባከብ" Margin="5,10"
+                                          IsChecked="{Binding SelectedEmployee.Experience.BabySitting, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="14" Background="Transparent" />
+
+                        </Grid>
+                        </telerik:RadExpander>-->
+                            
+                    <telerik:RadExpander Grid.Row="3" Grid.Column="0" Header="Remarks" 
+                                                 IsExpanded="True" Visibility="Collapsed">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="Remarks:" VerticalAlignment="Center"/>-->
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Row="0"
+                                     x:Name="TxtRemarks" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtRemarks}"
+                                     Text="{Binding SelectedEmployee.Education.Remark, Mode=TwoWay, 
+                                NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True}" VerticalContentAlignment="Top" TextWrapping="Wrap"
+                                     Validation.Error="Validation_Error" Margin="0,3,0,3" CharacterCasing="Upper" />
+                        </Grid>
+                    </telerik:RadExpander>
+
+
+                </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top" Margin="0,3,0,3" HorizontalAlignment="Right">
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveEmployeeEducationCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="150"
+                                       CommandParameter="{Binding ElementName=WdwEmployeeEducation}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

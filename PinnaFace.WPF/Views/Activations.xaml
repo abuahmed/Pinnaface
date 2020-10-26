@@ -1,0 +1,106 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.Activations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="360" Width="570" Title="My application" x:Name="WdwActivations"
+        Unloaded="Activations_OnUnloaded"
+        ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        DataContext="{Binding Activation, Source={StaticResource Locator}}"
+        Background="Transparent"  AllowsTransparency="True" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border Style="{StaticResource mainBorder}" 
+                TextBlock.FontFamily="Bookman old Style"
+                TextBlock.FontSize="14">
+           
+            <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+
+                        <!--<Button x:Name="BtnClose" 
+                            Style="{StaticResource closeWindowButtons}"
+                                Command="{Binding CloseWindowCommand}"
+                                CommandParameter="{Binding ElementName=WdwActivations}"
+                            IsCancel="True"/>-->
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                            <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" Command="{Binding CloseWindowCommand}"
+                            CommandParameter="{Binding ElementName=WdwActivations}">
+                                <Image Style="{StaticResource CloseWindowButtons}" />
+                            </Button>
+                            <TextBlock Text="PinnaFace&#x2122;"  
+                           VerticalAlignment="Top" HorizontalAlignment="Center"
+                           Style="{StaticResource windowTextBlockHeader}" Margin="5,-20,0,0"  />
+                        <TextBlock Text="Overseas Employment Management System"  
+                           VerticalAlignment="Top" HorizontalAlignment="Center"
+                           Style="{StaticResource windowTextBlockHeader}" Margin="0,2"  />
+
+                        <TextBlock  Text="Pinnasofts Information Technology Pvt. Ltd. Co. "          		
+            		        Foreground="Black" FontSize="16" FontWeight="Bold"            		
+            		        HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 10" />
+                        </StackPanel>
+                        <TextBlock Text="Enter your product key for Activation..." FontSize="14"
+                                   VerticalAlignment="Bottom"  Margin="10" Height="30" 
+                                   Grid.Column="0" Grid.Row="2" />
+
+
+                        <Grid Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Product Key: " Grid.Row="0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,3" 
+                                     x:Name="ProductKeyValue" MaxLength="23" Text="{Binding ProductKey}"
+                                     FontSize="14" FontWeight="ExtraBold" 
+                                     TextAlignment="Center" TextChanged="ProductKeyValue_TextChanged"  />
+
+                            <Button Content="Activate!" Grid.Column="2" Grid.Row="1" Margin="5,1"
+                                    Command="{Binding ActivateCommand}" IsEnabled="{Binding CommandsEnability}"
+                                    CommandParameter="{Binding ElementName=WdwActivations}" />
+
+                        </Grid>
+
+                        <TextBlock x:Name="LblProgress" Text="Activating... please wait, it may take a few minutes..." 
+                                   Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
+                               FontWeight="SemiBold" Margin="10 0,0,0"  
+                               Visibility="{Binding ProgressBarVisibility}"         		
+            		           HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                        <ProgressBar Height="35" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="Transparent"
+                                     Visibility="{Binding ProgressBarVisibility}" Margin="10,0"
+                                     IsIndeterminate="True" />
+
+
+                    </Grid>
+           
+        </Border>
+    </Grid>
+</Window>
+

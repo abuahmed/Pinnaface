@@ -1,0 +1,227 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.LocalAgency"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Agency Detail" Height="550" Width="650" x:Name="WdwLocalAgency"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        DataContext="{Binding LocalAgency, Source={StaticResource Locator}}" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico" 
+        Loaded="wdwLocalAgency_Loaded" Unloaded="LocalAgency_OnUnloaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListBoxDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid >
+        <Border Style="{StaticResource mainBorder}" >
+            <Grid TextBlock.Foreground="Black" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Agency Detail" FontSize="18" Margin="5,-20,60,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <telerik:RadExpander Grid.Row="0" Grid.Column="0" Header="Basic Data" IsExpanded="True">
+                        <Grid Margin="10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="3"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="3"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Agency Name:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" CharacterCasing="Upper"
+                                 x:Name="TxtLocalAgencyName" IsEnabled="False"                                
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLocalAgencyName}" 
+                                 Text="{Binding SelectedAgency.AgencyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Agency Name(በአማርኛ):" VerticalAlignment="Center"/>
+                        <TextBox  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
+                                 x:Name="TxtLocalAgencyNameAmharic" InputLanguageManager.InputLanguage="am-ET" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLocalAgencyNameAmharic}" 
+                                 Text="{Binding SelectedAgency.AgencyNameAmharic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" FontFamily="Visual Geez Unicode"  />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Manager Name:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="2" Grid.Column="1" 
+                                 x:Name="TxtGeneralManager" CharacterCasing="Upper"
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtGeneralManager}" 
+                                 Text="{Binding SelectedAgency.ManagerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text=" Manager Name(በአማርኛ):" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="am-ET" Grid.Row="2" Grid.Column="3" 
+                                 x:Name="TxtManagerAmharic" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtManagerAmharic}" 
+                                 Text="{Binding SelectedAgency.ManagerNameAmharic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" FontFamily="Visual Geez Unicode" TextWrapping="WrapWithOverflow" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Manager Title:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="3" Grid.Column="1" 
+                                 x:Name="TxtManagerType" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtManagerType}" 
+                                 Text="{Binding SelectedAgency.Managertype, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="License Number:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="4" Grid.Column="1" 
+                                 x:Name="TxtLicenseNumber" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLicenseNumber}" 
+                                 Text="{Binding SelectedAgency.LicenceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text=" Deposit Amount:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="4" Grid.Column="3" 
+                                 x:Name="TxtDepositAmount" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtDepositAmount}" 
+                                 Text="{Binding SelectedAgency.DepositAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                       
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Countries of Operation: " VerticalAlignment="Center" TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" IsEnabled="False">
+                            <CheckBox Content="Saudi Arabia" IsChecked="{Binding SelectedAgency.SaudiOperation}" VerticalContentAlignment="Center" Margin="0,0,5,0" Foreground="Black"/>
+                                <CheckBox Content="Kuwait" IsChecked="{Binding SelectedAgency.KuwaitOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black" />
+                                <CheckBox Content="Dubai" IsChecked="{Binding SelectedAgency.DubaiOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black"/>
+                                <CheckBox Content="Qatar" IsChecked="{Binding SelectedAgency.QatarOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black"/>
+                                <CheckBox Content="Jordan" IsChecked="{Binding SelectedAgency.JordanOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black"/>
+                                <CheckBox Content="Lebanon" IsChecked="{Binding SelectedAgency.LebanonOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black"/>
+                                <CheckBox Content="Bahrain" IsChecked="{Binding SelectedAgency.BahrainOperation}" VerticalContentAlignment="Center" Margin="5,0" Foreground="Black"/>
+
+                            </StackPanel>
+
+                        
+                    </Grid>
+                    </telerik:RadExpander>
+                    
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="0" Header="Agency Address" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold" Padding="5,0"
+                                     TextWrapping="Wrap" Text="{Binding SelectedAgency.Address.AddressDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmployeeAddress"
+                                               Command="{Binding LocalAgencyAddressViewCommand}"
+                                               ToolTip="አድራሻ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnEmployeeAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png"
+                                           Height="40" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Address Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </telerik:RadExpander>
+                    
+                    <telerik:RadExpander Grid.Row="2" Grid.Column="0" Header="Letter Head" IsExpanded="True">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+
+                            <Button Grid.Row="0" Grid.Column="0" Content="Letter Head" Name="BtnLetterHeader"
+                                Command="{Binding ShowLetterHeaderImageCommand}" 
+                                VerticalAlignment="Center" Click="btnLetterHeader_Click"/>
+                            <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Name="ImgbtnLetterHeader"
+                               Source="{Binding LetterHeadImage}" Stretch="Fill" />
+
+                            <Button Grid.Row="1" Grid.Column="0" Content="Letter Foot" Name="BtnLetterFooter"
+                                Command="{Binding ShowLetterFooterImageCommand}"
+                                VerticalAlignment="Center"/>
+                            <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="ImgbtnLetterFooter" 
+                               Source="{Binding LetterFootImage}" Stretch="Fill"/>
+                        </Grid>
+
+                    </telerik:RadExpander>
+                </Grid >
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,3" HorizontalAlignment="Right">
+              
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveLocalAgencyViewCommand}" 
+                            x:Name="BtnSaveClose" Height="40" Width="150"
+                            CommandParameter="{Binding ElementName=WdwLocalAgency}" 
+                            IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>
+

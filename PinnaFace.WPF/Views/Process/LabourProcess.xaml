@@ -1,0 +1,432 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.LabourProcess"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="LabourProcess_OnUnloaded"
+        Title="Labour Detail" Height="400" Width="350" x:Name="WdwLabourProcess"
+        DataContext="{Binding LabourProcess, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontFamily" Value="Bookman old style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Text="Labour Detail" FontSize="18" Margin="5,-20,0,0"
+                               Style="{StaticResource windowTextBlockHeader}" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+                </StackPanel>
+                
+                <StackPanel Grid.Row="1">
+                    <TextBlock Width="Auto" VerticalAlignment="Center" 
+                               Text="{Binding HeaderText}" FontSize="16" FontWeight="Bold" Margin="5,0" />
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+                
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Margin="5">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                                   Text="Submit Date:" />
+               
+                        <Grid Grid.Column="1" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Margin="0,2" IsEnabled="False"
+                                            x:Name="DtSubmitDate" Visibility="Hidden"
+                                            SelectedDate="{Binding SelectedLabourProcess.SubmitDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding SelectedLabourProcess.SubmitDateString}"
+                                         Visibility="Visible"
+                                         Grid.Column="0" Margin="0,5" IsEnabled="False" HorizontalAlignment="Stretch"
+                                         FontWeight="Bold" />
+                            <Button Background="Transparent" BorderThickness="0" Grid.Column="1"
+                                        x:Name="BtnBirthDate" Margin="0,0"
+                                        Command="{Binding SubmitDateViewCommand}"
+                                        HorizontalAlignment="Right"
+                                        ToolTip="View/Change Submit Date" Tag="SubmitDate">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/calendar.png"
+                                           Stretch="Uniform"
+                                           Height="20" />
+                            </Button>
+
+                        </Grid>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                   Text="Contrat Begin On:" />
+                        <DatePicker Grid.Column="1" Grid.Row="1"
+                                    x:Name="DtcontractBeginDate"
+                                    ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtcontractBeginDate}"
+                                    SelectedDate="{Binding SelectedLabourProcess.ContratBeginDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                    Validation.Error="Validation_Error"
+                                    VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"
+                                   Text="Contrat End On:" />
+                        <DatePicker Grid.Column="1" Grid.Row="2"
+                                    x:Name="DtcontractEndDate"
+                                    ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtcontractEndDate}"
+                                    SelectedDate="{Binding SelectedLabourProcess.ContratEndDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                    Validation.Error="Validation_Error"
+                                    VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Remark:" VerticalAlignment="Center" />
+                        <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtYearCompleted"
+                                 Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="0,5,0,5"
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtYearCompleted}"
+                                 Text="{Binding SelectedLabourProcess.Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                 Validation.Error="Validation_Error" VerticalContentAlignment="Top" TextWrapping="Wrap"/>
+
+                        <CheckBox Grid.Column="1" Grid.Row="5" Content="Agreement Returned" Margin="0,0"
+                                  Foreground="Black"
+                                  IsChecked="{Binding SelectedLabourProcess.AgreementReturned, Mode=TwoWay}"
+                                  VerticalAlignment="center" FontSize="16" />
+
+                        <!--<Expander Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Black"
+                                  Header="More" IsEnabled="True"
+                                  IsExpanded="True">
+                            <Grid TextBlock.Foreground="Black">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+
+                                <CheckBox Grid.Column="1" Grid.Row="0" Content="Discontinued" Foreground="Black"
+                                          IsChecked="{Binding SelectedLabourProcess.Discontinued, Mode=TwoWay}"
+                                          VerticalAlignment="center" FontSize="16" Margin="5,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="On Date: " VerticalAlignment="Center" />
+                                <DatePicker Grid.Row="1" Grid.Column="1" Margin="5,0"
+                                            x:Name="DtAfterLabourStatusDate"
+                                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DtAfterLabourStatusDate}"
+                                            SelectedDate="{Binding SelectedLabourProcess.DiscontinuedDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                            Validation.Error="Validation_Error"
+                                            VerticalAlignment="Center" />
+                            </Grid>
+                        </Expander>-->
+
+
+                    </Grid>
+
+                </Grid>
+
+                <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,5"
+                            HorizontalAlignment="Right">
+                    <telerik:RadDropDownButton Name="Menu1"
+                                               Width="160" Height="40" Margin="5,0"
+                                               Content="Get Documents"
+                                               Style="{StaticResource RadDropDownButton1}"
+                                               HorizontalContentAlignment="Center">
+
+                        <telerik:RadDropDownButton.DropDownContent>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                        Background="{StaticResource BackgroundGradientBrush}">
+                                <!--<telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_All"
+                                                   Foreground="Black" Command="{Binding PrintAllInOneCommandView}"
+                                                   x:Name="AllMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_List"
+                                                   Foreground="Black" Command="{Binding PrintListCommandView}"
+                                                   x:Name="ListMenuItem" />-->
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Letter"
+                                                   Foreground="Black" Command="{Binding PrintLetterCommandView}"
+                                                   x:Name="LetterMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Application"
+                                                   Foreground="Black" Command="{Binding PrintApplicationCommandView}"
+                                                   x:Name="ApplicationMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                    Content="_እማኞች"
+                                                    Foreground="Black"
+                                                    Command="{Binding PrintTestimonialsCommandView}"
+                                                    x:Name="TestimonialsMenuItem" />
+                                <!--<telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Visa Translation"
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintVisaTranslationCommandView}"
+                                                   x:Name="VisaTranslationMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                   Content="_Visa Translation Eng."
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintVisaTranslationEnglishCommandView}"
+                                                   x:Name="VisaTranslationEnglishMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Wekala Translation"
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintWekalaTranslationCommandView}"
+                                                   x:Name="WekalaTranslationMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Normal Wekala"
+                                                   Foreground="Black" Command="{Binding PrintNormalWekalaCommandView}"
+                                                   x:Name="NormalWekalaMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Condition Arabic"
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintConditionArabicCommandView}"
+                                                   x:Name="ConditionArabicMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                   Content="_Condition Translation"
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintConditionTranslationCommandView}"
+                                                   x:Name="ConditionTranslationMenuItem" />-->
+                                <!--<telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Agreement Front"
+                                                   Foreground="Black"
+                                                   Command="{Binding PrintAgreementFrontCommandView}"
+                                                   x:Name="AgreementFrontMenuItem" />
+                                <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Agreement Back"
+                                                   Foreground="Black" Command="{Binding PrintAgreementBackCommandView}"
+                                                   x:Name="AgreementBackMenuItem" />-->
+
+
+                                <!--<telerik:RadDropDownButton Name="Menu2"
+                                                           Width="160" Height="40" Margin="5,0"
+                                                           Content="_Print(Direct)" Visibility="Collapsed"
+                                                           Style="{StaticResource RadDropDownButton1}"
+                                                           HorizontalContentAlignment="Center">
+
+                                    <telerik:RadDropDownButton.DropDownContent>
+                                        <StackPanel Orientation="Vertical"
+                                                    HorizontalAlignment="Center"
+                                                    Background="{StaticResource BackgroundGradientBrush}">
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_All"
+                                                               CommandParameter="{Binding ElementName=AllPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintAllInOneCommandView}"
+                                                               x:Name="AllPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_List"
+                                                               CommandParameter="{Binding ElementName=ListPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintListCommandView}"
+                                                               x:Name="ListPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30" Content="_Letter"
+                                                               CommandParameter="{Binding ElementName=LetterPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintLetterCommandView}"
+                                                               x:Name="LetterPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Application"
+                                                               CommandParameter="{Binding ElementName=ApplicationPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintApplicationCommandView}"
+                                                               x:Name="ApplicationPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Visa Translation"
+                                                               CommandParameter="{Binding ElementName=VisaTranslationPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintVisaTranslationCommandView}"
+                                                               x:Name="VisaTranslationPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Visa Translation English"
+                                                               CommandParameter="{Binding ElementName=VisaTranslationEnglishPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintVisaTranslationEnglishCommandView}"
+                                                               x:Name="VisaTranslationEnglishPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Wekala Translation"
+                                                               CommandParameter="{Binding ElementName=WekalaTranslationPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintWekalaTranslationCommandView}"
+                                                               x:Name="WekalaTranslationPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Normal Wekala"
+                                                               CommandParameter="{Binding ElementName=NormalWekalaPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintNormalWekalaCommandView}"
+                                                               x:Name="NormalWekalaPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Condition Arabic"
+                                                               CommandParameter="{Binding ElementName=ConditionArabicPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintConditionArabicCommandView}"
+                                                               x:Name="ConditionArabicPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Condition Translation"
+                                                               CommandParameter="{Binding ElementName=ConditionTranslationPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintConditionTranslationCommandView}"
+                                                               x:Name="ConditionTranslationPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Agreement Front"
+                                                               CommandParameter="{Binding ElementName=AgreementFrontPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintAgreementFrontCommandView}"
+                                                               x:Name="AgreementFrontPrintMenuItem" />
+                                            <telerik:RadButton Margin="5,0" Width="140" Height="30"
+                                                               Content="_Agreement Back"
+                                                               CommandParameter="{Binding ElementName=AgreementBackPrintMenuItem}"
+                                                               Foreground="Black"
+                                                               Command="{Binding PrintAgreementBackCommandView}"
+                                                               x:Name="AgreementBackPrintMenuItem" />
+                                        </StackPanel>
+                                    </telerik:RadDropDownButton.DropDownContent>
+                                </telerik:RadDropDownButton>-->
+
+                            </StackPanel>
+
+                        </telerik:RadDropDownButton.DropDownContent>
+                    </telerik:RadDropDownButton>
+                    <!--<Menu Name="Menu1" 
+                          Margin="10,0,0,0"
+                          VerticalAlignment="Bottom" 
+                          VerticalContentAlignment="Center"
+                          Foreground="Black" FontFamily="Bookman old style"
+                          FontSize="14" 
+                          FontWeight="Bold"
+                          HorizontalAlignment="Left" 
+                          Background="#FF007ACC">
+
+                        <MenuItem Style="{StaticResource myListboxStyle}" 
+                                  VerticalContentAlignment="Center" Height="40" 
+                                  Header="Get Documents" 
+                                  Foreground="Black"  >
+
+                            <MenuItem Header="_All"
+                                      Foreground="Black" Command="{Binding PrintAllInOneCommandView}" 
+                                      x:Name="AllMenuItem" />
+                            <MenuItem Header="_List"
+                                      Foreground="Black" Command="{Binding PrintListCommandView}" 
+                                      x:Name="ListMenuItem" />
+                            <MenuItem Header="_Letter" 
+                                      Foreground="Black" Command="{Binding PrintLetterCommandView}"
+                                      x:Name="LetterMenuItem" />
+                            <MenuItem Header="_Application" 
+                                      Foreground="Black" Command="{Binding PrintApplicationCommandView}"
+                                      x:Name="ApplicationMenuItem" />
+                            <MenuItem Header="_Visa Translation" 
+                                      Foreground="Black" Command="{Binding PrintVisaTranslationCommandView}"
+                                      x:Name="VisaTranslationMenuItem" />
+                            <MenuItem Header="_Visa Translation English" 
+                                      Foreground="Black" Command="{Binding PrintVisaTranslationEnglishCommandView}"
+                                      x:Name="VisaTranslationEnglishMenuItem" />
+                            <MenuItem Header="_Wekala Translation" 
+                                      Foreground="Black" Command="{Binding PrintWekalaTranslationCommandView}"
+                                      x:Name="WekalaTranslationMenuItem" />
+                            <MenuItem Header="_Normal Wekala"
+                                      Foreground="Black" Command="{Binding PrintNormalWekalaCommandView}" 
+                                      x:Name="NormalWekalaMenuItem" />
+                            <MenuItem Header="_Condition Arabic" 
+                                      Foreground="Black" Command="{Binding PrintConditionArabicCommandView}"
+                                      x:Name="ConditionArabicMenuItem" />
+                            <MenuItem Header="_Condition Translation" 
+                                      Foreground="Black" Command="{Binding PrintConditionTranslationCommandView}"
+                                      x:Name="ConditionTranslationMenuItem" />
+                            <MenuItem Header="_Agreement Front" 
+                                      Foreground="Black" Command="{Binding PrintAgreementFrontCommandView}"
+                                      x:Name="AgreementFrontMenuItem" />
+                            <MenuItem Header="_Agreement Back" 
+                                      Foreground="Black" Command="{Binding PrintAgreementBackCommandView}"
+                                      x:Name="AgreementBackMenuItem" />
+                          
+
+                            <MenuItem Style="{StaticResource myListboxStyle}" 
+                                  VerticalContentAlignment="Center" Height="30" 
+                                  Header="_Print(Direct)" 
+                                  Foreground="Green"  >
+                                <MenuItem Header="_All" CommandParameter="{Binding ElementName=AllPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintAllInOneCommandView}" 
+                                      x:Name="AllPrintMenuItem" />
+                                <MenuItem Header="_List"  CommandParameter="{Binding ElementName=ListPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintListCommandView}" 
+                                      x:Name="ListPrintMenuItem" />
+                                <MenuItem Header="_Letter"  CommandParameter="{Binding ElementName=LetterPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintLetterCommandView}"
+                                      x:Name="LetterPrintMenuItem" />
+                                <MenuItem Header="_Application" CommandParameter="{Binding ElementName=ApplicationPrintMenuItem}" 
+                                      Foreground="Black" Command="{Binding PrintApplicationCommandView}"
+                                      x:Name="ApplicationPrintMenuItem" />
+                                <MenuItem Header="_Visa Translation"  CommandParameter="{Binding ElementName=VisaTranslationPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintVisaTranslationCommandView}"
+                                      x:Name="VisaTranslationPrintMenuItem" />
+                                <MenuItem Header="_Visa Translation English"  CommandParameter="{Binding ElementName=VisaTranslationEnglishPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintVisaTranslationEnglishCommandView}"
+                                      x:Name="VisaTranslationEnglishPrintMenuItem" />
+                                <MenuItem Header="_Wekala Translation"  CommandParameter="{Binding ElementName=WekalaTranslationPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintWekalaTranslationCommandView}"
+                                      x:Name="WekalaTranslationPrintMenuItem" />
+                                <MenuItem Header="_Normal Wekala" CommandParameter="{Binding ElementName=NormalWekalaPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintNormalWekalaCommandView}" 
+                                      x:Name="NormalWekalaPrintMenuItem" />
+                                <MenuItem Header="_Condition Arabic"  CommandParameter="{Binding ElementName=ConditionArabicPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintConditionArabicCommandView}"
+                                      x:Name="ConditionArabicPrintMenuItem" />
+                                <MenuItem Header="_Condition Translation"  CommandParameter="{Binding ElementName=ConditionTranslationPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintConditionTranslationCommandView}"
+                                      x:Name="ConditionTranslationPrintMenuItem" />
+                                <MenuItem Header="_Agreement Front"  CommandParameter="{Binding ElementName=AgreementFrontPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintAgreementFrontCommandView}"
+                                      x:Name="AgreementFrontPrintMenuItem" />
+                                <MenuItem Header="_Agreement Back"  CommandParameter="{Binding ElementName=AgreementBackPrintMenuItem}"
+                                      Foreground="Black" Command="{Binding PrintAgreementBackCommandView}"
+                                      x:Name="AgreementBackPrintMenuItem" />
+
+                                
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>-->
+
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveLabourProcessViewCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="150" Margin="5,0"
+                                       CommandParameter="{Binding ElementName=WdwLabourProcess}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

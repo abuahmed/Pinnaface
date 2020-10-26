@@ -1,0 +1,991 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.EmployeeDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        mc:Ignorable="d" Unloaded="EmployeeDetail_OnUnloaded"
+        Title="{Binding HeaderText}" Height="620" Width="900" x:Name="WdwEmployeeDetail"
+        DataContext="{Binding EmployeeDetail, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="False" WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico" 
+        Loaded="WdwEmployeeDetail_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="telerik:RadExpander">
+                <Setter Property="FontFamily" Value="Bookman Old Style"/>
+                
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+        </ResourceDictionary>
+
+
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}" BorderBrush="Orange" BorderThickness="1" CornerRadius="0">
+            <Grid Style="{StaticResource gridStyle1}" Margin="0" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5,0">
+                    <!--<Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            Command="{Binding CloseEmployeeCommand}" CommandParameter="{Binding ElementName=WdwEmployeeDetail}">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="{Binding HeaderText}" FontSize="18" Margin="5,-20,60,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />-->
+
+                </StackPanel>
+
+
+                <Grid Grid.Row="1" Margin="5,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/id_card.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1"  Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Basic Information" Background="Transparent"/>
+                        </Grid>
+                       
+
+                        <Grid Grid.Row="1" Margin="0,0" TextBlock.Foreground="Black" TextBlock.FontSize="13">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <TextBox InputLanguageManager.InputLanguage="am-ET" Grid.Column="1" Grid.Row="0" Visibility="Hidden"
+                                     x:Name="TxtId"
+                                     Text="{Binding SelectedEmployee.Id, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Margin="0,5,0,5"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                       Text="Given Names:" ToolTip="ስም ከነአባት" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="1"
+                                     x:Name="TxtFirstName" IsEnabled="True"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFirstName}"
+                                     Text="{Binding SelectedEmployee.FirstName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                      />
+
+                            <!--<TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"
+									Text=" Middle Name:"/>
+                    <TextBox    InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="1" 
+                                            x:Name="TxtMiddleName"  
+									        ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtMiddleName}" 
+									        Text="{Binding SelectedEmployee.MiddleName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+									        Validation.Error="Validation_Error"  CharacterCasing="Upper"
+                                            Margin="0,5,0,5" />-->
+
+                            <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"
+                                       Text=" Surname:" ToolTip="የአያት ስም" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="1"
+                                     x:Name="TxtLastName"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLastName}"
+                                     Text="{Binding SelectedEmployee.LastName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"
+                                     CharacterCasing="Upper" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"
+                                       Text="Passport No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="2"
+                                     x:Name="TxtPassportNum"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtPassportNum}"
+                                     Text="{Binding SelectedEmployee.PassportNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5"
+                                     HorizontalAlignment="Stretch" CharacterCasing="Upper" VerticalContentAlignment="Center"
+                                     TextChanged="txtPassportNum_TextChanged"/>
+                            <!---->
+
+                            
+                            <TextBlock Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"
+                                       Text=" Sex:" />
+                            <ComboBox Grid.Column="3" Grid.Row="2" x:Name="CmbSex" Margin="0,2" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Sex, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent" VerticalAlignment="Center"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:Sex}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"
+                                       Text="Date of Birth:" />
+                            <Grid Grid.Column="1" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker Margin="0,2" IsEnabled="False"
+                                            SelectedDateChanged="dtBirthDate_SelectedDateChanged"
+                                            x:Name="DtBirthDate" Visibility="Hidden"
+                                            SelectedDate="{Binding SelectedEmployee.DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding SelectedEmployee.DateOfBirthString}"
+                                         Visibility="Visible" VerticalAlignment="Center"
+                                         Grid.Column="0" Margin="0,5" IsEnabled="False" HorizontalAlignment="Stretch"
+                                         FontWeight="Bold" />
+                                <Button Background="Transparent" BorderThickness="0" Grid.Column="1"
+                                        x:Name="BtnBirthDate" Margin="0,0"
+                                        Command="{Binding DateOfBirthDateViewCommand}"
+                                        HorizontalAlignment="Right"
+                                        ToolTip="View/Change Birth Date" Tag="StartDate">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/calendar.png"
+                                           Stretch="Uniform"
+                                           Height="20" />
+
+                                </Button>
+                              
+
+                            </Grid>
+
+
+                            <TextBlock Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"
+                                       Text=" Place Of Birth:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="3"
+                                     x:Name="TxtPlaceOfBirth"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtPlaceOfBirth}"
+                                     Text="{Binding SelectedEmployee.PlaceOfBirth, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                     />
+
+                            <!--<TextBlock Grid.Column="4" Grid.Row="3" VerticalAlignment="Center" Text=" Code No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="5" Grid.Row="3"
+                                     x:Name="TxtCodeNumber" IsEnabled="False"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtCodeNumber}"
+                                     Text="{Binding SelectedEmployee.CodeNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5"
+                                     HorizontalAlignment="Stretch" CharacterCasing="Upper"
+                                     VerticalAlignment="Center" TextChanged="txtCodeNumber_TextChanged" />-->
+
+                            <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"
+                                       Text="Date of Issue:" />
+                            <Grid Grid.Column="1" Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker Margin="0,2" IsEnabled="False"
+                                            SelectedDateChanged="dtIssueDate_SelectedDateChanged"
+                                            x:Name="DtIssueDate" Visibility="Hidden"
+                                            SelectedDate="{Binding SelectedEmployee.PassportIssueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding SelectedEmployee.PassportIssueDateString}"
+                                         Visibility="Visible" VerticalAlignment="Center"
+                                         Grid.Column="0" Margin="0,5" IsEnabled="False" HorizontalAlignment="Stretch"
+                                         FontWeight="Bold" />
+                                <Button Background="Transparent" BorderThickness="0" Grid.Column="1"
+                                        x:Name="BtnStartDate" Margin="0,0"
+                                        Command="{Binding PassportIssueDateViewCommand}"
+                                        HorizontalAlignment="Right"
+                                        ToolTip="View/Change Start Date" Tag="StartDate">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/calendar.png"
+                                           Stretch="Uniform"
+                                           Height="20" />
+                                </Button>
+                            </Grid>
+
+                            <TextBlock Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"
+                                       Text=" Date of Expiry:" />
+                            <Grid Grid.Column="3" Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker Margin="0,2" IsEnabled="False"
+                                            SelectedDateChanged="dtExpiryDate_SelectedDateChanged"
+                                            x:Name="DtExpiryDate" Visibility="Hidden"
+                                            SelectedDate="{Binding SelectedEmployee.PassportExpiryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding SelectedEmployee.PassportExpiryDateString}"
+                                         Visibility="Visible" VerticalAlignment="Center"
+                                         Grid.Column="0" Margin="0,5" IsEnabled="False" HorizontalAlignment="Stretch"
+                                         FontWeight="Bold" />
+                                <Button Background="Transparent" BorderThickness="0" Grid.Column="1"
+                                        x:Name="BtnExpiryDate" Margin="0,0"
+                                        Command="{Binding PassportExpiryDateViewCommand}"
+                                        HorizontalAlignment="Right"
+                                        ToolTip="View/Change Expiry Date" Tag="ExpiryDate">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/calendar.png"
+                                           Stretch="Uniform"
+                                           Height="20" />
+
+                                </Button>
+
+
+                            </Grid>
+
+
+                            <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"
+                                       Text="Issue Place:" />
+                            <TextBox Grid.Column="1" Grid.Row="5"
+                                     x:Name="TxtIssuePlace"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtIssuePlace}"
+                                     Text="{Binding SelectedEmployee.PlaceOfIssue, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Stretch"/>
+
+
+                            <TextBlock Grid.Column="2" Grid.Row="5" VerticalAlignment="Center"
+                                       Text=" Any Notes:" />
+                            <TextBox Grid.Column="3" Grid.Row="5"
+                                     x:Name="TxtNotes"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtNotes}"
+                                     Text="{Binding SelectedEmployee.MoreNotes, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5"
+                                     HorizontalAlignment="Stretch"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center"
+                                       Text="Process Started:" Width="auto"/>
+                            <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePicker Margin="0,2" IsEnabled="False"
+                                            SelectedDateChanged="dtDocumentReceivedDate_SelectedDateChanged"
+                                            x:Name="DtDocumentReceivedDate" Visibility="Hidden"
+                                            SelectedDate="{Binding SelectedEmployee.DocumentReceivedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Text="{Binding SelectedEmployee.DocumentReceivedDateString}"
+                                         Visibility="Visible" VerticalAlignment="Center"
+                                         Grid.Column="0" Margin="0,5" IsEnabled="False" HorizontalAlignment="Stretch"
+                                         FontWeight="Bold" />
+                                <Button Background="Transparent" BorderThickness="0" Grid.Column="1"
+                                        x:Name="BtnDocumentReceivedDate" Margin="0,0"
+                                        Command="{Binding DocumentReceivedDateViewCommand}"
+                                        HorizontalAlignment="Right"
+                                        ToolTip="View/Change Document Received Date" Tag="StartDate">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/calendar.png"
+                                           Stretch="Uniform"
+                                           Height="20" />
+                                </Button>
+                                                             <!--<TextBlock Grid.Column="2" VerticalAlignment="Center" x:Name="LblDaysTook"
+                                           FontSize="14" FontWeight="Bold"
+                                           Margin="0" Width="auto" />-->
+                            </Grid>
+                            <TextBlock  Grid.ColumnSpan="2" Grid.Row="6" Grid.Column="2"  Name="TxtCurrentStatus" FontWeight="Bold" FontSize="14" Foreground="DarkGreen"
+                                           VerticalAlignment="Center" Width="Auto"  Text="{Binding SelectedEmployee.ProcessTookDays}"  />
+
+
+                            <TextBlock Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"
+                                       Text="ስም ከነአባት:" />
+                            <TextBox InputLanguageManager.InputLanguage="am-ET" Grid.Column="1" Grid.Row="8"
+                                     x:Name="TxtFirstNameAmh"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFirstNameAmh}"
+                                     Text="{Binding SelectedEmployee.FirstNameAmharic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Stretch"/>
+
+
+
+                            <!--<TextBlock Grid.Column="2" Grid.Row="5" VerticalAlignment="Center"
+									Text=" የአባት ስም:"/>
+                    <TextBox  InputLanguageManager.InputLanguage="am-ET" Grid.Column="3" Grid.Row="5" 
+                                          x:Name="TxtMiddleNameAmh"  
+									ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtMiddleNameAmh}" 
+									Text="{Binding SelectedEmployee.MiddleNameAmharic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+									Validation.Error="Validation_Error" Margin="0,5,0,5" />-->
+
+                            <TextBlock Grid.Column="2" Grid.Row="8" VerticalAlignment="Center"
+                                       Text=" የአያት ስም:" />
+                            <TextBox InputLanguageManager.InputLanguage="am-ET" Grid.Column="3" Grid.Row="8"
+                                     x:Name="TxtLastNameAmh"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLastNameAmh}"
+                                     Text="{Binding SelectedEmployee.LastNameAmharic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,5,0,5" VerticalContentAlignment="Center"/>
+
+                            <TextBlock Grid.Column="5" Margin="5,0"  Name="TxtCurrentStatusString" FontWeight="Bold" Foreground="White" FontSize="15" Grid.Row="8" VerticalAlignment="Center"
+                                       Width="Auto" HorizontalAlignment="Center"  Text="{Binding SelectedEmployee.CurrentStatusString}"  />
+                            <!---->
+
+                            <Grid Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="8" Margin="5">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Border BorderBrush="White" BorderThickness="3" Background="{StaticResource BackgroundGradientBrush}">
+                                        <Image Name="ImgbtnEmployeeShortImage" Height="165"
+                                       Source="{Binding EmployeeShortImage}" 
+                                       Stretch="Fill" MouseLeftButtonDown="ImgbtnEmployeeShortImage_MouseLeftButtonDown" />
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <telerik:RadButton Width="110"
+                                           Name="BtnEmployeeShortImage"
+                                           Command="{Binding ShowEmployeeShortImageCommand}"
+                                           Margin="0,0,0,0"
+                                           VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/PinnaFace.WPF;component/Resources/Images/photo_portrait.png"
+                                                    Height="25" Width="30" Stretch="Uniform" />
+                                            <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Photo"/>
+                                        </StackPanel>
+                                    </telerik:RadButton>
+
+                                    <telerik:RadButton Grid.Column="1" Width="110" HorizontalAlignment="Right"
+                                           Name="BtnEmployeeLongImage"
+                                           Command="{Binding EmployeePhotoViewCommand}"
+                                           VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/PinnaFace.WPF;component/Resources/Images/user1_add.png"
+                                       Height="25" Width="30" Stretch="Uniform" />
+                                            <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center">More...</TextBlock>
+                                        </StackPanel>
+                                    </telerik:RadButton>
+
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/column_add_after.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White"
+                                               VerticalAlignment="Center" Text=" More Information" Background="Transparent"/>
+                        </Grid>
+            
+                            
+                           
+                        <Grid Grid.Row="1" Margin="0,0" TextBlock.Foreground="Black" TextBlock.FontSize="13">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                                       Text="Marital Status:" />
+                            <ComboBox Grid.Column="1" Grid.Row="0"
+                                      x:Name="CmbMaritalStatus"
+                                      Margin="0,3" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.MaritalStatus, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:MaritalStatusTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"
+                                       Text=" Religion:" Width="auto"/>
+                            <ComboBox Grid.Column="3" Grid.Row="0" x:Name="CmbReligion" Margin="0,3" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.Religion, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ReligionTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Text=" Contract Years: " Width="auto" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="5" Grid.Row="0" x:Name="CmbContartYears" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.ContratPeriod, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ContratPeriods}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                                    <GridSplitter Grid.Column="6" Grid.Row="0" Grid.RowSpan="2" Width="1" Margin="5,2,0,2"/>
+                           
+                            
+                            <telerik:RadDropDownButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="7" x:Name="RddOnline" HorizontalAlignment="Right"
+                                                               Width="120" Margin="5,1,0,0"
+                                                               Style="{StaticResource RadDropDownButton1}"
+                                                               HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/column_add_after.png"
+                                                   Height="30"
+                                                   Width="30" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" More..." VerticalAlignment="Center"  Foreground="Black" />
+                                    
+                                    
+                                </StackPanel>
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                                        Background="{StaticResource BackgroundGradientBrush}">
+
+                                        <telerik:RadButton Grid.Row="0"  Grid.Column="7" Tag="OwnerManagerAddress" Width="120"
+                                               x:Name="BtnRelatedDocuments" Margin="5,5,5,10" 
+                                               Command="{Binding RequiredDocumentsViewCommand}"
+                                               ToolTip="Required Documents" HorizontalContentAlignment="Left"
+                                               CommandParameter="{Binding ElementName=BtnRelatedDocuments}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="/PinnaFace.WPF;component/Resources/Images/document_attachment.png" Height="30"
+                                                       Width="30" Stretch="Uniform" HorizontalAlignment="Left" />
+                                                <TextBlock Grid.Column="1" Width="auto" FontWeight="Black" HorizontalAlignment="Center"
+                                                           FontSize="14" Text="Documents " VerticalAlignment="Center" />
+                                            </Grid>
+                                        </telerik:RadButton>
+
+
+                                        <telerik:RadButton  Tag="Medical and Insurance" Width="120"
+                                               x:Name="BtnMedicalandInsurance" Margin="5,0,5,10" 
+                                               Command="{Binding InsuranceProcessViewCommand}" HorizontalContentAlignment="Left"
+                                               ToolTip="ህክምናና ኢንሹራንስ አስገባ/አስተካክል" FontWeight="Bold"
+                                               CommandParameter="{Binding ElementName=BtnMedicalandInsurance}">
+                                                <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="/PinnaFace.WPF;component/Resources/Images/uniclogo3.png" Height="30"
+                                                           Width="30" Stretch="Uniform" />
+                                                <TextBlock Grid.Column="1" Width="auto" FontWeight="Black" Text=" Insurance " VerticalAlignment="Center" />
+                                                </Grid>
+                                            </telerik:RadButton>
+
+                                        <telerik:RadButton Tag="HawalaInfo" HorizontalContentAlignment="Left"
+                                               x:Name="BtnHawala" Width="120" Margin="5,0,5,5"
+                                               Command="{Binding EmployeeHawalaViewCommand}" ToolTip="ሀዋላ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnHawala}">
+                                                <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="/PinnaFace.WPF;component/Resources/Images/currency_dollar.png"
+                                                           Height="30" Width="30" Stretch="Uniform" />
+                                                     <TextBlock Grid.Column="1" Width="auto" FontWeight="Black" Text=" Hawala " VerticalAlignment="Center" />
+                                                </Grid>
+                                            </telerik:RadButton>
+
+                                    </StackPanel>
+                                </telerik:RadDropDownButton.DropDownContent>
+                            </telerik:RadDropDownButton>
+
+                            <TextBlock Grid.Column="4" Grid.Row="1" VerticalAlignment="Center"
+                                       Text=" Applied Country:" Width="auto"/>
+                            <ComboBox Grid.Column="5" Grid.Row="1" 
+                                      ItemsSource="{Binding ApplyCountries,Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedAppliedCountry}"
+                                      DisplayMemberPath="Display" VerticalContentAlignment="Center"
+                                      SelectedIndex="0"
+                                      Background="Transparent"
+                                      Margin="0,2" />
+                            <!--<ComboBox Grid.Column="5" Grid.Row="1" x:Name="CmbAppliedCountry" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.AppliedCountry, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:CountryList}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />-->
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                       Text="Profession: " Width="auto"/>
+                            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CmbProfession" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedEmployee.AppliedProfession, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:ProffesionTypes}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />
+
+                            <TextBlock Text=" Salary:" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" />
+                            <Grid Grid.Row="1" Grid.Column="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="1.5*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtSalary" Margin="0,3"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtSalary}"
+                                         Text="{Binding SelectedEmployee.Salary, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True,StringFormat='N0'}"
+                                         Validation.Error="Validation_Error" VerticalContentAlignment="Center" />
+                                <ComboBox Grid.Column="1" Grid.Row="0" x:Name="CmbMoneyTypes" Margin="0,3"
+                                          SelectedIndex="0"
+                                          SelectedValue="{Binding SelectedEmployee.CurrencyType, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          Background="Transparent"
+                                          ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:CurrencyTypes}}}"
+                                          Validation.ErrorTemplate="{x:Null}"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                            </Grid>
+                     
+                        </Grid>
+                        </Grid>
+
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="0" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Employee Address" Background="Transparent"/>
+                        </Grid>
+                        
+                        <Grid Grid.Row="1" Margin="0,0" TextBlock.Foreground="Black" TextBlock.FontSize="13">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="0,0,5,0"
+                                     FontWeight="Bold" Padding="5,0"
+                                     TextWrapping="Wrap" Text="{Binding SelectedEmployee.Address.AddressDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmployeeAddress"
+                                               Command="{Binding EmployeeAddressViewCommand}"
+                                               ToolTip="አድራሻ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnEmployeeAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png"
+                                           Height="30" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text="Address Entry" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                        
+                    </Grid>
+
+                    <Grid Grid.Row="2"  Grid.Column="1" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/businessman.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Contact/Emergency Person" />
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="0,0,5,0"
+                                     FontWeight="Bold" Padding="5,0"
+                                     TextWrapping="Wrap" Text="{Binding SelectedEmployee.ContactPerson.EmployeeContactPersonDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmergencyPerson"
+                                               Command="{Binding EmployeeContactPersonViewCommand}"
+                                               ToolTip="የተያዥ መረጃ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnCompanyAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/businessman.png"
+                                           Height="30" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Contact Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                        
+                    </Grid>
+
+                    <!--<telerik:RadExpander Grid.Row="2" Grid.Column="2" Header="ኢንሹራንስ" IsExpanded="True" Visibility="Collapsed">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedEmployee.InsuranceProcess.InsuranceProcessDescription}"
+                                     VerticalContentAlignment="Top" />
+                           
+                        </Grid>
+                    </telerik:RadExpander>-->
+
+                    <Grid Grid.Row="3" Grid.ColumnSpan="1" Grid.Column="0" Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/graduate.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Education and Training" Background="Transparent"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Margin="0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="0,0,5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedEmployee.Education.EmployeeEducationDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEducation"
+                                               Command="{Binding EmployeeEducationViewCommand}"
+                                               ToolTip="ትምህርት ስልጠና አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnEducation}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/graduate.png" Height="30"
+                                           Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Educ. Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="2" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/worker.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Previous Experience" Background="Transparent"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="0,0,5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedEmployee.Experience.EmployeeExperienceDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Tag="OwnerManagerAddress"
+                                               x:Name="BtnExperience"
+                                               Command="{Binding EmployeeExperienceViewCommand}"
+                                               ToolTip="የስራ ልምድ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnExperience}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/worker.png" Height="30"
+                                           Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text="Exp. Entry" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                        
+                    </Grid>
+
+                    <!--<telerik:RadExpander Grid.Row="3" Grid.Column="2" Header="ሀዋላ " IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedEmployee.Hawala.EmployeeHawalaDescription}"
+                                     VerticalContentAlignment="Top" />
+                            
+                        </Grid>
+                    </telerik:RadExpander>-->
+
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" Margin="5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ExpanderHeaderBackgroundGradientBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Source="/PinnaFace.WPF;component/Resources/Images/rubberstamp.png"
+                                           Height="25" Width="25" Stretch="Uniform" />-->
+                            <TextBlock Grid.Column="1" Width="auto" FontWeight="Normal" FontSize="14" Foreground="White" 
+                                               VerticalAlignment="Center" Text=" Visa Information" Background="Transparent"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="0,0,5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedEmployee.Visa.VisaDetail2}"
+                                     VerticalContentAlignment="Top" />
+                            <Grid Grid.Column="0" Grid.Row="2" Visibility="{Binding EditVisaVisibility}" Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  VerticalAlignment="Center"
+                                       Text="Contract No.:" Foreground="DarkGreen"/>
+                                <TextBox Grid.Column="1" InputLanguageManager.InputLanguage="en-US" 
+                                     x:Name="TxtContractNumber" HorizontalContentAlignment="Stretch"
+                                     Focusable="True" Height="20"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtContractNumber}"
+                                     Text="{Binding SelectedEmployee.ContractNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+                            </Grid>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Orientation="Horizontal">
+                                <telerik:RadButton  Tag="OwnerManagerAddress" Margin="0,0,5,0"
+                                               x:Name="BtnAssignVisa" Visibility="{Binding AssignVisaVisibility}"
+                                               Command="{Binding AssignVisaViewCommand}" ToolTip="ቪዛ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnVisa}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/add.png"
+                                           Height="30" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Assign Visa " VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+                                <telerik:RadButton  Tag="OwnerManagerAddress" Margin="0,0,5,0"
+                                               x:Name="BtnViewEditVisa" Visibility="{Binding EditVisaVisibility}"
+                                               Command="{Binding VisaViewCommand}" ToolTip="ቪዛ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnVisa}">
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="/PinnaFace.WPF;component/Resources/Images/document_edit.png"
+                                           Height="30" Width="40" Stretch="Uniform" />
+                                        <TextBlock Width="auto" Text=" View Visa " VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </telerik:RadButton>
+                                <telerik:RadButton  Tag="OwnerManagerAddress"
+                                               x:Name="BtnDetachVisa" Visibility="{Binding EditVisaVisibility}"
+                                               Command="{Binding VisaDetachCommand}" ToolTip="ቪዛ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnVisa}">
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="/PinnaFace.WPF;component/Resources/Images/delete.png"
+                                           Height="30" Width="40" Stretch="Uniform" />
+                                        <TextBlock Width="auto" Text=" Detach Visa " VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </telerik:RadButton>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    
+                        <!---->
+                    
+                        </Grid>
+
+                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" Margin="5" />
+
+                <Grid Grid.Row="3" VerticalAlignment="Top" Margin="5,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <telerik:RadExpander Padding="0" Grid.Column="1" Header="For Agent" Visibility="{Binding SelectedForeignAgentVisibility}" 
+                                         IsExpanded="False" Foreground="White" ToolTip="Untill Visa is Assigned Select The Employee For This Agent:-">
+                    <StackPanel Orientation="Vertical" Grid.Column="1" >
+                    <!--<TextBlock VerticalAlignment="Center" Text=" For Agent:" Width="80"/>-->
+                    <ComboBox ItemsSource="{Binding Agents,Mode=OneWay}"
+                                    SelectedItem="{Binding SelectedAgent}" Height="25"
+                                    DisplayMemberPath="AgentName" VerticalContentAlignment="Center"
+                                    SelectedIndex="0" 
+                                    Background="Transparent"
+                                    Margin="5,0" />
+                    </StackPanel>
+                    </telerik:RadExpander>
+
+                    <Grid Margin="5" Grid.Column="2" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" x:Name="LblAge" FontSize="14"
+                                           FontWeight="Bold" 
+                                           Margin="0" Width="auto" />
+                        <TextBlock Grid.Row="1" VerticalAlignment="Center" x:Name="LblMonthsLeft"
+                                           FontSize="14" FontWeight="Bold"
+                                           Margin="0" Width="auto" />
+                    </Grid>
+                    
+                    <telerik:RadButton Grid.Column="3" Tag="Save" Command="{Binding SaveEmployeeCommand}"
+                                       x:Name="BtnSaveClose" Height="40" Width="240"
+                                       CommandParameter="{Binding ElementName=WdwEmployeeDetail}"
+                                       IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Save and Close "/>
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/delete.png" Margin="0,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                    <telerik:RadButton Grid.Column="4" Tag="Save" Command="{Binding SaveEmployeeCommand}"
+                                       x:Name="BtnSaveAddNew" Height="40" Width="240" Margin="5,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Save and Add New "/>
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/add.png" Margin="0,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                        </StackPanel>
+                    </telerik:RadButton>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,293 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.ForeignAgents"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        AllowDrop="True"
+        Title="Foreign Agents" Height="650" Width="650" x:Name="WdwForeignAgent"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None" 
+        Loaded="ForeignAgents_OnLoaded" ResizeMode="NoResize" Unloaded="ForeignAgents_OnUnloaded"
+        DataContext="{Binding ForeignAgent, Source={StaticResource Locator}}"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListBoxDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="FontStylee" TargetType="telerik:RadGridView">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+            <Style TargetType="telerik:GridViewRow">
+                <!--<Setter Property="Background" Value="Transparent" />-->
+                <Setter Property="Height" Value="30" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid >
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="Black" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Foreign Agents" FontSize="18" Margin="5,-20,60,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid TextBlock.Foreground="Black" Grid.Row="1">
+                        <telerik:RadGridView x:Name="EmployeesGridView" Margin="0,10"
+                                                         GroupRenderMode="Flat"
+                                                         ItemsSource="{Binding ForeignAgents}"
+                                                         SelectedItem="{Binding SelectedAgent}"
+                                                         CanUserFreezeColumns="False"
+                                                         RowIndicatorVisibility="Collapsed"
+                                     Style="{StaticResource FontStylee}"
+                                                         AutoGenerateColumns="False"
+                                                         IsReadOnly="True"
+                                                         Background="Transparent"
+                                                         ShowGroupPanel="False"
+                                                         telerik:StyleManager.Theme="Windows7" BorderThickness="0">
+                    <telerik:RadGridView.Columns>
+
+                        <telerik:GridViewDataColumn Header="S.No." Width="auto"
+                                                                        DataMemberBinding="{Binding SerialNumber}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                        <telerik:GridViewDataColumn Header="Agent Name" Width="auto"
+                                                                        DataMemberBinding="{Binding AgentName}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                        <telerik:GridViewDataColumn Header="Country" Width="auto"
+                                                                        DataMemberBinding="{Binding Address.Country}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                        <telerik:GridViewDataColumn Header="City" Width="auto"
+                                                                        DataMemberBinding="{Binding Address.City}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+                        <telerik:GridViewDataColumn Header="Tel No." Width="auto"
+                                                                        DataMemberBinding="{Binding Address.Mobile}"
+                                                                        IsGroupable="False"
+                                                                        IsFilterable="False" />
+
+                    </telerik:RadGridView.Columns>
+
+                </telerik:RadGridView>
+                    </Grid>
+               
+                <Grid Grid.Row="3">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <telerik:RadExpander Grid.Row="0" IsExpanded="True" Header="Basic Data" >
+                    <Grid  Margin="5,0" TextBlock.Foreground="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Country:" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Column="1" Grid.Row="0" 
+                                      ItemsSource="{Binding ApplyCountries,Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedAppliedCountry}"
+                                      DisplayMemberPath="Display" VerticalContentAlignment="Center"
+                                      SelectedIndex="0"
+                                      Background="Transparent"
+                                      Margin="0,2" />
+                            <!--<ComboBox Grid.Column="1" Grid.Row="0" x:Name="CmbAgentCountry" Margin="0,3"
+                                      SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedForeignAgent.Country, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:CountryList}}}"
+                                      Validation.ErrorTemplate="{x:Null}"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />-->
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Agent Name:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                                 x:Name="TxtForeignAgentCode"                                 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtForeignAgentCode}" 
+                                 Text="{Binding SelectedAgent.AgentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Agent Name(በአማርኛ):" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="am-ET" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+                                 x:Name="TxtForeignAgentName" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtForeignAgentName}" 
+                                 Text="{Binding SelectedAgent.AgentNameAmharic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" FontFamily="Nyala" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Contact Person:" VerticalAlignment="Center"/>
+                            <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="3" Grid.Column="1" 
+                                 x:Name="TxtContactPerson" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtContactPerson}" 
+                                 Text="{Binding SelectedAgent.ContactPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                        
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text=" Id/Passport No.:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="3" Grid.Column="3" 
+                                 x:Name="TxtGeneralManager" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtGeneralManager}" 
+                                 Text="{Binding SelectedAgent.PassportNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+                       
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="License Number:" VerticalAlignment="Center"/>
+                        <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Row="4" Grid.Column="1" 
+                                 x:Name="TxtLicenseNumber" 
+                                 Focusable="True" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtLicenseNumber}" 
+                                 Text="{Binding SelectedAgent.LicenseNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" 
+                                 Validation.Error="Validation_Error"
+                                 Margin="0,3" />
+
+                    </Grid>
+</telerik:RadExpander>
+                    
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="0" Header="Agent Address" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold" Padding="5,0"
+                                     TextWrapping="Wrap" Text="{Binding SelectedAgent.Address.AddressDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmployeeAddress"
+                                               Command="{Binding ForeignAgentAddressViewCommand}"
+                                               ToolTip="አድራሻ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnEmployeeAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png"
+                                           Height="40" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Address Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="2" IsExpanded="False" Header="Letter Head" >
+                        <Grid  Margin="5,0" TextBlock.Foreground="Black">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                         
+                            </Grid.RowDefinitions>
+
+               
+
+                            <Button Grid.Row="0" Grid.Column="0" Content="Letter Head" Name="BtnLetterHeader"
+                                Command="{Binding ShowLetterHeaderImageCommand}"
+                                VerticalAlignment="Center" />
+                            <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Name="ImgbtnLetterHeader"
+                               Source="{Binding LetterHeadImage}" Stretch="Fill" />
+
+                            <Button Grid.Row="1" Grid.Column="0" Content="Letter Foot" Name="BtnLetterFooter"
+                                Command="{Binding ShowLetterFooterImageCommand}"
+                                VerticalAlignment="Center"/>
+                            <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="ImgbtnLetterFooter" 
+                               Source="{Binding LetterFootImage}" Stretch="Fill"/>
+                        </Grid>
+                    </telerik:RadExpander>
+                </Grid>
+
+                <GridSplitter Grid.Row="4" Height="3" HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,3" HorizontalAlignment="Right">
+                   
+                 
+                    
+                    
+                    <telerik:RadButton Tag="AddNew" Command="{Binding AddNewForeignAgentViewCommand}" 
+                            x:Name="BtnAddNew" Height="40" Width="150" Click="BtnAddNew_OnClick">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/add.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Add New</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveForeignAgentViewCommand}" 
+                            x:Name="BtnSaveClose" Height="40" Width="150" Margin="5,0"
+                            CommandParameter="{Binding ElementName=WdwForeignAgent}" 
+                            IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+                    <telerik:RadButton Tag="Delete" Command="{Binding DeleteForeignAgentViewCommand}" 
+                            IsEnabled="{Binding EditCommandVisibility}" x:Name="BtnDelete" Height="40" Width="150"
+                            >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/delete.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Delete</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>
+
+

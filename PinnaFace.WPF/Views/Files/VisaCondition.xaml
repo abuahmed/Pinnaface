@@ -1,0 +1,233 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.VisaCondition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        AllowDrop="True" Unloaded="VisaCondition_OnUnloaded"
+        Title="Visa Condition" Height="450" Width="300" x:Name="WdwVisaCondition"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        DataContext="{Binding VisaCondition, Source={StaticResource Locator}}" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+                <!--<ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.Foreground="Black" TextBlock.FontSize="12" TextBlock.FontFamily="Bookman old style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"  Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" >
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Visa Condition" FontSize="18" Margin="5,-20,40,0"/>
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <telerik:RadExpander Header="Basic Data" Grid.Row="1" IsExpanded="True">
+                
+                    <Grid  Margin="5">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <!--<ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>-->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
+									Text="Salary:"/>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="1.5*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox InputLanguageManager.InputLanguage="en-US" x:Name="TxtSalary" Margin="0,3"
+                                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtSalary}"
+                                         Text="{Binding SelectedVisaCondition.Salary, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"
+                                         Validation.Error="Validation_Error" VerticalContentAlignment="Center" />
+                            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="CmbMoneyTypes" Margin="0,3"
+                                          SelectedIndex="0"
+                                          SelectedValue="{Binding SelectedVisaCondition.CurrencyType, Mode=TwoWay}"
+                                          VerticalContentAlignment="Center"
+                                          Background="Transparent"
+                                          ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type model:CurrencyTypes}}}"
+                                          Validation.ErrorTemplate="{x:Null}"
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value" />
+                        </Grid>
+                        <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" 
+									Text="Religion:"/>
+                    <ComboBox x:Name="CbxReligionTypes" Grid.Column="1" Grid.Row="3" 
+                                      Margin="0,2" SelectedIndex="0"
+                                          SelectedValue="{Binding SelectedVisaCondition.Religion, Mode=TwoWay}" VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:ReligionTypes}}, Mode=OneWay}" 
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent" 
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value"/>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" 
+									Text="Age:"/>
+                    <ComboBox x:Name="CbxAgecategory" Grid.Column="1" Grid.Row="1" 
+                                      Margin="0,2" SelectedIndex="0"
+                                          SelectedValue="{Binding SelectedVisaCondition.Age, Mode=TwoWay}" VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:AgeCategory}}, Mode=OneWay}" 
+                                          Validation.ErrorTemplate="{x:Null}" Background="Transparent" 
+                                          DisplayMemberPath="Description"
+                                          SelectedValuePath="Value"/>
+                    <!--<TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="1" x:Name="TxtAgeFrom" 
+									ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtAgeFrom}" 
+									Text="{Binding SelectedVisaCondition.AgeFrom, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+									Validation.Error="Validation_Error" Margin="0,3" 
+									HorizontalAlignment="Stretch" />-->
+
+                    <!--<TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"
+									Text=" Age To:"/>
+                    <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="1" x:Name="TxtAgeTo"  
+									ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtAgeTo}" 
+									Text="{Binding SelectedVisaCondition.AgeTo, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+									Validation.Error="Validation_Error" Margin="0,3" />-->
+
+                  
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" 
+									Text="Profession:"/>
+                    <Grid Grid.Row="2" Grid.Column="1" Margin="0,2,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="CmbCountry" Grid.Column="0" Grid.Row="0" 
+                                          Margin="0,2" SelectedIndex="0"
+                                          SelectedValue="{Binding SelectedVisaCondition.Profession, Mode=TwoWay}" VerticalContentAlignment="Center"
+                                          ItemsSource="{Binding Source={local:Enumeration {x:Type model:ProffesionTypes}}, Mode=OneWay}" 
+                                          Validation.ErrorTemplate="{x:Null}"  Background="Transparent"
+                                          DisplayMemberPath="Description" 
+                                          SelectedValuePath="Value"/>
+                        <!--<ComboBox    Margin="0" Grid.Column="0"
+								        x:Name="CmbProfession"  Background="Transparent"                                          
+								        ItemsSource="{Binding Professions, Mode=OneWay}" SelectedIndex="0"
+								        SelectedItem="{Binding SelectedProfession}" VerticalContentAlignment="Center"
+								        DisplayMemberPath="Display"/>
+                        <Button Grid.Column="1" Content=" + " Command="{Binding ProfessionListViewCommand}"/>-->
+                    </Grid>
+
+                    <!--<TextBlock Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"
+									Text=" ሙያ:"/>
+                    <Grid Grid.Row="2" Grid.Column="3" Margin="0,2,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox    Margin="0"
+								        x:Name="CmbProfessionAmharic"  Background="Transparent"                                          
+								        ItemsSource="{Binding ProfessionsAmharic, Mode=OneWay}" SelectedIndex="0"
+								        SelectedItem="{Binding SelectedProfessionAmharic}" VerticalContentAlignment="Center"
+								        DisplayMemberPath="Display"/>
+                        <Button Grid.Column="1" Content=" + " Command="{Binding ProfessionListAmharicViewCommand}"/>
+                    </Grid>-->
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1"  Grid.Row="4">
+                    <CheckBox Content="First Time" Margin="0,5"
+                              IsChecked="{Binding SelectedVisaCondition.FirstTime, Mode=TwoWay}" Background="Transparent"
+                              VerticalAlignment="center" Foreground="Black"/>
+                    <CheckBox Content="Good Looking" Margin="0,5"
+                              IsChecked="{Binding SelectedVisaCondition.GoodLooking, Mode=TwoWay}" Background="Transparent"
+                              VerticalAlignment="center" Foreground="Black"/>
+                    <CheckBox Content="Writing and Reading" Margin="0,5"
+                              IsChecked="{Binding SelectedVisaCondition.WriteRead, Mode=TwoWay}" Background="Transparent"
+                              VerticalAlignment="center" Foreground="Black"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" 
+									Text="Note:"/>
+                    <TextBox  InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" x:Name="TxtNotes" 
+									ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtNotes}" 
+									Text="{Binding SelectedVisaCondition.Notes, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+									Validation.Error="Validation_Error" Margin="0,2,0,2" 
+									HorizontalAlignment="Stretch" 
+									VerticalAlignment="Stretch"/>
+                </Grid>
+                    
+                </telerik:RadExpander>
+                
+                <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" Focusable="False" />
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top" Margin="0,3,0,3" HorizontalAlignment="Right">
+                    <telerik:RadButton Tag="Save" Command="{Binding SaveVisaConditionViewCommand}" 
+                            x:Name="BtnSaveClose" Height="40" Width="150"
+                            CommandParameter="{Binding ElementName=WdwVisaCondition}" 
+                            IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0" Height="30" Width="30" Stretch="Uniform" />
+                            <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Save</TextBlock>
+                        </StackPanel>
+                    </telerik:RadButton>
+
+                </StackPanel>
+                
+                <!--<Grid Grid.Row="3" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                        <Button Content="_Save" 
+                                Command="{Binding SaveVisaConditionViewCommand}" 
+                                CommandParameter="{Binding ElementName=WdwVisaCondition}"
+                                x:Name="BtnSave"  Style="{StaticResource bottomButtons}"
+                                Padding="10,0"  IsDefault="True"/>
+                        <Button Content="_Cancel" IsCancel="True"
+                                x:Name="BtnDelete"  Style="{StaticResource bottomButtons}"
+                                Padding="10,0"  />
+                    </StackPanel>
+                </Grid>-->
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>
+
+
+

@@ -1,0 +1,547 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.VisaDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        AllowDrop="True" Unloaded="VisaDetail_OnUnloaded"
+        Title="Visa Detail" Height="480" Width="650" x:Name="WdwVisa" Loaded="VisaDetail_OnLoaded"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        DataContext="{Binding VisaDetail, Source={StaticResource Locator}}"
+        WindowStartupLocation="CenterScreen" WindowState="Normal"
+        Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+                <!--<ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" />
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListBoxDictionary.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <!--<Setter Property="Width" Value="100"/>-->
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="Bookman Old Style" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid TextBlock.FontFamily="Bookman Old Style">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="5,0">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True">
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Visa Entry" FontSize="18" Margin="5,-20,60,0" />
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="10,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--<telerik:RadAutoCompleteBox Grid.Column="0" Margin="0" Grid.ColumnSpan="3"
+                                                x:Name="LstItemsAutoCompleteBox"
+                                                ItemsSource="{Binding Visas, Mode=TwoWay}"
+                                                SelectedItem="{Binding SelectedVisaForSearch, Mode=TwoWay}"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                WatermarkContent="Search Un-Assigned Visa..."
+                                                TextSearchMode="Contains"
+                                                AutoCompleteMode="Suggest"
+                                                SelectionMode="Single"
+                                                TextSearchPath="VisaDetail"
+                                                BorderBrush="#FF25A0DA"
+                                                BorderThickness="2"
+                                                SelectionChanged="LstItemsAutoCompleteBox_SelectionChanged"
+                                                GotFocus="LstItemsAutoCompleteBox_GotFocus_1"
+                                                GotKeyboardFocus="LstItemsAutoCompleteBox_GotKeyboardFocus" />-->
+
+                </Grid>
+
+                <!--<GridSplitter Grid.Row="3" Height="1" HorizontalAlignment="Stretch" />-->
+
+                <Grid Grid.Row="4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <telerik:RadExpander Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Visa Detail"
+                                         IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+
+                            <!--<TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                                       Text="Country*:" />
+                            <ComboBox Grid.Column="1" Grid.Row="0" 
+                                      ItemsSource="{Binding ApplyCountries,Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedAppliedCountry}"
+                                      DisplayMemberPath="Display" VerticalContentAlignment="Center"
+                                      SelectedIndex="0"
+                                      Background="Transparent"
+                                      Margin="0,2" />-->
+                            <!--<ComboBox x:Name="CmbCountry" Grid.Column="1" Grid.Row="0"
+                                      Margin="0,2" SelectedIndex="0"
+                                      SelectedValue="{Binding SelectedVisa.Sponsor.Address.Country, Mode=TwoWay}"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding Source={local:Enumeration {x:Type model:CountryList}}, Mode=OneWay}"
+                                      Validation.ErrorTemplate="{x:Null}" Background="Transparent"
+                                      DisplayMemberPath="Description"
+                                      SelectedValuePath="Value" />-->
+
+                            <TextBox InputLanguageManager.InputLanguage="am-ET" Grid.Column="5" Grid.Row="0" Visibility="Hidden"
+                                     x:Name="TxtId"
+                                     Text="{Binding SelectedVisa.Id, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Margin="0,5,0,5"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center" />
+                            
+                            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                                       Text="Agent Name:" />
+                            <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3"
+                                      ItemsSource="{Binding Agents,Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedAgent}"
+                                      DisplayMemberPath="AgentName" VerticalContentAlignment="Center"
+                                      SelectedIndex="0"
+                                      Background="Transparent"
+                                      Margin="0,2" />
+                            
+                            
+                            
+                            
+                            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"
+                                       Text="Visa Number:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="1"
+                                     x:Name="TxtVisaNumber"
+                                     Focusable="True"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtVisaNumber}"
+                                     Text="{Binding SelectedVisa.VisaNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     TextChanged="txtVisaNumber_TextChanged" />
+
+                            <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"
+                                       Text=" Contract No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="1"
+                                     x:Name="TxtContractNumber"
+                                     Focusable="True"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtContractNumber}"
+                                     Text="{Binding SelectedVisa.ContratNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+
+                            <TextBlock Grid.Column="4" Grid.Row="1" VerticalAlignment="Center"
+                                       Text=" Visa Qty.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="5" Grid.Row="1"
+                                     x:Name="TxtVisaQty"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtVisaQty}"
+                                     Text="{Binding SelectedVisa.VisaQuantity, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+
+                            <!--<GridSplitter Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Height="2" HorizontalAlignment="Stretch" Focusable="False" />-->
+
+                            <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"
+                                       Text="Sponsor Name:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="3"
+                                     Grid.ColumnSpan="3" x:Name="TxtFullName"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFullName}"
+                                     Text="{Binding SelectedVisa.Sponsor.FullName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" CharacterCasing="Upper" />
+
+                            <TextBlock Grid.Column="4" Grid.Row="3" VerticalAlignment="Center"
+                                       Text=" Sponsor Id:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="5" Grid.Row="3"
+                                     x:Name="TxtEmployerId"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtEmployerId}"
+                                     Text="{Binding SelectedVisa.Sponsor.PassportNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"
+                                       Text="የስፖንሰር ስም:" />
+                            <TextBox InputLanguageManager.InputLanguage="am-ET" Grid.Column="1" Grid.Row="4"
+                                     Grid.ColumnSpan="3" x:Name="TxtFullNameAmh"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFullNameAmh}"
+                                     Text="{Binding SelectedVisa.Sponsor.FullNameAmharic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" />
+
+                            <TextBox InputLanguageManager.InputLanguage="ar-SA" Grid.Column="1" Grid.Row="5"
+                                     Grid.ColumnSpan="3" x:Name="TxtFullNameArabic"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFullNameAmh}"
+                                     Text="{Binding SelectedVisa.Sponsor.FullNameArabic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" />
+                            <TextBlock Grid.Column="4" Grid.Row="5" VerticalAlignment="Center"
+                                       Text=":الاسم الكامل:" />
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="0" Header="Sponsor Address" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedVisa.Sponsor.Address.AddressDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmployeeAddress"
+                                               Command="{Binding SponsorAddressViewCommand}" ToolTip="አድራሻ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnEmployeeAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/address_book3.png"
+                                           Height="40" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Address Entry " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="1" Grid.Column="1" Header="Visa Condition" IsExpanded="True">
+                        <Grid Margin="5,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox IsEnabled="False" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Padding="5,0"
+                                     Text="{Binding SelectedVisa.Condition.ConditionDescription}"
+                                     VerticalContentAlignment="Top" />
+                            <telerik:RadButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Tag="OwnerManagerAddress"
+                                               x:Name="BtnEmergencyPerson"
+                                               Command="{Binding VisaConditionViewCommand}"
+                                               ToolTip="የተያዥ መረጃ አስገባ/አስተካክል"
+                                               CommandParameter="{Binding ElementName=BtnCompanyAddress}">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="/PinnaFace.WPF;component/Resources/Images/document_edit.png"
+                                           Height="40" Width="40" Stretch="Uniform" />
+                                    <TextBlock Width="auto" Text=" Visa Condition " VerticalAlignment="Center" />
+                                </StackPanel>
+                            </telerik:RadButton>
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="More Visa Detail"
+                                         IsExpanded="False" IsEnabled="False">
+                        <Grid Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+
+                            
+
+                            <TextBlock Grid.Column="0" Grid.Row="7" VerticalAlignment="Center"
+                                       Text="File No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="7"
+                                     x:Name="TxtFileNumber"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtFileNumber}"
+                                     Text="{Binding SelectedVisa.FileNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+
+                            <TextBlock Grid.Column="2" Grid.Row="7" VerticalAlignment="Center"
+                                       Text=" Bank No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="7"
+                                     x:Name="TxtBankNumber"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtBankNumber}"
+                                     Text="{Binding SelectedVisa.BankNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" />
+
+                            <TextBlock Grid.Column="4" Grid.Row="7" VerticalAlignment="Center"
+                                       Text=" Visa Date*:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="5" Grid.Row="7"
+                                     x:Name="TxtVisaDate" MaxLength="10"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtVisaDate}"
+                                     Text="{Binding SelectedVisa.VisaDateArabic, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" TextChanged="txtVisaDate_TextChanged" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"
+                                       Text="Wekala No.:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="8"
+                                     x:Name="TxtWekalaNumber"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtWekalaNumber}"
+                                     Text="{Binding SelectedVisa.WekalaNumber, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" />
+
+                            <TextBlock Grid.Column="2" Grid.Row="8" VerticalAlignment="Center"
+                                       Text=" Wekala Date:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="3" Grid.Row="8"
+                                     x:Name="TxtWekalaDate"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtWekalaDate}"
+                                     Text="{Binding SelectedVisa.WekalaDate, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3" />
+                            <TextBlock Grid.Column="0" Grid.Row="9" VerticalAlignment="Center"
+                                       Text="Notes:" />
+                            <TextBox InputLanguageManager.InputLanguage="en-US" Grid.Column="1" Grid.Row="9"
+                                     Grid.ColumnSpan="5" x:Name="TxtNotes"
+                                     ToolTip="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TxtNotes}"
+                                     Text="{Binding SelectedVisa.Notes, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                     Validation.Error="Validation_Error" Margin="0,3"
+                                     HorizontalAlignment="Stretch" />
+
+
+                        </Grid>
+                    </telerik:RadExpander>
+
+                    <telerik:RadExpander Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Assiged To "
+                                         IsExpanded="False" Visibility="Visible" IsEnabled="False">
+                        <Grid Margin="5,0" TextBlock.Foreground="Black">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+
+                            <!--<telerik:RadAutoCompleteBox Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True"
+                                                        x:Name="LstEmployees" Margin="5,0"
+                                                        ItemsSource="{Binding Employees, Mode=TwoWay}"
+                                                        SelectedItem="{Binding SelectedEmployeeForSearch, Mode=TwoWay}"
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Center"
+                                                        WatermarkContent="Add/Change Employee..."
+                                                        TextSearchMode="Contains"
+                                                        AutoCompleteMode="Suggest"
+                                                        SelectionMode="Single"
+                                                        TextSearchPath="EmployeeBasicDetail"
+                                                        BorderBrush="#FF25A0DA"
+                                                        BorderThickness="2" />
+                            <TextBox IsEnabled="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Text="{Binding SelectedEmployee.EmployeeBasicDetail}"
+                                     VerticalContentAlignment="Top" />-->
+                            <TextBox IsEnabled="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0"
+                                     FontWeight="Bold"
+                                     TextWrapping="Wrap" Text="{Binding EmployeesCount}"
+                                     VerticalContentAlignment="Top" />
+                            <!--<ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontWeight="Bold"
+                                     Margin="5,0" x:Name="LstSponsorAddress"  
+                                                 HorizontalAlignment="Stretch" 
+                                                 VerticalContentAlignment="Center"
+                                                 Visibility="Visible" 
+                                                 Background="{StaticResource BackgroundGradientBrush3}" Focusable="False"
+                                                 BorderBrush="Transparent"
+                                                 ItemsSource="{Binding VisaEmployees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 ItemTemplate="{DynamicResource VisaEmployeeBoxDataTemplate}"
+                                                 Style="{StaticResource myListboxStyle}"/>--> 
+                           
+
+                            <!--<ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontWeight="Bold"
+                                      Margin="5,0" x:Name="ListView" 
+                                      ItemContainerStyle="{StaticResource GridViewItem}" 
+                                      SelectedItem="{Binding SelectedVisaEmployee}"                            
+                                      ItemsSource="{Binding VisaEmployees}">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true"  >
+                                        <GridViewColumn Header="S.No. " DisplayMemberBinding="{Binding SerialNumber}" Width="50"/>
+                                        <GridViewColumn Header="Passport No. " DisplayMemberBinding="{Binding PassportNumber}" Width="120"/>
+                                        <GridViewColumn Header="Full Name " DisplayMemberBinding="{Binding FullName}" Width="300"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>-->
+
+                            <!--<telerik:RadButton Grid.Row="1" Grid.Column="3" Content="Detach Visa"
+                                               Command="{Binding DetachVisaViewCommand}"
+                                               IsEnabled="{Binding AssignCommandVisibility}"
+                                               CommandParameter="{Binding ElementName=WdwVisa}"
+                                               x:Name="BtnAssign"
+                                               Height="35" Padding="10,0" Margin="10,0,5,0" />-->
+                        </Grid>
+                    </telerik:RadExpander>
+
+                </Grid>
+
+                <!--<GridSplitter Grid.Row="6" Height="2" HorizontalAlignment="Stretch" Focusable="False" Margin="-15,50,15,-12" />-->
+                <GridSplitter Grid.Row="6" Height="3" HorizontalAlignment="Stretch" Margin="5" />
+                <Grid Grid.Row="7" Margin="0,5,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <telerik:RadButton Content="Save and Assig_n Visa To ->" Width="auto"                         
+                                                Command="{Binding AssignVisaViewCommand}"
+                                                IsEnabled="{Binding AssignCommandVisibility}"
+                                                CommandParameter="{Binding ElementName=WdwVisa}"
+                                                x:Name="BtnAssign"  
+                                                Height="35" Padding="10,0" Margin="10,0,5,0"/>
+                                                <TextBlock Text="{Binding SelectedEmployee.FullName}" 
+                                                   VerticalAlignment="Center" 
+                                                   TextAlignment="Center" 
+                                                   FontSize="14" FontWeight="Bold" Margin="10,0,0,0"/>
+                        </StackPanel>-->
+
+                        <!--<telerik:RadButton Grid.Column="2" Content="_Add New"
+                                           Command="{Binding AddNewVisaViewCommand}"
+                                           Visibility="{Binding AddNewVisibility}"
+                                           x:Name="BtnAddNew" Click="BtnAddNew_OnClick"
+                                           Height="35" Padding="10,0" Margin="10,0,0,0" />
+                        <telerik:RadButton Grid.Column="3" Content="_Save Visa"
+                                           IsEnabled="{Binding EmptyControlVisibility}"
+                                           Command="{Binding SaveVisaViewCommand}"
+                                           Visibility="{Binding SaveVisibility}"
+                                           x:Name="BtnSave"
+                                           Height="35" Padding="10,0" Margin="10,0,0,0" IsDefault="True" />-->
+                        <telerik:RadButton Tag="AddNew"  Grid.Column="0"
+                                           Command="{Binding AddNewVisaViewCommand}"
+                                           Visibility="{Binding AddNewVisibility}"
+                                           x:Name="BtnAddNew" Click="BtnAddNew_OnClick" 
+                                           Height="40" Width="130" HorizontalAlignment="Left"
+                                           CommandParameter="{Binding ElementName=WdwEmployeeDetail}"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/add.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Add New "/>
+                            </StackPanel>
+                        </telerik:RadButton>
+                        
+                        <telerik:RadButton Tag="Save"  Grid.Column="3"
+                                           IsEnabled="{Binding EmptyControlVisibility}"
+                                           Command="{Binding SaveVisaViewCommand}"
+                                           Visibility="{Binding SaveVisibility}" Margin="10,0,0,0"
+                                           x:Name="BtnSaveClose" Height="40" Width="Auto"
+                                           CommandParameter="{Binding ElementName=WdwVisa}"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Save and Close "/>
+                            </StackPanel>
+                        </telerik:RadButton>
+                        
+                        <telerik:RadButton Tag="Save"  Grid.Column="4"
+                                           IsEnabled="{Binding EmptyControlVisibility}"
+                                           Command="{Binding SaveVisaViewCommand}"
+                                           Visibility="{Binding SaveVisibility}" Margin="10,0,0,0"
+                                           x:Name="BtnSaveAddNew" Height="40" Width="Auto"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/disk_blue.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="Black" FontSize="14" VerticalAlignment="Center" Text="Save and AddNew "/>
+                            </StackPanel>
+                        </telerik:RadButton>
+                        
+                        <!--<telerik:RadButton Tag="Delete"  Grid.Column="4"
+                                            Command="{Binding DeleteVisaViewCommand}"
+                                           IsEnabled="{Binding EditCommandVisibility}"
+                                           Visibility="{Binding DeleteVisibility}" Margin="10,0,0,0"
+                                           x:Name="BtnDelete" Height="40" Width="130"
+                                           CommandParameter="{Binding ElementName=WdwEmployeeDetail}"
+                                           IsDefault="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/PinnaFace.WPF;component/Resources/Images/delete.png" Margin="5,0"
+                                   Height="30" Width="30" Stretch="Uniform" />
+                                <TextBlock Width="auto" FontWeight="ExtraBold" FontSize="16" VerticalAlignment="Center"> Delete</TextBlock>
+                            </StackPanel>
+                        </telerik:RadButton>
+                        
+                        <telerik:RadButton Grid.Column="4" Content="_Delete Visa"
+                                           Command="{Binding DeleteVisaViewCommand}"
+                                           IsEnabled="{Binding EditCommandVisibility}"
+                                           Visibility="{Binding DeleteVisibility}"
+                                           x:Name="BtnDelete"
+                                           Height="35" Padding="10,0" Margin="10,0,0,0" />-->
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,164 @@
+﻿@model IEnumerable<PinnaFace.Core.Models.VisaDTO>
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").hide();
+    });
+</script>
+<style type="text/css">
+    .page-header 
+    {
+        margin: 5px 0px;
+        padding: 5px;
+    }
+    hr 
+    {
+        margin: 5px;
+        border-top: 1px solid lightgreen;
+    }
+    .displayblock 
+    {
+        display: block;
+    }
+    .displaynone 
+    {
+        display: none;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Visas ";
+}
+
+
+<div class="row-fluid" style="margin: 5px 0px;">
+    
+    <div class="span3">
+       
+    </div>
+    <div class="span6">
+        <div class="hidden-print" >
+            <i class="glyphicon glyphicon-search"></i>
+            <input class="input-sm" id="searchText" name="searchText" onkeydown="itemSearch(this)" 
+                   placeholder="Search Visa" style="width: 95%;" title="(by Sponsor Name or Visa Number)" type="text">
+        </div>
+    </div>
+             
+    <div class="span3">
+                
+    </div>
+</div>
+
+<hr/>
+
+<div class="row-fluid">
+    <div class="span1">
+               
+    </div>
+
+    <div class="span5">
+        <div class="form-inline">
+            <div class="@ViewData["AgencyFilterVisibility"]">
+                @Html.Label("Agent")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByAgencyId")
+                      .HtmlAttributes(new { style = "width: 350px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["AgencyList"])
+                      )
+            </div>
+            <div class="@ViewData["AgentFilterVisibility"]">
+                @Html.Label("Agent")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByAgentId")
+                      .HtmlAttributes(new { style = "width: 350px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["AgentList"])
+                      )
+            </div>
+
+        </div>
+         
+    </div>
+
+    <div class="span5">
+        <div class="form-inline">
+            <div>
+                @Html.Label("Filter By Status")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByStatusId")
+                      .HtmlAttributes(new { style = "width: 300px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["VisaStatus"])
+                      )
+            </div>
+        </div>
+         
+    </div>
+   
+    <div class="span1">
+    </div>
+</div>
+
+
+<hr/>
+
+@{Html.RenderPartial("~/Views/Shared/_visa.cshtml");}
+
+<script type="text/javascript">
+
+    $('#visamenu').addClass('active');
+
+    $(".alert").alert();
+    $(document).ready(function () {
+        //$('#loadingDiv').hide();
+    });
+
+    function itemSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            $.ajax({
+                type: "GET",
+                url: "~/../Visa/Index",
+                data: { 'searchText': searchText },
+                contentType: false,
+                async: true,
+                success: function (inventoryList) {
+                    $("#table_id").replaceWith(inventoryList);
+                },
+                error: function () {
+                    alert("Sorry, there was a problem!");
+                }
+            });
+        }
+    }
+
+    function wcqChange() {
+        
+        var filterByStatus = $("#filterByStatusId").data("kendoDropDownList").value();
+        var filterByAgency = $("#filterByAgencyId").data("kendoDropDownList").value();
+        var filterByAgent = $("#filterByAgentId").data("kendoDropDownList").value();
+       
+        $.ajax({
+            type: "GET",
+            url: "~/../Visa/Index",
+            data: { 'processStatusId': filterByStatus, 'filterByAgencyId': filterByAgency, 'filterByAgentId': filterByAgent },
+            contentType: false,
+            async: true,
+            success: function (inventoryList) {
+                $("#table_id").replaceWith(inventoryList);
+            },
+            error: function () {
+                alert("Sorry, there was a problem!");
+            }
+        });
+    }
+
+
+
+
+</script>
+

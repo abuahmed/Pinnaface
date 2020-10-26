@@ -1,0 +1,232 @@
+﻿@model IEnumerable<PinnaFace.Core.Models.EmployeeDTO>
+
+<script>
+    $(document).ajaxStart(function () {
+        $("#spinner").show();
+    });
+    $(document).ajaxStop(function () {
+      $("#spinner").hide();
+    });
+</script>
+<style type="text/css">
+    .page-header 
+    {
+        margin: 5px 0px;
+        padding: 5px;
+    }
+    hr 
+    {
+        margin: 5px;
+        border-top: 1px solid lightgreen;
+    }
+    .displayblock 
+    {
+        display: block;
+    }
+    .displaynone 
+    {
+        display: none;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Employees ";
+}
+
+@*<div class="clear-fix"></div>*@
+
+<div class="row-fluid">
+    
+    <div class="span3">
+        
+    </div>
+    <div class="span6">
+        <div class="hidden-print" style="margin-top: 20px;">
+            <i class="glyphicon glyphicon-search hidden-phone hidden-print"></i>
+            <input class="input-sm" id="searchText" name="searchText" onkeydown="itemSearch(this)" 
+                   placeholder="Search Employee" style="width: 95%;" title="search by Passport Number or Name" type="text">
+        </div>
+    </div>
+             
+    <div class="span3">
+                
+    </div>
+</div>
+
+<hr/>
+
+<div class="row-fluid">
+    <div class="span1">
+               
+    </div>
+
+    <div class="span5">
+        <div class="form-inline">
+            <div class="@ViewData["AgencyFilterVisibility"]">
+                @Html.Label("Agent")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByAgencyId")
+                      .HtmlAttributes(new { style = "width: 350px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["AgencyList"])
+                      )
+            </div>
+            <div class="@ViewData["AgentFilterVisibility"]">
+                @Html.Label("Agent")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByAgentId")
+                      .HtmlAttributes(new { style = "width: 350px" })
+                      .Events(e => e.Change("wcqChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["AgentList"])
+                      )
+            </div>
+
+        </div>
+         
+    </div>
+
+    <div class="span5">
+        <div class="form-inline">
+            
+            <div>
+                @Html.Label("Status")
+                @(Html.Kendo().DropDownList()
+                      .Name("filterByStatusId")
+                      .HtmlAttributes(new { style = "width: 250px" })
+                      .Events(e => e.Change("showDurationChange"))
+                      .BindTo((IEnumerable<SelectListItem>)ViewData["EmployeeStatus"])
+                      )
+            </div>
+          
+
+        </div>
+         
+    </div>
+   
+     <div class="span1">
+               
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+               
+    </div>
+   
+    <div class="span6">
+        <div id="showListId" class="displaynone"> 
+            @Html.Label("From")
+            @(Html.Kendo().DatePicker()
+                  .Name("startDateId")
+                  .Format("dd MMM yyyy")
+                  .HtmlAttributes(new { style = "width: 150px" })
+                  .Min("1 Oct 2018")
+                  .Max("31 Oct 2020")
+                  )
+             
+            
+
+            @Html.Label(" To")
+            @(Html.Kendo().DatePicker()
+                  .Name("endDateId")
+                  .Format("dd MMM yyyy")
+                  .HtmlAttributes(new { style = "width: 150px" })
+                  .Min("1 Oct 2018")
+                  .Max("31 Oct 2020"))
+             
+            <button class="btn btn-sm btn-success" onclick="wcqChange()" >Filter List</button>
+        </div>
+
+    </div>
+    
+
+</div>
+
+
+<hr/>
+
+@{Html.RenderPartial("~/Views/Shared/_employee.cshtml");}
+
+<script type="text/javascript">
+
+    $('#empmenu').addClass('active');
+
+    $(".alert").alert();
+    $(document).ready(function () {
+        //$('#loadingDiv').hide();
+    });
+    function standby() {
+       
+        var elements = document.getElementsByName('shortPhoto');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].src = 'http://www.dev.pinnaface.com/Images/BlankShort.jpg';
+        }
+    }
+    function itemSearch(ele) {
+        if (event.keyCode == 13) {
+            var searchText = ele.value;
+            var filterByStatus = $("#filterByStatusId").data("kendoDropDownList").value();
+            $.ajax({
+                type: "GET",
+                url: "/Employee/Index",
+                data: { 'searchText': searchText, 'processStatusId': filterByStatus },
+                contentType: false,
+                async: true,
+                success: function (inventoryList) {
+                    $("#table_id").replaceWith(inventoryList);
+                },
+                error: function () {
+                    alert("Sorry, there was a problem!");
+                }
+            });
+        }
+    }
+    function showDurationChange() {
+        var filterByStatus = $("#filterByStatusId").data("kendoDropDownList").value();
+        if (filterByStatus == 6) {
+            $('#showListId').removeClass('displaynone');
+            $('#showListId').addClass('displayblock');
+            var frdt = new Date();
+            frdt.setDate(frdt.getDate() - 7);
+            var fromdate = kendo.toString(kendo.parseDate(frdt), 'dd MMM yyyy');
+            
+            var todt = new Date();
+            todt.setDate(todt.getDate() + 7);
+            var todate = kendo.toString(kendo.parseDate(todt), 'dd MMM yyyy');
+
+            $("#startDateId").data("kendoDatePicker").value(fromdate);
+            $("#endDateId").data("kendoDatePicker").value(todate);
+
+        } else {
+            $('#showListId').removeClass('displayblock');
+            $('#showListId').addClass('displaynone');
+            
+        }
+        wcqChange();
+        
+    }
+    function wcqChange() {
+        //alert("wcq");
+        var filterByStatus = $("#filterByStatusId").data("kendoDropDownList").value();
+        var fromDate = kendo.toString($("#startDateId").data("kendoDatePicker").value(), 'MM/dd/yyyy'); //new Date($("#startDateId").val());//
+        var endDate = kendo.toString($("#endDateId").data("kendoDatePicker").value(), 'MM/dd/yyyy');//new Date($("#endDateId").val());
+        var filterByAgency = $("#filterByAgencyId").data("kendoDropDownList").value();
+        var filterByAgent = $("#filterByAgentId").data("kendoDropDownList").value();
+
+        $.ajax({
+            type: "GET",
+            url: "/Employee/Index",
+            data: { 'processStatusId': filterByStatus, 'fromDateId': fromDate, 'endDateId': endDate, 'filterByAgencyId': filterByAgency, 'filterByAgentId': filterByAgent },
+            contentType: false,
+            async: true,
+            success: function (inventoryList) {
+                $("#table_id").replaceWith(inventoryList);
+            },
+            error: function () {
+                alert("Sorry, there was a problem!");
+            }
+        });
+    }
+
+</script>
+

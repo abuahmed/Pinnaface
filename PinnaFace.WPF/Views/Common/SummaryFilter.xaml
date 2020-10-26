@@ -1,0 +1,128 @@
+﻿<Window x:Class="PinnaFace.WPF.Views.SummaryFilter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:PinnaFace.Core.Extensions;assembly=PinnaFace.Core"
+        xmlns:Model="clr-namespace:PinnaFace.Core.Enumerations;assembly=PinnaFace.Core"
+        xmlns:vm="clr-namespace:PinnaFace.WPF.ViewModel"             
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4" 
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        mc:Ignorable="d" 
+        Title="Contact Detail" Height="300" Width="520" x:Name="WdwSummaryFilter"
+        DataContext="{Binding Duration, Source={StaticResource Locator}}"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Icon="/PinnaFace.WPF;component/Resources/AppIcon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/MainSkin.xaml" />
+                <!--ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ListViewDictionary.xaml" /-->
+                <ResourceDictionary Source="/PinnaFace.WPF;component/Skins/ControlsDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource mainBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"  Margin="5">
+                    <Button x:Name="BtnClose" ToolTip="Exit/ዝጋ"
+                            HorizontalAlignment="Right" BorderThickness="0"
+                            IsCancel="True" >
+                        <Image Style="{StaticResource CloseWindowButtons}" />
+                    </Button>
+
+                    <TextBlock Width="Auto" VerticalAlignment="Center" Style="{StaticResource TextHeaderStyle}"
+                               Text="Summary Report Filter" FontSize="18" Margin="5,-20,60,0"/>
+
+                    <GridSplitter VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch" Margin="5,5,40,5" />
+
+                </StackPanel>
+
+                <Grid Grid.Row="2"  TextBlock.Foreground="White" TextBlock.FontFamily="Bookman old style" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="For Agent: " Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Margin="5"
+                                          ItemsSource="{Binding Agents,Mode=OneWay}"
+                                          SelectedItem="{Binding SelectedVisa.ForeignAgent}" 
+                                          DisplayMemberPath="AgentName" 
+                                          SelectedIndex="0"                                                                                    
+                                          Background="Transparent"
+                                          VerticalAlignment="Center"
+                                          Style="{StaticResource comboBoxStyle1}"/>                                           
+                                          
+
+                    <TextBlock Text="On Process: " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" />
+                    <ComboBox   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5"
+                                        x:Name="cmbCurrentStatus"  
+                                        SelectedIndex="0"
+									    SelectedValue="{Binding SelectedStatus, Mode=TwoWay}" 
+                                        VerticalContentAlignment="Center"
+                                        Background="Transparent"
+									    ItemsSource="{Binding Mode=OneWay, Source={local:Enumeration {x:Type Model:ProcessStatusTypes}}}" 
+									    Validation.ErrorTemplate="{x:Null}"  
+									    DisplayMemberPath="Description" 
+									    SelectedValuePath="Value"
+                                        Style="{StaticResource comboBoxStyle1}"/>
+
+                    <TextBlock Text="From: " Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" />
+                    <DatePicker Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+                    
+                    <TextBlock Text="To: " Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" />
+                    <DatePicker Grid.Column="3" Grid.Row="2" VerticalAlignment="Center"/>
+                    
+                    <Button Content=" Change "  Grid.Column="4" Grid.Row="2" VerticalAlignment="Center"/>
+
+                    <CheckBox Content="Include Visa Detail" Grid.Column="1" Grid.Row="3" Foreground="White"
+                              VerticalAlignment="Center"/>
+                    
+                </Grid>
+                
+                <GridSplitter Grid.Row="3" Height="3" 
+                              HorizontalAlignment="Stretch" />
+
+                <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,5,0,5" HorizontalAlignment="Right">
+                    <Button Content="_Generate Summary" 
+                            Command="{Binding GenerateSummaryCommand}" 
+                            x:Name="btnSaveClose" 
+                            CommandParameter="{Binding ElementName=WdwSummaryFilter}" 
+                            Height="30" 
+                            Padding="10,0" 
+                            Margin="10,0,0,0" 
+                            IsDefault="True"/>
+
+       
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+
+
